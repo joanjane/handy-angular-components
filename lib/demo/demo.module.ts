@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { DemoComponent } from './demo.component';
 import { DemoDropdownComponent } from './components';
-import { HacModule } from '../hac.alias'
+import { HacModule } from '../src/hac'
 
 @NgModule({
   declarations: [

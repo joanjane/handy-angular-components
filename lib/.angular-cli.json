@@ -5,6 +5,7 @@
   },
   "apps": [
     {
+      "name": "hac",
       "root": "src",
       "outDir": "dist",
       "assets": [
@@ -17,6 +18,25 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "hac",
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }, 
+    {
+      "name": "demo",
+      "root": "demo",
+      "outDir": "dist",
+      "assets": [
+        "assets"
+      ],
+      "index": "index.html",
+      "main": "main.demo.ts",
+      "polyfills": "polyfills.ts",
+      "tsconfig": "tsconfig.demo.json",
+      "prefix": "demo",
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {

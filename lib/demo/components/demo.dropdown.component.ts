@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IHacDropdownOption } from '../../hac.alias'
+import { IHacDropdownOption } from '../../src/hac'
 
 @Component({
   selector: 'demo-dropdown',
-  templateUrl: './demo.component.html'
+  templateUrl: './demo.dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
   dropdownList: IHacDropdownOption[];

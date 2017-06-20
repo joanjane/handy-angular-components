@@ -6,12 +6,14 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --app=hac",
     "prebuild": "npm run lint",
-    "build": "ng build",
-    "watch": "ng build --watch",
+    "build": "ng build --app=hac",
+    "watch": "ng build --app=hac --watch",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "build:demo": "ng build --app=demo",
+    "serve:demo": "ng serve --app=demo"
   },
   "repository": {
     "type": "git",
