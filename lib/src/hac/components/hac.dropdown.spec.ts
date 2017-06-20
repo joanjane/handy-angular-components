@@ -21,7 +21,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(HacDropdown);
     const app = <HacDropdown>fixture.debugElement.componentInstance;
 
-    app.placeholder = "test"
+    app.placeholder = 'test'
     app.selected = 1
     app.options = [{
       key: 1,
@@ -36,11 +36,11 @@ describe('AppComponent', () => {
     expect(app.getSelected().value).toEqual('one');
   }));
 
-  it('should render "one" label', async(() => {
+  it(`should render 'one' label`, async(() => {
     const fixture = TestBed.createComponent(HacDropdown);
     const app = <HacDropdown>fixture.debugElement.componentInstance;
 
-    app.placeholder = "test"
+    app.placeholder = 'test'
     app.selected = 1
     app.options = [{
       key: 1,
@@ -62,7 +62,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(HacDropdown);
     const app = <HacDropdown>fixture.debugElement.componentInstance;
 
-    app.placeholder = "test"
+    app.placeholder = 'test'
     app.options = null
 
     fixture.detectChanges();
