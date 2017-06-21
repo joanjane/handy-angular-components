@@ -6,8 +6,8 @@ import { IHacDropdownOption } from '../../src/hac'
   templateUrl: './demo.dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
-  dropdownList: IHacDropdownOption[];
-  selectedNumber: number;
+  dropdownList: IHacDropdownOption[] = [];
+  selectedNumber: number = null;
 
   ngOnInit(): void {
     this.dropdownList = [{
@@ -26,5 +26,4 @@ export class DemoDropdownComponent implements OnInit {
       label: 'three'
     }]
   }
-  
 }

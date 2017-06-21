@@ -1,16 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'hac-dropdown',
   templateUrl: './hac.dropdown.html'
 })
 export class HacDropdown {
-  @Input() options: IHacDropdownOption[]
-  @Input() selected: string | number
-  @Input() placeholder: string
+  @Input() options: IHacDropdownOption[];
+  @Input() placeholder = 'Select';
+  @Input() selected: string | number;
+  @Output() selectedChange = new EventEmitter();
+
+  collapsed = true;
 
   constructor() {
-    this.options = []
+    this.options = [];
   }
 
   getSelected(): IHacDropdownOption {
@@ -19,6 +22,23 @@ export class HacDropdown {
     return this.options.find(o => o.key === this.selected);
   }
 
+  select(key: number | string) {
+    this.selected = key;
+    this.selectedChange.emit(this.selected);
+    this.closeDropdown();
+  }
+
+  toggleDropdown() {
+    this.collapsed = !this.collapsed;
+  }
+
+  openDropdown() {
+    this.collapsed = false;
+  }
+
+  closeDropdown() {
+    this.collapsed = true;
+  }
 }
 
 export interface IHacDropdownOption {

@@ -7,7 +7,7 @@
     {
       "name": "hac",
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../dist/lib",
       "assets": [
         "assets"
       ],
@@ -28,7 +28,7 @@
     {
       "name": "demo",
       "root": "demo",
-      "outDir": "dist",
+      "outDir": "../dist/demo",
       "assets": [
         "assets"
       ],

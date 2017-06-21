@@ -1,8 +1,13 @@
 <div>
-    <div class="hac-dd-label">{{getSelected()?.label || placeholder}}</div>
-    <div class="hac-dd-list" *ngIf="options">
+    <div class="hac-dd-label"
+        (click)="toggleDropdown()">
+        {{getSelected()?.label || placeholder}}
+    </div>
+    <div class="hac-dd-list"
+        [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }"
+        *ngIf="options">
         <div *ngFor="let option of options">
-            <div (click)="selected = option.key"
+            <div (click)="select(option.key)"
                 class="hac-dd-option">
                 {{option.label}}
             </div>

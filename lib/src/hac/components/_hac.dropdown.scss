@@ -1,0 +1,12 @@
+hac-dropdown {
+    .hac-dd-list {
+        display: block;
+        position: absolute;
+        background: #ccc;
+        
+        &--is-collapsed {
+            display: none;
+        }
+    }
+    
+}
