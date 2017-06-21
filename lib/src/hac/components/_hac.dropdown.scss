@@ -1,12 +1,68 @@
+@import '../../assets/styles/variables';
+
 hac-dropdown {
+    display: inline-block;
+    font-family: $hacFontFamily;
+    font-size: $hacFontSize;
+    width: 100%;
+
     .hac-dd-list {
-        display: block;
+        background: #fff;
+        border: 1px solid $hacSelectedBg;
+        border-top: none;
+        border-bottom-left-radius: 0.2rem;
+        border-bottom-right-radius: 0.2rem;
+        min-width: 5rem;
+        padding: 0.3rem 0;
         position: absolute;
-        background: #ccc;
-        
+        z-index: 1000;
+
         &--is-collapsed {
-            display: none;
+            visibility: hidden;
+        }
+        
+        &:not(.hac-dd-list--is-collapsed){
+            animation-name: fadeIn;
+            animation-duration: 0.3s;	
+            animation-timing-function: ease;	
+            visibility: visible;
         }
     }
+
+    .hac-dd-option {
+        cursor: pointer;
+        padding: 0.3rem 0.5rem;
+
+        &:hover {
+            background: lighten($hacSelectedBg, 0.2);            
+        }
+
+        &--is-selected {
+            background: $hacSelectedBg;
+            font-weight: bold;
+        }
+    }
+
+    .hac-dd-label {
+        cursor: pointer;
+        border: 1px solid $hacBorder;
+        padding: 0.3rem 0.3rem;
+    }
+
+    .hac-dd-caret {
+        float: right;
+        position: relative;
+        top: 0.1rem;
+    }
     
+}
+
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+    100% {
+		opacity: 1;
+	}		
 }

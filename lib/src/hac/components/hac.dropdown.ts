@@ -8,12 +8,14 @@ export class HacDropdown {
   @Input() options: IHacDropdownOption[];
   @Input() placeholder = 'Select';
   @Input() selected: string | number;
+  @Input() allowEmpty: boolean;
   @Output() selectedChange = new EventEmitter();
 
   collapsed = true;
 
   constructor() {
     this.options = [];
+    this.allowEmpty = false;
   }
 
   getSelected(): IHacDropdownOption {
@@ -24,8 +26,8 @@ export class HacDropdown {
 
   select(key: number | string) {
     this.selected = key;
-    this.selectedChange.emit(this.selected);
     this.closeDropdown();
+    this.selectedChange.emit(this.selected);
   }
 
   toggleDropdown() {

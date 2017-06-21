@@ -1,16 +1,14 @@
-<div>
-    <div class="hac-dd-label"
-        (click)="toggleDropdown()">
-        {{getSelected()?.label || placeholder}}
-    </div>
-    <div class="hac-dd-list"
-        [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }"
-        *ngIf="options">
-        <div *ngFor="let option of options">
-            <div (click)="select(option.key)"
-                class="hac-dd-option">
-                {{option.label}}
-            </div>
+<div class="hac-dd-label" (click)="toggleDropdown()">
+    {{getSelected()?.label || placeholder}}<i class="fa fa-caret-down hac-dd-caret" aria-hidden="true"></i>
+</div>
+
+<div class="hac-dd-list" [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" *ngIf="options">
+    <div class="hac-dd-option" 
+        *ngIf="allowEmpty"
+        (click)="select(null)">&nbsp;</div>
+    <div *ngFor="let option of options">
+        <div (click)="select(option.key)" class="hac-dd-option" [ngClass]="{ 'hac-dd-option--is-selected': option.key === selected }">
+            {{option.label}}
         </div>
     </div>
 </div>
