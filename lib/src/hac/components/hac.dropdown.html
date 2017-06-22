@@ -2,7 +2,10 @@
     {{getSelected()?.label || placeholder}}<i class="fa fa-caret-down hac-dd-caret" aria-hidden="true"></i>
 </div>
 
-<div class="hac-dd-list" [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" *ngIf="options">
+<div class="hac-dd-list" 
+    [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
+    *ngIf="options"
+    [style.width]="calcDropdownWidth()">
     <div class="hac-dd-option" 
         *ngIf="allowEmpty"
         (click)="select(null)">&nbsp;</div>

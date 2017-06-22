@@ -1,8 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'hac-dropdown',
-  templateUrl: './hac.dropdown.html'
+  templateUrl: './hac.dropdown.html',
+  host: {
+    '(document:click)': 'onClick($event)',
+  }
 })
 export class HacDropdown {
   @Input() options: IHacDropdownOption[];
@@ -13,9 +16,14 @@ export class HacDropdown {
 
   collapsed = true;
 
-  constructor() {
+  constructor(private elementRef: ElementRef) {
     this.options = [];
     this.allowEmpty = false;
+  }
+
+  onClick(event) {
+   if (!this.elementRef.nativeElement.contains(event.target))
+     this.closeDropdown();
   }
 
   getSelected(): IHacDropdownOption {
@@ -40,6 +48,14 @@ export class HacDropdown {
 
   closeDropdown() {
     this.collapsed = true;
+  }
+
+  calcDropdownWidth(): string {
+    const labelElem = this.elementRef.nativeElement.querySelector('.hac-dd-label');
+    const computedStyle = getComputedStyle(labelElem, null);
+    const borderLeft = parseInt(computedStyle.borderLeft.replace('px', ''));
+    const borderRight = parseInt(computedStyle.borderRight.replace('px', ''));
+    return `${labelElem.offsetWidth-borderLeft-borderRight}px`
   }
 }
 

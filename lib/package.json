@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "gulp": "gulp",
     "start": "ng serve --app=hac",
     "prebuild": "concurrently -p \"[{name}]\" -n \"Sass,lint\" \"npm run build:styles\" \"npm run lint\"",
     "build": "ng build --app=hac",
