@@ -15,14 +15,15 @@ hac-dropdown {
         border-bottom-right-radius: 0.2rem;
         box-shadow: 0px 7px 14px -5px rgba(0, 0, 0, 0.25);
         max-height: $hacDropdownMaxHeight;
+        min-height: 4rem;
         min-width: 5rem;
         overflow-y: auto;
-        padding: 0.3rem 0;
         position: absolute;
         z-index: 1000;
 
         &--is-collapsed {
             visibility: hidden;
+            height: 0!important;
         }
         
         &:not(.hac-dd-list--is-collapsed){
@@ -69,7 +70,7 @@ hac-dropdown {
     }
 
     ::-webkit-scrollbar-thumb {
-        background: grey;
+        background: rgba(128, 128, 128, 0.53);
         border-radius: 3px;
     }
     

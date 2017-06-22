@@ -1,11 +1,8 @@
-import { Component, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
 
 @Component({
   selector: 'hac-dropdown',
-  templateUrl: './hac.dropdown.html',
-  host: {
-    '(document:click)': 'onClick($event)',
-  }
+  templateUrl: './hac.dropdown.html'
 })
 export class HacDropdown {
   @Input() options: IHacDropdownOption[];
@@ -15,15 +12,24 @@ export class HacDropdown {
   @Output() selectedChange = new EventEmitter();
 
   collapsed = true;
+  private windowHeight = 0;
 
   constructor(private elementRef: ElementRef) {
     this.options = [];
     this.allowEmpty = false;
+    this.syncWindowHeight();
   }
 
+  @HostListener('document:click', ['$event'])
   onClick(event) {
-   if (!this.elementRef.nativeElement.contains(event.target))
-     this.closeDropdown();
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.closeDropdown();
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.syncWindowHeight();
   }
 
   getSelected(): IHacDropdownOption {
@@ -53,9 +59,19 @@ export class HacDropdown {
   calcDropdownWidth(): string {
     const labelElem = this.elementRef.nativeElement.querySelector('.hac-dd-label');
     const computedStyle = getComputedStyle(labelElem, null);
-    const borderLeft = parseInt(computedStyle.borderLeft.replace('px', ''));
-    const borderRight = parseInt(computedStyle.borderRight.replace('px', ''));
-    return `${labelElem.offsetWidth-borderLeft-borderRight}px`
+    const borderLeft = parseFloat(computedStyle.borderLeftWidth.replace('px', ''));
+    const borderRight = parseFloat(computedStyle.borderRightWidth.replace('px', ''));
+    return `${labelElem.offsetWidth - borderLeft - borderRight}px`;
+  }
+
+  calcDropdownHeight(): string {
+    const el = this.elementRef.nativeElement.querySelector('.hac-dd-list');
+    const pos = getPos(el);
+    return `${window.innerHeight - 10 - pos.y}px`;
+  }
+
+  private syncWindowHeight() {
+    this.windowHeight = window.innerHeight;
   }
 }
 
@@ -63,4 +79,10 @@ export interface IHacDropdownOption {
   key: string | number,
   value: any,
   label: string
+}
+
+function getPos(el) {
+  let lx, ly;
+  for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+  return { x: lx, y: ly };
 }

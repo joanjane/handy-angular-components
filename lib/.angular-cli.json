@@ -9,7 +9,6 @@
       "root": "src",
       "outDir": "../dist/lib",
       "assets": [
-        "assets"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -30,7 +29,6 @@
       "root": "demo",
       "outDir": "../dist/demo",
       "assets": [
-        "assets"
       ],
       "index": "index.html",
       "main": "main.demo.ts",

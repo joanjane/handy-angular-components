@@ -5,10 +5,11 @@
 <div class="hac-dd-list" 
     [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
     *ngIf="options"
-    [style.width]="calcDropdownWidth()">
+    [style.width]="calcDropdownWidth()"
+    [style.maxHeight]="calcDropdownHeight()">
     <div class="hac-dd-option" 
         *ngIf="allowEmpty"
-        (click)="select(null)">&nbsp;</div>
+        (click)="select(null)">{{placeholder}}</div>
     <div *ngFor="let option of options">
         <div (click)="select(option.key)" class="hac-dd-option" [ngClass]="{ 'hac-dd-option--is-selected': option.key === selected }">
             {{option.label}}

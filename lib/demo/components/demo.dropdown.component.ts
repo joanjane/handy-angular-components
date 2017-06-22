@@ -24,6 +24,14 @@ export class DemoDropdownComponent implements OnInit {
       key: 3,
       value: 'three',
       label: 'three'
-    }]
+    }];
+
+    for(let i = 4; i < 100; i++) {
+      this.dropdownList.push({
+        key: i,
+        value: i,
+        label: i.toString(),
+      })
+    }
   }
 }
