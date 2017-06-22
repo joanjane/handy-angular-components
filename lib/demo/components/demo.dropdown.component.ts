@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+
 import { IHacDropdownOption } from '../../src/hac'
 
 @Component({
@@ -6,10 +8,20 @@ import { IHacDropdownOption } from '../../src/hac'
   templateUrl: './demo.dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
+  demoForm: FormGroup;
   dropdownList: IHacDropdownOption[] = [];
   selectedNumber: number = null;
 
+  constructor(private formBuilder: FormBuilder) {
+
+  }
+
   ngOnInit(): void {
+    this.buildOptions();
+    this.buildForm();
+  }
+
+  buildOptions() {
     this.dropdownList = [{
       key: 1,
       value: 'one',
@@ -26,12 +38,18 @@ export class DemoDropdownComponent implements OnInit {
       label: 'three'
     }];
 
-    for(let i = 4; i < 100; i++) {
+    for (let i = 4; i < 100; i++) {
       this.dropdownList.push({
         key: i,
         value: i,
         label: i.toString(),
       })
     }
+  }
+
+  buildForm() {
+    this.demoForm = this.formBuilder.group({
+      number: [null, Validators.required],
+    });
   }
 }

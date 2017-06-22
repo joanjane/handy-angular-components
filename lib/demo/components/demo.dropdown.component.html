@@ -1,18 +1,44 @@
 <div>
-    <h2>Dropdown with empty option and placeholder:</h2>
+    <div id="dropdown-empty-placeholder">
+        <h2>Dropdown with empty option and placeholder:</h2>
 
-    <span style="max-width: 160px;display: block;">
-        <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" placeholder="Test placeholder"></hac-dropdown>
-    </span>
+        <span style="max-width: 160px;display: block;">
+            <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" placeholder="Test placeholder"></hac-dropdown>
+        </span>
+    </div>
 
-    <h2>Dropdown w/ empty option:</h2>
+    <div id="dropdown-required-no-placeholder">
+        <h2>Dropdown w/ empty option:</h2>
 
-    <span style="max-width: 160px;display: block;">
-        <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="false"></hac-dropdown>
-    </span>
+        <span style="max-width: 160px;display: block;">
+            <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="false"></hac-dropdown>
+        </span>
 
-    <div>
-        Selected value on demo component context: {{selectedNumber}}<br />
-        <button (click)="selectedNumber=1">Force value '1'</button>
+        <div>
+            Selected value on demo component context: {{selectedNumber}}<br />
+            <button (click)="selectedNumber=1">Force value '1'</button>
+        </div>
+    </div>
+
+    <div id="dropdown-reactive-forms">
+        <h2>Using a reactive form</h2>
+        <form [formGroup]="demoForm" novalidate>
+            <label>Select a number:</label><br />
+            <hac-dropdown [options]="dropdownList"
+                [selected]="demoForm.get('number')" 
+                (selectedChange)="demoForm.get('number').setValue($event)" 
+                [allowEmpty]="true"></hac-dropdown>
+            
+            <div style="max-width: 300px;">
+                <div style="float: left">
+                    Form value:
+                    <pre>{{ demoForm.value | json }}</pre>
+                </div>
+                <div style="float: right">
+                    Form validation:
+                    <pre [ngStyle]="{'color': demoForm.get('number')?.errors !== null ? 'red' : 'green' }">{{ demoForm.get('number')?.errors || 'OK!' | json }}</pre>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
