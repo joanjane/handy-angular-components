@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { HacDropdownFilterPipe } from "./hac.dropdown.filter";
 
 @Component({
   selector: 'hac-dropdown',
@@ -12,9 +13,27 @@ export class HacDropdown {
   @Output() selectedChange = new EventEmitter();
 
   collapsed = true;
+
+  private _filter: string;
+
+  public get filter(): string {
+    return this._filter;
+  }
+
+  public set filter(v: string) {
+    this._filter = v;
+
+    if (!v && !this.selected) {
+      this.focusLabel();
+    } else {
+      this.focusFilter();
+    }
+  }
+
+
   private windowHeight = 0;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) {
     this.options = [];
     this.allowEmpty = false;
     this.syncWindowHeight();
@@ -39,6 +58,7 @@ export class HacDropdown {
   }
 
   select(key: number | string) {
+    this.filter = null;
     this.selected = key;
     this.closeDropdown();
     this.selectedChange.emit(this.selected);
@@ -48,12 +68,34 @@ export class HacDropdown {
     this.collapsed = !this.collapsed;
   }
 
-  openDropdown() {
+  openDropdown(e?: any) {
     this.collapsed = false;
+    if (e) {
+      e.target.focus();
+    }
   }
 
-  closeDropdown() {
+  closeDropdown(e?: any) {
     this.collapsed = true;
+  }
+
+  filterOnKey(e: KeyboardEvent) {
+    if (this.isCharTyped(e)) {
+      this.filter = !this.filter ? e.key : this.filter + e.key;
+    }
+  }
+
+  filterOnPaste(e: ClipboardEvent) {
+    this.filter = e.clipboardData.getData('text/plain');
+  }
+
+  handleEnter(e: KeyboardEvent) {
+    if (e.keyCode == 13) {
+      const candidates = this.dropdownFilter.transform(this.options, this.filter);
+      if (candidates.length > 0) {
+        this.select(candidates[0].key);
+      }
+    }
   }
 
   calcDropdownWidth(): string {
@@ -70,8 +112,27 @@ export class HacDropdown {
     return `${window.innerHeight - 10 - pos.y}px`;
   }
 
+  focusLabel() {
+    setTimeout(() => {
+      const label = this.elementRef.nativeElement.querySelector('.hac-dd-placeholder');
+      label.focus();
+      label.setSelectionRange(0, label.value.length);
+    }, 0);
+  }
+
+  focusFilter() {
+    setTimeout(() => {
+      const filter = this.elementRef.nativeElement.querySelector('.hac-dd-filter');
+      filter.focus();
+    }, 0);
+  }
+
   private syncWindowHeight() {
     this.windowHeight = window.innerHeight;
+  }
+
+  private isCharTyped(e: KeyboardEvent) {
+    return e.key.length === 1 && !e.ctrlKey;
   }
 }
 

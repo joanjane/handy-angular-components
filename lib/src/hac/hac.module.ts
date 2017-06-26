@@ -1,18 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { HacDropdown } from './components';
+import { HacDropdownFilterPipe } from "./components/hac.dropdown.filter";
 
 @NgModule({
   declarations: [
-    HacDropdown
+    HacDropdown,
+    HacDropdownFilterPipe
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   exports: [
     HacDropdown
   ],
-  providers: []
+  providers: [
+    HacDropdownFilterPipe
+  ]
 })
 export class HacModule { }

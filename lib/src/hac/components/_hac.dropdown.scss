@@ -52,6 +52,20 @@ hac-dropdown {
         cursor: pointer;
         border: 1px solid $hacBorder;
         padding: 0.3rem 0.3rem;
+
+        input {
+            background: transparent;
+            border: none;
+            width: 80%;
+        }
+
+        input:focus {
+            outline: none;
+        }
+        .hac-dd-placeholder::selection
+        /*, input::-moz-selection*/ {
+            background: transparent;
+        }
     }
 
     .hac-dd-caret {
@@ -73,6 +87,9 @@ hac-dropdown {
         background: rgba(128, 128, 128, 0.53);
         border-radius: 3px;
     }
+
+    
+
     
 }
 

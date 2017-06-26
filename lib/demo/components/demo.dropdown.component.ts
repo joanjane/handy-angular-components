@@ -11,7 +11,7 @@ export class DemoDropdownComponent implements OnInit {
   demoForm: FormGroup;
   dropdownList: IHacDropdownOption[] = [];
   selectedNumber: number = null;
-
+  
   constructor(private formBuilder: FormBuilder) {
 
   }

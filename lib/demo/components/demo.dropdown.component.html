@@ -36,7 +36,9 @@
                 </div>
                 <div style="float: right">
                     Form validation:
-                    <pre [ngStyle]="{'color': demoForm.get('number')?.errors !== null ? 'red' : 'green' }">{{ demoForm.get('number')?.errors || 'OK!' | json }}</pre>
+                    <pre [ngStyle]="{'color': demoForm.get('number')?.errors !== null ? 'red' : 'green' }">
+                        {{ demoForm.get('number')?.errors || 'OK!' | json }}
+                    </pre>
                 </div>
             </div>
         </form>
