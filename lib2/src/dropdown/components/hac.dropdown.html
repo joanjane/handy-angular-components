@@ -1,0 +1,32 @@
+<div class="hac-dd-label">
+    <!--regular input -->
+    <input *ngIf="!filter" type="text" class="hac-dd-placeholder" value="{{getSelected()?.label || placeholder}}" 
+        (focus)="openDropdown($event); focusLabel();"
+        (keyup)="filterOnKey($event)"
+        (paste)="filterOnPaste($event)" />
+
+    <!--filtrable input -->
+    <input *ngIf="filter" type="text" class="hac-dd-filter" [(ngModel)]="filter" style="color: green"
+        (keyup)="handleEnter($event)"
+        (focus)="openDropdown($event)"
+        (focusOut)="closeDropdown($event)"
+     />
+
+    <i class="fa fa-caret-down hac-dd-caret" aria-hidden="true"></i>
+</div>
+
+<div class="hac-dd-list" 
+    [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
+    *ngIf="options"
+    [style.width]="calcDropdownWidth()"
+    [style.maxHeight]="calcDropdownHeight()">
+    <div class="hac-dd-option" 
+        *ngIf="allowEmpty"
+        (click)="select(null)">{{placeholder}}</div>
+        <div *ngFor="let option of options | hacDropdownFilter: filter" 
+            (click)="select(option.key)" class="hac-dd-option hac-dd-choice" 
+            [ngClass]="{ 
+                'hac-dd-option--is-selected': option.key === selected }">
+            {{option.label}}
+        </div>
+</div>

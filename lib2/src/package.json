@@ -1,0 +1,26 @@
+{
+  "name": "handy-angular-components",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://joanjane.visualstudio.com/Experiments/_git/handy-angular-components"
+  },
+  "author": {
+    "name": "Joan Jané",
+    "email": "jjaneballester@gmail.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://joanjane.visualstudio.com/Experiments/_git/handy-angular-components/issues"
+  },
+  "module": "handy-angular-components.js",
+  "typings": "handy-angular-components.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}
