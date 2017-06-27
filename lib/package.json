@@ -2,6 +2,7 @@
   "name": "handy-angular-components",
   "version": "0.1.0",
   "scripts": {
+    "gulp": "gulp",
     "build": "gulp build",
     "build:watch": "gulp",
     "docs": "npm run docs:build",

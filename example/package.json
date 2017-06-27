@@ -9,10 +9,12 @@
     "gulp": "gulp",
     "start": "ng serve --app=hac",
     "build": "ng build",
-    "watch": "ng build --watch",
+    "postbuild": "npm run assets",
+    "watch": "concurrently \"ng build --watch\" \"sleepms 5000 && npm run assets\"",
     "test": "ng test",
     "lint": "ng lint",
-    "serve": "simplehttpserver ./dist"
+    "serve": "simplehttpserver ./dist",
+    "assets": "cpx \"../dist/assets/**\" \"./dist/assets/\""
   },
   "repository": {
     "type": "git",
@@ -40,6 +42,8 @@
     "@types/jasmine": "2.5.52",
     "@types/node": "~8.0.0",
     "codelyzer": "~3.0.1",
+    "concurrently": "^3.5.0",
+    "cpx": "^1.5.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
     "karma": "~1.7.0",
@@ -50,6 +54,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
     "simplehttpserver": "0.0.6",
+    "sleep-ms": "^2.0.1",
     "ts-node": "~3.0.4",
     "tslint": "~5.4.3",
     "typescript": "~2.3.3"

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { HacDropdownFilterPipe, IHacDropdownOption } from "../";
+import { IHacDropdownOption } from "./hac.dropdown.option";
+import { HacDropdownFilterPipe } from "../pipes/hac.dropdown.filter";
 
 @Component({
   selector: 'hac-dropdown',

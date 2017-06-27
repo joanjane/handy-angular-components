@@ -71,7 +71,7 @@ hac-dropdown {
     .hac-dd-caret {
         float: right;
         position: relative;
-        top: 0.1rem;
+        top: 0.4rem;
     }
 
     ::-webkit-scrollbar {
@@ -88,8 +88,14 @@ hac-dropdown {
         border-radius: 3px;
     }
 
-    
-
+    $hacCaretSize: 4px;
+    .hac-caret--down {
+        width: 0; 
+        height: 0; 
+        border-left: $hacCaretSize solid transparent;
+        border-right: $hacCaretSize solid transparent;
+        border-top: $hacCaretSize solid #000;
+    }
     
 }
 
