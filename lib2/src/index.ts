@@ -17,16 +17,12 @@ export * from './dropdown';
   ],
   exports: [
     HacDropdown
-  ],
-  providers: [
-    HacDropdownFilterPipe
   ]
 })
 export class HacModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: HacModule,
-      providers: [HacDropdownFilterPipe]
+      ngModule: HacModule
     };
   }
 }

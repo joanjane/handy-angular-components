@@ -1,9 +1,12 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { HacDropdownFilterPipe } from "../";
+import { HacDropdownFilterPipe, IHacDropdownOption } from "../";
 
 @Component({
   selector: 'hac-dropdown',
-  templateUrl: './hac.dropdown.html'
+  templateUrl: './hac.dropdown.html',
+  providers: [
+    HacDropdownFilterPipe
+  ]
 })
 export class HacDropdown {
   @Input() options: IHacDropdownOption[];
@@ -15,7 +18,6 @@ export class HacDropdown {
   collapsed = true;
 
   private _filter: string;
-
   public get filter(): string {
     return this._filter;
   }
@@ -134,12 +136,6 @@ export class HacDropdown {
   private isCharTyped(e: KeyboardEvent) {
     return e.key.length === 1 && !e.ctrlKey;
   }
-}
-
-export interface IHacDropdownOption {
-  key: string | number,
-  value: any,
-  label: string
 }
 
 function getPos(el) {

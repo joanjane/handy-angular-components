@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { IHacDropdownOption } from '../../src/hac'
+import { IHacDropdownOption } from 'handy-angular-components'
 
 @Component({
   selector: 'demo-dropdown',
@@ -11,7 +11,7 @@ export class DemoDropdownComponent implements OnInit {
   demoForm: FormGroup;
   dropdownList: IHacDropdownOption[] = [];
   selectedNumber: number = null;
-  
+
   constructor(private formBuilder: FormBuilder) {
 
   }

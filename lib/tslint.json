@@ -113,13 +113,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "hac",
+      "demo",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "hac",
+      "demo",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DemoComponent } from './demo.component';
 import { DemoDropdownComponent } from './components';
-import { HacModule } from '../src/hac'
+import { HacModule } from 'handy-angular-components';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { HacModule } from '../src/hac'
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HacModule
+    HacModule.forRoot()
   ],
   providers: [],
   bootstrap: [DemoComponent]

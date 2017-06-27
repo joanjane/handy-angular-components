@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { IHacDropdownOption } from "../";
 
+@Injectable()
 @Pipe({
     name: 'hacDropdownFilter'
 })
-@Injectable()
 export class HacDropdownFilterPipe implements PipeTransform {
     transform(value: IHacDropdownOption[], filter: string) {
         if (!filter) return value;
