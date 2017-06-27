@@ -10,35 +10,34 @@ import { HacDropdownFilterPipe } from "../pipes/hac.dropdown.filter";
   ]
 })
 export class HacDropdown {
-  @Input() options: IHacDropdownOption[];
+  @Input() options: IHacDropdownOption[] = [];
   @Input() placeholder = 'Select';
-  @Input() selected: string | number;
-  @Input() allowEmpty: boolean;
+  @Input() allowEmpty = false;
+  @Input() filtrable = false;
   @Output() selectedChange = new EventEmitter();
 
   collapsed = true;
+  filter: string;
+  // @Input() selected: string | number;
 
-  private _filter: string;
-  public get filter(): string {
-    return this._filter;
+  
+  private _selected : string | number;
+  public get selected() : string | number {
+    return this._selected;
   }
-
-  public set filter(v: string) {
-    this._filter = v;
-
-    if (!v && !this.selected) {
-      this.focusLabel();
-    } else {
-      this.focusFilter();
+  @Input()
+  public set selected(v : string | number) {
+    this._selected = v;
+    const selection = this.getSelected();
+    if(selection) {
+      this.filter = selection.label;
     }
   }
-
+  
 
   private windowHeight = 0;
 
   constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) {
-    this.options = [];
-    this.allowEmpty = false;
     this.syncWindowHeight();
   }
 
@@ -61,14 +60,9 @@ export class HacDropdown {
   }
 
   select(key: number | string) {
-    this.filter = null;
     this.selected = key;
     this.closeDropdown();
     this.selectedChange.emit(this.selected);
-  }
-
-  toggleDropdown() {
-    this.collapsed = !this.collapsed;
   }
 
   openDropdown(e?: any) {
@@ -82,14 +76,9 @@ export class HacDropdown {
     this.collapsed = true;
   }
 
-  filterOnKey(e: KeyboardEvent) {
-    if (this.isCharTyped(e)) {
-      this.filter = !this.filter ? e.key : this.filter + e.key;
-    }
-  }
-
-  filterOnPaste(e: ClipboardEvent) {
-    this.filter = e.clipboardData.getData('text/plain');
+  shouldApplyFilter(): boolean {
+    const selected = this.getSelected();
+    return selected && this.filter !== selected.label;
   }
 
   handleEnter(e: KeyboardEvent) {
@@ -101,6 +90,8 @@ export class HacDropdown {
     }
   }
 
+  /* Dropdown styling dimmensions */
+
   calcDropdownWidth(): string {
     const labelElem = this.elementRef.nativeElement.querySelector('.hac-dd-label');
     const computedStyle = getComputedStyle(labelElem, null);
@@ -111,36 +102,19 @@ export class HacDropdown {
 
   calcDropdownHeight(): string {
     const el = this.elementRef.nativeElement.querySelector('.hac-dd-list');
-    const pos = getPos(el);
+    const pos = this.getPos(el);
     return `${window.innerHeight - 10 - pos.y}px`;
-  }
-
-  focusLabel() {
-    setTimeout(() => {
-      const label = this.elementRef.nativeElement.querySelector('.hac-dd-placeholder');
-      label.focus();
-      label.setSelectionRange(0, label.value.length);
-    }, 0);
-  }
-
-  focusFilter() {
-    setTimeout(() => {
-      const filter = this.elementRef.nativeElement.querySelector('.hac-dd-filter');
-      filter.focus();
-    }, 0);
   }
 
   private syncWindowHeight() {
     this.windowHeight = window.innerHeight;
   }
 
-  private isCharTyped(e: KeyboardEvent) {
-    return e.key.length === 1 && !e.ctrlKey;
+  private getPos(el) {
+    let lx, ly;
+    for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+    return { x: lx, y: ly };
   }
-}
 
-function getPos(el) {
-  let lx, ly;
-  for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
-  return { x: lx, y: ly };
+  /* Dropdown styling dimmensions */
 }

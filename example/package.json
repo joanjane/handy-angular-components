@@ -7,7 +7,7 @@
   "scripts": {
     "ng": "ng",
     "gulp": "gulp",
-    "start": "ng serve --app=hac",
+    "start": "concurrently \"npm run serve\" \"npm run watch\"",
     "build": "ng build",
     "postbuild": "npm run assets",
     "watch": "concurrently \"ng build --watch\" \"sleepms 5000 && npm run assets\"",

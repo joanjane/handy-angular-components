@@ -1,28 +1,21 @@
-# HandyAngularComponents
+# Handy Angular Components
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.1.2.
+Work in progress components for angular 4+ to build forms and controls.
 
-## Development server
+## Build lib
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To build lib, open a console and run `cd lib` and then: 
 
-## Code scaffolding
+```bash
+$ npm run build
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
+## Build example
 
-## Build
+To build and run example, you must build this library with previous step. Then, open example folder (`cd example`) and run: 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+```bash
+$ npm start
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Finally, open [localhost:8000](http://localhost:8000) in a browser.

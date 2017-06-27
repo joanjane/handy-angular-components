@@ -24,13 +24,13 @@ hac-dropdown {
         &--is-collapsed {
             visibility: hidden;
             height: 0!important;
+            opacity: 0;
         }
         
         &:not(.hac-dd-list--is-collapsed){
-            animation-name: fadeIn;
-            animation-duration: 0.3s;	
-            animation-timing-function: ease;	
+            transition: opacity 0.3s ease;
             visibility: visible;
+            opacity: 1;
         }
     }
 
@@ -56,14 +56,14 @@ hac-dropdown {
         input {
             background: transparent;
             border: none;
-            width: 80%;
+            width: 90%;
         }
 
         input:focus {
             outline: none;
         }
-        .hac-dd-placeholder::selection
-        /*, input::-moz-selection*/ {
+        
+        .hac-dd-placeholder::selection {
             background: transparent;
         }
     }
@@ -72,6 +72,15 @@ hac-dropdown {
         float: right;
         position: relative;
         top: 0.4rem;
+
+        $hacCaretSize: 4px;
+        &--down {
+            width: 0; 
+            height: 0; 
+            border-left: $hacCaretSize solid transparent;
+            border-right: $hacCaretSize solid transparent;
+            border-top: $hacCaretSize solid #000;
+        }
     }
 
     ::-webkit-scrollbar {
@@ -87,24 +96,4 @@ hac-dropdown {
         background: rgba(128, 128, 128, 0.53);
         border-radius: 3px;
     }
-
-    $hacCaretSize: 4px;
-    .hac-caret--down {
-        width: 0; 
-        height: 0; 
-        border-left: $hacCaretSize solid transparent;
-        border-right: $hacCaretSize solid transparent;
-        border-top: $hacCaretSize solid #000;
-    }
-    
-}
-
-
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-    100% {
-		opacity: 1;
-	}		
 }

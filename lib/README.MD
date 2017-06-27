@@ -34,7 +34,6 @@ import { HacModule } from 'handy-angular-components';
   imports: [
     BrowserModule,
 
-    // Specify your library as an import
     HacModule.forRoot()
   ],
   providers: [],
