@@ -25,9 +25,7 @@ export class HacDropdown {
   public set selected(v: string | number) {
     this._selected = v;
     const selection = this.getSelected();
-    if (selection) {
-      this.filter = selection.label;
-    }
+    this.filter = selection ? selection.label : null;
   }
 
   collapsed = true;
