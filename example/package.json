@@ -7,10 +7,10 @@
   "scripts": {
     "ng": "ng",
     "gulp": "gulp",
-    "start": "concurrently \"npm run serve\" \"npm run watch\"",
+    "start": "concurrently \"npm run serve\" \"npm run watch\" --names \"SERVER,CLIENT\" --prefix name",
     "build": "ng build",
     "postbuild": "npm run assets",
-    "watch": "concurrently \"ng build --watch\" \"sleepms 5000 && npm run assets\"",
+    "watch": "concurrently \"ng build --watch\" \"sleepms 10000 && npm run assets -- -w\" --names \"NGDEMO,ASSETS\" --prefix name",
     "test": "ng test",
     "lint": "ng lint",
     "serve": "simplehttpserver ./dist",
