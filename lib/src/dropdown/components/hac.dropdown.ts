@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { IHacDropdownOption } from "./hac.dropdown.option";
+import { IHacDropdownOption, IHacDropdownGroup } from "./hac.dropdown.option";
 import { HacDropdownFilterPipe } from "../pipes/hac.dropdown.filter";
 
 @Component({
@@ -11,29 +11,27 @@ import { HacDropdownFilterPipe } from "../pipes/hac.dropdown.filter";
 })
 export class HacDropdown {
   @Input() options: IHacDropdownOption[] = [];
+  @Input() groups: IHacDropdownGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
   @Input() filtrable = false;
   @Output() selectedChange = new EventEmitter();
 
-  collapsed = true;
-  filter: string;
-  // @Input() selected: string | number;
-
-  
-  private _selected : string | number;
-  public get selected() : string | number {
+  private _selected: string | number;
+  public get selected(): string | number {
     return this._selected;
   }
   @Input()
-  public set selected(v : string | number) {
+  public set selected(v: string | number) {
     this._selected = v;
     const selection = this.getSelected();
-    if(selection) {
+    if (selection) {
       this.filter = selection.label;
     }
   }
-  
+
+  collapsed = true;
+  filter: string;
 
   private windowHeight = 0;
 
@@ -54,15 +52,23 @@ export class HacDropdown {
   }
 
   getSelected(): IHacDropdownOption {
-    if (!this.options) return null;
+    if(this.hasGroups()) {
+      return this.groups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
+    } else if (this.options) {
+      return this.options.find(o => o.key === this.selected);
+    } 
 
-    return this.options.find(o => o.key === this.selected);
+    return null;
   }
 
   select(key: number | string) {
     this.selected = key;
     this.closeDropdown();
     this.selectedChange.emit(this.selected);
+  }
+  
+  hasGroups() {
+    return this.groups && this.groups.length > 0;
   }
 
   openDropdown(e?: any) {
@@ -90,7 +96,7 @@ export class HacDropdown {
     }
   }
 
-  /* Dropdown styling dimmensions */
+  /* Dropdown styling dimensions */
 
   calcDropdownWidth(): string {
     const labelElem = this.elementRef.nativeElement.querySelector('.hac-dd-label');
@@ -116,5 +122,5 @@ export class HacDropdown {
     return { x: lx, y: ly };
   }
 
-  /* Dropdown styling dimmensions */
+  /* Dropdown styling dimensions */
 }

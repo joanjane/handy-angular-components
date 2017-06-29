@@ -14,16 +14,35 @@
 
 <div class="hac-dd-list" 
     [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
-    *ngIf="options"
+    *ngIf="!hasGroups() && options"
     [style.width]="calcDropdownWidth()"
     [style.maxHeight]="calcDropdownHeight()">
-    <div class="hac-dd-option" 
-        *ngIf="allowEmpty"
-        (click)="select(null)">{{placeholder}}</div>
-        <div *ngFor="let option of options | hacDropdownFilter: filter : shouldApplyFilter()" 
+    
+    <div class="hac-dd-option" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</div>
+    <div *ngFor="let option of options | hacDropdownFilter: filter : shouldApplyFilter()" 
+        (click)="select(option.key)" class="hac-dd-option hac-dd-choice" 
+        [ngClass]="{ 
+            'hac-dd-option--is-selected': option.key === selected }">
+        {{option.label}}
+    </div>
+</div>
+
+
+<div class="hac-dd-list" 
+    [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
+    *ngIf="hasGroups()"
+    [style.width]="calcDropdownWidth()"
+    [style.maxHeight]="calcDropdownHeight()">
+
+    <div class="hac-dd-option" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</div>
+    <div class="hac-dd-group" *ngFor="let group of groups">
+        <div class="hac-dd-grouplabel">{{group.label}}</div>
+        <div *ngFor="let option of group.options | hacDropdownFilter: filter : shouldApplyFilter()" 
             (click)="select(option.key)" class="hac-dd-option hac-dd-choice" 
             [ngClass]="{ 
                 'hac-dd-option--is-selected': option.key === selected }">
             {{option.label}}
         </div>
+    </div>
+    
 </div>

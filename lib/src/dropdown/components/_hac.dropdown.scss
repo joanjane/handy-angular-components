@@ -1,5 +1,6 @@
 @import '../../assets/styles/variables';
 $hacDropdownMaxHeight: 300px;
+$hacDropdownGroupBg: #f7f4f4;
 
 hac-dropdown {
     display: inline-block;
@@ -39,7 +40,7 @@ hac-dropdown {
         padding: 0.3rem 0.5rem;
 
         &:hover {
-            background: lighten($hacSelectedBg, 0.2);            
+            background: lighten($hacSelectedBg, 0.4);            
         }
 
         &--is-selected {
@@ -48,6 +49,11 @@ hac-dropdown {
         }
     }
 
+    .hac-dd-grouplabel {
+        padding: 0.3rem 0.5rem;
+        background: $hacDropdownGroupBg;            
+    }
+    
     .hac-dd-label {
         cursor: pointer;
         border: 1px solid $hacBorder;

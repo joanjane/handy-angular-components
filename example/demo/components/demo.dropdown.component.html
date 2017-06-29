@@ -43,4 +43,12 @@
             </div>
         </form>
     </div>
+
+    <div id="dropdown-empty-placeholder">
+        <h2>Dropdown with option groups (empty & filtrable):</h2>
+
+        <span style="max-width: 160px;display: block;">
+            <hac-dropdown [groups]="dropdownGroupList" [(selected)]="groupsSelectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
+        </span>
+    </div>
 </div>
