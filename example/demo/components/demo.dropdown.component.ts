@@ -66,6 +66,21 @@ export class DemoDropdownComponent implements OnInit {
             key: 3,
             value: 'three',
             label: 'three'
+          },
+          {
+            key: 11,
+            value: 'oneone',
+            label: 'oneone'
+          },
+          {
+            key: 22,
+            value: 'twotwo',
+            label: 'twotwo'
+          },
+          {
+            key: 33,
+            value: 'threethree',
+            label: 'threethree'
           }
         ]
       },
@@ -86,6 +101,20 @@ export class DemoDropdownComponent implements OnInit {
             key: 6,
             value: 'six',
             label: 'six'
+          },{
+            key: 44,
+            value: 'fourfour',
+            label: 'fourfour'
+          },
+          {
+            key: 55,
+            value: 'fivefive',
+            label: 'fivefive'
+          },
+          {
+            key: 66,
+            value: 'sixsix',
+            label: 'sixsix'
           }
         ]
       }

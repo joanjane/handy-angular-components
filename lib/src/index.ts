@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { HacDropdown } from './dropdown/components/hac.dropdown';
 import { HacDropdownFilterPipe } from './dropdown/pipes/hac.dropdown.filter';
+import { HacDropdownColumnizerPipe } from './dropdown/pipes/hac.dropdown.columnizer';
 
 export * from './dropdown/components/hac.dropdown';
 export * from './dropdown/components/hac.dropdown.option';
@@ -11,7 +12,8 @@ export * from './dropdown/components/hac.dropdown.option';
 @NgModule({
   declarations: [
     HacDropdown,
-    HacDropdownFilterPipe
+    HacDropdownFilterPipe,
+    HacDropdownColumnizerPipe
   ],
   imports: [
     BrowserModule,

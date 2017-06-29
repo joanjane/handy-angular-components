@@ -2,17 +2,17 @@
     <div id="dropdown-empty-placeholder">
         <h2>Dropdown with empty option, placeholder and filtrable:</h2>
 
-        <span style="max-width: 160px;display: block;">
+        <div style="max-width: 160px">
             <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
-        </span>
+        </div>
     </div>
 
     <div id="dropdown-required-no-placeholder">
         <h2>Dropdown w/ empty option:</h2>
 
-        <span style="max-width: 160px;display: block;">
+        <div style="max-width: 160px">
             <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="false"></hac-dropdown>
-        </span>
+        </div>
 
         <div>
             Selected value on demo component context: {{selectedNumber}}<br />
@@ -47,8 +47,8 @@
     <div id="dropdown-empty-placeholder">
         <h2>Dropdown with option groups (empty & filtrable):</h2>
 
-        <span style="max-width: 160px;display: block;">
+        <div style="max-width: 300px" class="demo-dd-columns">
             <hac-dropdown [groups]="dropdownGroupList" [(selected)]="groupsSelectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
-        </span>
+        </div>
     </div>
 </div>
