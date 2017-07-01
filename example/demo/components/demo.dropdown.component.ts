@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { IHacDropdownOption, IHacDropdownGroup } from 'handy-angular-components'
+import { IHacDropdownOption, IHacDropdownOptionGroup } from 'handy-angular-components'
 
 @Component({
   selector: 'demo-dropdown',
   templateUrl: './demo.dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
-  dropdownGroupList: IHacDropdownGroup[];
+  dropdownGroupsList: IHacDropdownOptionGroup[];
   demoForm: FormGroup;
-  dropdownList: IHacDropdownOption[] = [];
+  dropdownList: IHacDropdownOptionGroup[] = [];
   selectedNumber: number = null;
   groupsSelectedNumber: number = null;
 
@@ -24,31 +24,36 @@ export class DemoDropdownComponent implements OnInit {
   }
 
   buildOptions() {
-    this.dropdownList = [{
-      key: 1,
-      value: 'one',
-      label: 'one'
-    },
-    {
-      key: 2,
-      value: 'two',
-      label: 'two'
-    },
-    {
-      key: 3,
-      value: 'three',
-      label: 'three'
-    }];
+    this.dropdownList = [
+      {
+        options: [
+          {
+            key: 1,
+            value: 'one',
+            label: 'one'
+          },
+          {
+            key: 2,
+            value: 'two',
+            label: 'two'
+          },
+          {
+            key: 3,
+            value: 'three',
+            label: 'three'
+          }]
+      }
+    ]
 
     for (let i = 4; i < 100; i++) {
-      this.dropdownList.push({
+      this.dropdownList[0].options.push({
         key: i,
         value: i,
         label: i.toString(),
       })
     }
 
-    this.dropdownGroupList = [
+    this.dropdownGroupsList = [
       {
         label: 'This is an option group',
         options: [

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { IHacDropdownOption } from "../components/hac.dropdown.option";
+import { IHacDropdownOption } from "../hac.dropdown.model";
 
 @Injectable()
 @Pipe({

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { IHacDropdownOption } from "../components/hac.dropdown.option";
+import { IHacDropdownOption } from "../hac.dropdown.model";
 
 @Injectable()
 @Pipe({
@@ -20,8 +20,9 @@ export class HacDropdownColumnizerPipe implements PipeTransform {
             }
         }
 
-        if (currentCols.length > 0)
+        if (currentCols.length > 0) {
             output.push(currentCols);
+        }
 
         return output;
     }

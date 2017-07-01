@@ -4,7 +4,7 @@ export interface IHacDropdownOption {
   label: string;
 }
 
-export interface IHacDropdownGroup {
+export interface IHacDropdownOptionGroup {
   options: IHacDropdownOption[];
-  label: string;
+  label?: string;
 }

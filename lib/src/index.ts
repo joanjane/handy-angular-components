@@ -2,12 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { HacDropdown } from './dropdown/components/hac.dropdown';
-import { HacDropdownFilterPipe } from './dropdown/pipes/hac.dropdown.filter';
-import { HacDropdownColumnizerPipe } from './dropdown/pipes/hac.dropdown.columnizer';
+import { HacDropdown } from './dropdown/components';
+import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from './dropdown/pipes';
 
-export * from './dropdown/components/hac.dropdown';
-export * from './dropdown/components/hac.dropdown.option';
+export * from './dropdown/components';
+export * from './dropdown/hac.dropdown.model';
 
 @NgModule({
   declarations: [

@@ -3,7 +3,7 @@
         <h2>Dropdown with empty option, placeholder and filtrable:</h2>
 
         <div style="max-width: 160px">
-            <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
+            <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
         </div>
     </div>
 
@@ -11,7 +11,7 @@
         <h2>Dropdown w/ empty option:</h2>
 
         <div style="max-width: 160px">
-            <hac-dropdown [options]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="false"></hac-dropdown>
+            <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="false"></hac-dropdown>
         </div>
 
         <div>
@@ -21,24 +21,23 @@
     </div>
 
     <div id="dropdown-reactive-forms">
-        <h2>Using a reactive form</h2>
+        <h2>Using a reactive form</h2><br/>
         <form [formGroup]="demoForm" novalidate>
-            <label>Select a number:</label><br />
-            <hac-dropdown [options]="dropdownList"
+            <label>Select a number:</label>
+            <hac-dropdown [optionGroups]="dropdownList"
                 [selected]="demoForm.get('number')" 
                 (selectedChange)="demoForm.get('number').setValue($event)" 
                 [allowEmpty]="true"></hac-dropdown>
             
-            <div style="max-width: 300px;">
+            <div style="display: inline-block">
                 <div style="float: left">
                     Form value:
                     <pre>{{ demoForm.value | json }}</pre>
                 </div>
-                <div style="float: right">
+                <div style="float: right;margin-left: 20px;">
                     Form validation:
-                    <pre [ngStyle]="{'color': demoForm.get('number')?.errors !== null ? 'red' : 'green' }">
-                        {{ demoForm.get('number')?.errors || 'OK!' | json }}
-                    </pre>
+                    <pre [ngStyle]="{'color': demoForm.get('number')?.errors !== null ? 'red' : 'green' }"
+                    >{{ demoForm.get('number')?.errors || 'OK!' | json }}</pre>
                 </div>
             </div>
         </form>
@@ -48,7 +47,11 @@
         <h2>Dropdown with option groups (empty & filtrable):</h2>
 
         <div style="max-width: 300px" class="demo-dd-columns">
-            <hac-dropdown [groups]="dropdownGroupList" [(selected)]="groupsSelectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
+            <hac-dropdown [optionGroups]="dropdownGroupsList" [(selected)]="groupsSelectedNumber" 
+                [allowEmpty]="true" 
+                [filtrable]="true" 
+                placeholder="Test placeholder" 
+                [columns]="3"></hac-dropdown>
         </div>
     </div>
 </div>

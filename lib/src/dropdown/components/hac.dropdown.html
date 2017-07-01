@@ -14,29 +14,13 @@
 
 <div class="hac-dd-list" 
     [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
-    *ngIf="!hasGroups() && options"
-    [style.minWidth]="calcDropdownWidth()"
-    [style.maxHeight]="calcDropdownHeight()">
-    
-    <div class="hac-dd-option" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</div>
-    <div *ngFor="let option of options | hacDropdownFilter: filter : shouldApplyFilter()" 
-        (click)="select(option.key)" class="hac-dd-option hac-dd-choice" 
-        [ngClass]="{ 
-            'hac-dd-option--is-selected': option.key === selected }">
-        {{option.label}}
-    </div>
-</div>
-
-
-<div class="hac-dd-list" 
-    [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
     *ngIf="hasGroups()"
     [style.minWidth]="calcDropdownWidth()"
     [style.maxHeight]="calcDropdownHeight()">
 
     <div class="hac-dd-option" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</div>
-    <div class="hac-dd-group" *ngFor="let group of groups">
-        <div class="hac-dd-grouplabel">{{group.label}}</div>
+    <div class="hac-dd-group" *ngFor="let group of optionGroups">
+        <div class="hac-dd-grouplabel" *ngIf="group.label">{{group.label}}</div>
         <div class="hac-dd-optgroup">
             <div class="hac-dd-optrow" *ngFor="let optionRow of group.options | hacDropdownFilter: filter : shouldApplyFilter() | hacDropdownColumnizer: columns"
                 [ngClass]="{'hac-dd-optrow--single-col': columns === 1}">

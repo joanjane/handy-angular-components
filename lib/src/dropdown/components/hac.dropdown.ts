@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { IHacDropdownOption, IHacDropdownGroup } from "./hac.dropdown.option";
-import { HacDropdownFilterPipe } from "../pipes/hac.dropdown.filter";
-import { HacDropdownColumnizerPipe } from "../pipes/hac.dropdown.columnizer";
+import { IHacDropdownOption, IHacDropdownOptionGroup } from "../hac.dropdown.model";
+import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from "../pipes";
 
 @Component({
   selector: 'hac-dropdown',
@@ -12,12 +11,11 @@ import { HacDropdownColumnizerPipe } from "../pipes/hac.dropdown.columnizer";
   ]
 })
 export class HacDropdown {
-  @Input() options: IHacDropdownOption[] = [];
-  @Input() groups: IHacDropdownGroup[] = [];
+  @Input() optionGroups: IHacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
   @Input() filtrable = false;
-  @Input() columns = 3;
+  @Input() columns = 1;
   @Output() selectedChange = new EventEmitter();
 
   private _selected: string | number;
@@ -54,9 +52,7 @@ export class HacDropdown {
 
   getSelected(): IHacDropdownOption {
     if (this.hasGroups()) {
-      return this.groups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
-    } else if (this.options) {
-      return this.options.find(o => o.key === this.selected);
+      return this.optionGroups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
     }
 
     return null;
@@ -69,7 +65,7 @@ export class HacDropdown {
   }
 
   hasGroups() {
-    return this.groups && this.groups.length > 0;
+    return this.optionGroups && this.optionGroups.length > 0;
   }
 
   openDropdown(e?: any) {
@@ -90,8 +86,7 @@ export class HacDropdown {
 
   handleEnter(e: KeyboardEvent) {
     if (e.keyCode == 13) {
-      const groups = this.hasGroups() ? this.groups : [{ options: this.options }];
-      for (var group of groups) {
+      for (var group of this.optionGroups) {
 
         const candidates = this.dropdownFilter.transform(group.options, this.filter);
         if (candidates.length > 0) {
