@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://joanjane.visualstudio.com/Experiments/_git/handy-angular-components"
+    "url": "https://github.com/joanjane/handy-angular-components"
   },
   "author": {
     "name": "Joan Jané",
@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://joanjane.visualstudio.com/Experiments/_git/handy-angular-components/issues"
+    "url": "https://github.com/joanjane/handy-angular-components/issues"
   },
   "module": "handy-angular-components.js",
   "typings": "handy-angular-components.d.ts",
