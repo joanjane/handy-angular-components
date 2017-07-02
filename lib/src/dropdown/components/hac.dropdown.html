@@ -1,10 +1,10 @@
-<div class="hac-dd-label">
+<div class="hac-dd-label" 
+    (click)="openDropdown($event)">
     <input 
         type="text" class="hac-dd-filter" [placeholder]="placeholder"
         [(ngModel)]="filter"
         [readonly]="!filtrable"
-        (keyup)="handleEnter($event)"
-        (click)="openDropdown($event)"
+        (keyup)="handleKey($event)"
         (focus)="openDropdown($event)"
         (focusOut)="closeDropdown($event)"
      />

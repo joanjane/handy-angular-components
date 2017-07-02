@@ -31,7 +31,6 @@ export class HacDropdown {
 
   collapsed = true;
   filter: string;
-
   private windowHeight = 0;
 
   constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) {
@@ -84,16 +83,15 @@ export class HacDropdown {
     return selected && this.filter !== selected.label;
   }
 
-  handleEnter(e: KeyboardEvent) {
-    if (e.keyCode == 13) {
-      for (var group of this.optionGroups) {
-
-        const candidates = this.dropdownFilter.transform(group.options, this.filter);
-        if (candidates.length > 0) {
-          this.select(candidates[0].key);
-          break;
-        }
-      }
+  handleKey(e: KeyboardEvent) {
+    switch(e.keyCode) {
+      case 13: // Enter key
+        this.selectFirstMatchingOption();
+        break;
+      case 27: //ESC key
+        this.blurFilter();
+        this.closeDropdown();
+        break;
     }
   }
 
@@ -121,6 +119,21 @@ export class HacDropdown {
     let lx, ly;
     for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
     return { x: lx, y: ly };
+  }
+
+  private blurFilter() {
+    this.elementRef.nativeElement.querySelector('.hac-dd-filter').blur();
+  }
+
+  private selectFirstMatchingOption() {
+    for (var group of this.optionGroups) {
+      const candidates = this.dropdownFilter.transform(group.options, this.filter);
+      if (candidates.length > 0) {
+        this.select(candidates[0].key);
+        this.blurFilter();
+        break;
+      }
+    }
   }
 
   /* Dropdown styling dimensions */
