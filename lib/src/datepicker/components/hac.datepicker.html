@@ -1,0 +1,14 @@
+<div>
+    <div *ngFor="let calendar of calendars" class="hac-cal-wrapper">
+        <strong class="hac-cal-month">{{calendar.month | date : 'y MMMM'}}</strong>
+        <!-- TODO: Print week labels -->
+        <div *ngFor="let week of calendar.weeks" class="hac-cal-wrapper">
+            <div *ngFor="let day of week.days" class="hac-cal-week">
+                <div class="hac-cal-day" (click)="select(day)">
+                    {{ day | date : 'd (EEE)'}}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

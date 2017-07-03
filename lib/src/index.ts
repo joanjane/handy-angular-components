@@ -1,25 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { HacDropdown } from './dropdown/components';
 import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from './dropdown/pipes';
+import { HacDatepicker } from './datepicker';
 
 export * from './dropdown/components';
 export * from './dropdown/hac.dropdown.model';
+export * from './datepicker';
 
 @NgModule({
   declarations: [
     HacDropdown,
     HacDropdownFilterPipe,
-    HacDropdownColumnizerPipe
+    HacDropdownColumnizerPipe,
+    HacDatepicker
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    CommonModule
   ],
   exports: [
-    HacDropdown
+    HacDropdown,
+    HacDatepicker
   ]
 })
 export class HacModule {
