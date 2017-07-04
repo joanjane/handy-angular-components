@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
-import { HacDatepickerOptions, IHacDatepickerLocalization, DefaultDatePickerLabels } from "./hac.datepicker.options";
-import { HacCalendarModel } from "./hac.calendar.model";
+import { HacDatepickerOptions, IHacDatepickerLocalization, DefaultDatePickerLabels, WeekDayList } from "./hac.datepicker.options";
+import { HacCalendarModel, DateHelper } from "./hac.calendar.model";
 
 @Component({
     selector: 'hac-datepicker',
@@ -22,6 +22,7 @@ export class HacDatepicker implements OnInit {
     }
 
     calendars: HacCalendarModel[] = [];
+    weekDayList = WeekDayList;
 
     ngOnInit(): void {
         this.buildStartMonth();
@@ -46,7 +47,6 @@ export class HacDatepicker implements OnInit {
             this.calendars.push(new HacCalendarModel(currentMonth));
             currentMonth.setMonth(currentMonth.getMonth() +1);
         }
-        console.log(this.calendars)
     }
 
     getLocale(): IHacDatepickerLocalization {
@@ -58,6 +58,10 @@ export class HacDatepicker implements OnInit {
         this.selectedChange.emit(this.selected);
     }
 
+    isSelected(day: Date) {
+        return DateHelper.areDatesEqual(day, this.selected);
+    }
+
     private getLastDay(): Date {
         let months = this.options.showMonths > 0 ? this.options.showMonths : 1;
         return new Date(
@@ -67,3 +71,4 @@ export class HacDatepicker implements OnInit {
         );
     }
 }
+

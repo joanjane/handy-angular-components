@@ -1,2 +1,76 @@
 @import '../../assets/styles/variables';
 
+hac-datepicker {
+    color: $hacFontColor;
+    font-family: $hacFontFamily;
+
+    &:hover .hac-cal-wrapper {
+        visibility: visible;
+    }
+
+    .hac-cal-wrapper {
+        border: 1px solid $hacBorder;
+        display: flex;
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .hac-cal-month {
+        font-size: 14px;
+        margin: 0.5rem;
+    }
+
+    .hac-cal-monthlabel {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .hac-cal-week {
+        display: flex;
+        text-align: center;
+    }
+
+    .hac-cal-day {
+        cursor: pointer;
+        flex: 1;
+        font-size: 12px;
+        margin: 1px;
+        padding: 0.4rem;
+        
+        &--is-selected {
+            background: darken($hacSelectedBg, 5);
+        }
+
+        &--is-hidden {
+            background: transparent;
+            pointer-events: none;
+
+            .hac-cal-daynum {
+                visibility: hidden;
+            }
+        }
+    }
+
+    .hac-cal-separator {
+        border-left: 1px solid $hacBorder;
+    }
+
+    .hac-cal-startdate {
+        border: 1px solid $hacBorder;
+        font-size: 11px;
+        padding: 0.2rem;
+    }
+
+    .hac-cal-weedays {
+        display: flex;
+    }
+
+    .hac-cal-weekday {
+        flex: 1;
+        font-size: 11px;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}

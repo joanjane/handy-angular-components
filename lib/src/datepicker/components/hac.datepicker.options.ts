@@ -1,12 +1,12 @@
 
-export interface HacDatepickerOptions {
+export class HacDatepickerOptions {
     currentDisplayMonth?: Date;
     locale?: IHacDatepickerLocalization;
     showMonths?: number;
 }
 
 export type IHacDatepickerLocalization = {
-    Days: {
+    days: {
         MON: string,
         TUE: string,
         WED: string,
@@ -15,7 +15,7 @@ export type IHacDatepickerLocalization = {
         SAT: string,
         SUN: string
     },
-    Months: {
+    months: {
         JAN: string,
         FEB: string,
         MAR: string,
@@ -32,7 +32,7 @@ export type IHacDatepickerLocalization = {
 }
 
 export const DefaultDatePickerLabels: IHacDatepickerLocalization = {
-    Days: {
+    days: {
         MON: 'Mon',
         TUE: 'Tue',
         WED: 'Wed',
@@ -41,7 +41,7 @@ export const DefaultDatePickerLabels: IHacDatepickerLocalization = {
         SAT: 'Sat',
         SUN: 'Sun'
     },
-    Months: {
+    months: {
         JAN: 'January',
         FEB: 'February',
         MAR: 'March',
@@ -56,3 +56,5 @@ export const DefaultDatePickerLabels: IHacDatepickerLocalization = {
         DEC: 'December'
     }
 };
+
+export const WeekDayList = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];

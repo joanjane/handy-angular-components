@@ -1,14 +1,40 @@
 <div>
-    <div *ngFor="let calendar of calendars" class="hac-cal-wrapper">
-        <strong class="hac-cal-month">{{calendar.month | date : 'y MMMM'}}</strong>
-        <!-- TODO: Print week labels -->
-        <div *ngFor="let week of calendar.weeks" class="hac-cal-wrapper">
-            <div *ngFor="let day of week.days" class="hac-cal-week">
-                <div class="hac-cal-day" (click)="select(day)">
-                    {{ day | date : 'd (EEE)'}}
+    <div>
+        <span class="hac-cal-startdate">
+            <span *ngIf="selected">
+                {{selected | date}}
+            </span>
+            <span *ngIf="!selected"> - </span>
+        </span>
+    </div>
+    <div class="hac-cal-wrapper">
+        <div *ngFor="let calendar of calendars; let i = index" 
+            [ngClass]="{ 'hac-cal-separator': i > 0 && i < calendars.length }">
+            <div class="hac-cal-month">
+                <strong class="hac-cal-monthlabel">{{calendar.month | date : 'y MMMM'}}</strong>
+                <div class="hac-cal-weedays">
+                    <div *ngFor="let weekDay of weekDayList" class="hac-cal-weekday">
+                        {{ getLocale().days[weekDay] }}
+                    </div>
+                </div>
+                <div class="hac-cal-weeks">
+                    <div *ngFor="let week of calendar.weeks" class="hac-cal-week">
+                        <div *ngFor="let day of week.days" 
+                            class="hac-cal-day" 
+                            [ngClass]="{ 
+                                'hac-cal-day--is-selected': isSelected(day),
+                                'hac-cal-day--is-hidden': !calendar.contains(day)
+                            }">
+                            
+                            <div class="hac-cal-daynum" 
+                                title="{{ day | date : 'fullDate'}}"
+                                (click)="select(day)">
+                                {{ day | date : 'd'}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
 </div>

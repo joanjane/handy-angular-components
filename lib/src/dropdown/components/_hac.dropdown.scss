@@ -3,6 +3,7 @@ $hacDropdownMaxHeight: 300px;
 $hacDropdownGroupBg: #f7f4f4;
 
 hac-dropdown {
+    color: $hacFontColor;
     display: inline-block;
     font-family: $hacFontFamily;
     font-size: $hacFontSize;
@@ -73,6 +74,7 @@ hac-dropdown {
         input {
             background: transparent;
             border: none;
+            color: $hacFontColor;
             width: 90%;
         }
 

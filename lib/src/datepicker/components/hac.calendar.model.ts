@@ -21,35 +21,44 @@ export enum WeekDay {
     Saturday = 6
 }
 
-const breakWeekDay = WeekDay.Monday;
+const startWeekDay = WeekDay.Monday;
+const endWeekDay = WeekDay.Sunday;
 
 export class HacCalendarModel {
     month: Date;
     weeks: HacCalendarWeekModel[] = [];
 
     constructor(month: Date) {
-        this.month = month;
-        this.month.setDate(1);
+        this.month = new Date(month.getFullYear(), month.getMonth(), 1, 0, 0, 0, 0);
         this.buildCalendar();
     }
 
     buildCalendar() {
         let day = new Date(this.month);
         const lastDay = this.getLastDay();
-        console.log(day)
-        console.log(lastDay)
         while (day <= lastDay) {
-            // add new week when monday or first month day
-            if (day.getDay() === breakWeekDay || this.weeks.length === 0) {
+            // add new week when on first week day or first week
+            if (day.getDay() === startWeekDay || this.weeks.length === 0) {
                 let week = new HacCalendarWeekModel();
-                week.addDay(day);
+                week.addDay(new Date(day));
                 this.weeks.push(week);
             } else { // add day to current week
-                this.weeks[this.weeks.length - 1].addDay(day);
+                this.weeks[this.weeks.length - 1].addDay(new Date(day));
             }
 
             day.setDate(day.getDate() + 1); // next day
         }
+
+        // add remaining days of last week from next month
+        const lastWeek = this.weeks[this.weeks.length - 1];
+        while (lastWeek.days.length < 7) {
+            lastWeek.addDay(new Date(day));
+            day.setDate(day.getDate() + 1);
+        }
+    }
+
+    contains(day: Date) {
+        return day.getFullYear() === this.month.getFullYear() && day.getMonth() === this.month.getMonth();
     }
 
     private getLastDay(): Date {
@@ -66,7 +75,7 @@ export class HacCalendarWeekModel {
     days: HacCalendarDayModel[] = [];
 
     addDay(day: Date) {
-        if (this.days.length === 0 && day.getDay() != breakWeekDay) {
+        if (this.days.length === 0 && day.getDay() != startWeekDay) {
             var previousDay = new Date(day);
             previousDay.setDate(previousDay.getDate() -1);
             this.addDay(previousDay);
@@ -85,4 +94,14 @@ export class HacCalendarWeekModel {
 
 export class HacCalendarDayModel {
     day?: Date;
+}
+
+export class DateHelper {
+    static formatIsoDate(day: Date) {
+        return `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`
+    }
+
+    static areDatesEqual(day1: Date, day2: Date){
+        return day1 && day2 && this.formatIsoDate(day1) === this.formatIsoDate(day2);
+    }
 }
