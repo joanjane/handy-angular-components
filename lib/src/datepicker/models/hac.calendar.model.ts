@@ -1,5 +1,5 @@
 /*
-    January 2017
+ <  January 2017   >
 _____________________
 [M][T][W][T][F][S][S]
 ---------------------
@@ -33,7 +33,7 @@ export class HacCalendarModel {
         this.buildCalendar();
     }
 
-    buildCalendar() {
+    buildCalendar(): void {
         let day = new Date(this.month);
         const lastDay = this.getLastDay();
         while (day <= lastDay) {
@@ -57,7 +57,7 @@ export class HacCalendarModel {
         }
     }
 
-    contains(day: Date) {
+    contains(day: Date): boolean {
         return day.getFullYear() === this.month.getFullYear() && day.getMonth() === this.month.getMonth();
     }
 
@@ -74,7 +74,7 @@ export class HacCalendarModel {
 export class HacCalendarWeekModel {
     days: HacCalendarDayModel[] = [];
 
-    addDay(day: Date) {
+    addDay(day: Date): void {
         if (this.days.length === 0 && day.getDay() != startWeekDay) {
             var previousDay = new Date(day);
             previousDay.setDate(previousDay.getDate() -1);
@@ -83,7 +83,7 @@ export class HacCalendarWeekModel {
         this.days.push(day);
     }
 
-    private getPreviousWeekDay(weekDay: number) {
+    private getPreviousWeekDay(weekDay: number): WeekDay {
         if(weekDay === WeekDay.Sunday) {
             return WeekDay.Saturday;
         } else {
@@ -97,11 +97,11 @@ export class HacCalendarDayModel {
 }
 
 export class DateHelper {
-    static formatIsoDate(day: Date) {
+    static formatIsoDate(day: Date): string {
         return `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`
     }
 
-    static areDatesEqual(day1: Date, day2: Date){
+    static areDatesEqual(day1: Date, day2: Date): boolean {
         return day1 && day2 && this.formatIsoDate(day1) === this.formatIsoDate(day2);
     }
 }

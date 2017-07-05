@@ -1,14 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { HacDropdown } from './dropdown/components';
-import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from './dropdown/pipes';
-import { HacDatepicker } from './datepicker';
+import { HacDropdown, HacDropdownFilterPipe, HacDropdownColumnizerPipe } from './dropdown';
+import { HacDatepicker, HacWeekDayFormatter } from './datepicker';
 
-export * from './dropdown/components';
-export * from './dropdown/hac.dropdown.model';
+export * from './dropdown';
 export * from './datepicker';
 
 @NgModule({
@@ -16,7 +14,8 @@ export * from './datepicker';
     HacDropdown,
     HacDropdownFilterPipe,
     HacDropdownColumnizerPipe,
-    HacDatepicker
+    HacDatepicker,
+    HacWeekDayFormatter
   ],
   imports: [
     BrowserModule,
@@ -27,6 +26,10 @@ export * from './datepicker';
     HacDropdown,
     HacDatepicker
   ]
+  //, providers: [
+  //   HacWeekDayFormatter,
+  //   DatePipe
+  // ]
 })
 export class HacModule {
   static forRoot(): ModuleWithProviders {

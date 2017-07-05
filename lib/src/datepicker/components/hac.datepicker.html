@@ -1,34 +1,49 @@
 <div>
-    <div>
+    <div class="hac-cal-selectorwrapper">
+        <span class="hac-cal-icon" (click)="toggleCalendar()"></span>
         <span class="hac-cal-startdate">
             <span *ngIf="selected">
-                {{selected | date}}
+                {{selected | date: options?.startDateFormat}}
             </span>
-            <span *ngIf="!selected"> - </span>
+            <span *ngIf="!selected">{{options?.startDatePlaceholder}}</span>
+        </span>
+        <span class="hac-cal-enddate" *ngIf="false">
+            <span *ngIf="selected">
+                {{selected | date: options?.endDateFormat}}
+            </span>
+            <span *ngIf="!selected">{{options?.endDatePlaceholder}}</span>
         </span>
     </div>
-    <div class="hac-cal-wrapper">
+    <div class="hac-cal-wrapper" [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }">
         <div *ngFor="let calendar of calendars; let i = index" 
             [ngClass]="{ 'hac-cal-separator': i > 0 && i < calendars.length }">
             <div class="hac-cal-month">
-                <strong class="hac-cal-monthlabel">{{calendar.month | date : 'y MMMM'}}</strong>
+                <div class="hac-cal-header">
+                    <div class="hac-cal-arrow">
+                        <span *ngIf="i === 0" (click)="prevMonth()" class="hac-cal-chevron hac-cal-chevron--left"></span>
+                    </div>
+                    <strong class="hac-cal-monthlabel">{{calendar.month | date : 'y MMMM'}}</strong>
+                    <div class="hac-cal-arrow">
+                        <span *ngIf="i === calendars.length -1" (click)="nextMonth()" class="hac-cal-chevron hac-cal-chevron--right"></span>
+                    </div>
+                </div>
                 <div class="hac-cal-weedays">
                     <div *ngFor="let weekDay of weekDayList" class="hac-cal-weekday">
-                        {{ getLocale().days[weekDay] }}
+                        {{ weekDay | hacWeekDayFormatter }}
                     </div>
                 </div>
                 <div class="hac-cal-weeks">
                     <div *ngFor="let week of calendar.weeks" class="hac-cal-week">
                         <div *ngFor="let day of week.days" 
-                            class="hac-cal-day" 
+                            class="hac-cal-day"
+                            (click)="select(day)"
                             [ngClass]="{ 
                                 'hac-cal-day--is-selected': isSelected(day),
                                 'hac-cal-day--is-hidden': !calendar.contains(day)
                             }">
                             
                             <div class="hac-cal-daynum" 
-                                title="{{ day | date : 'fullDate'}}"
-                                (click)="select(day)">
+                                title="{{ day | date : 'fullDate'}}">
                                 {{ day | date : 'd'}}
                             </div>
                         </div>

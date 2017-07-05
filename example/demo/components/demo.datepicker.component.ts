@@ -16,6 +16,9 @@ export class DemoDatepickerComponent implements OnInit {
 
   ngOnInit(): void {
     this.datepickerOptions = new HacDatepickerOptions();
-    this.datepickerOptions.showMonths = 3;
+    this.datepickerOptions.showMonths = 2;
+    this.datepickerOptions.startDatePlaceholder = 'from';
+    this.datepickerOptions.endDatePlaceholder = 'to';
+    // this.datepickerOptions.startDateFormat = 'yyyy-MM-dd';
   }
 }

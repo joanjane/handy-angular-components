@@ -1,10 +1,17 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
-import { HacDatepickerOptions, IHacDatepickerLocalization, DefaultDatePickerLabels, WeekDayList } from "./hac.datepicker.options";
-import { HacCalendarModel, DateHelper } from "./hac.calendar.model";
+import { HacDatepickerOptions } from "./hac.datepicker.options";
+import { HacCalendarModel, DateHelper, WeekDay } from "../models";
+import { HacWeekDayFormatter } from "../pipes";
+import { DatePipe } from "@angular/common";
+
 
 @Component({
     selector: 'hac-datepicker',
-    templateUrl: './hac.datepicker.html'
+    templateUrl: './hac.datepicker.html',
+    providers: [
+        DatePipe,
+        HacWeekDayFormatter
+    ]
 })
 export class HacDatepicker implements OnInit {
     @Input() selected: Date;
@@ -17,16 +24,38 @@ export class HacDatepicker implements OnInit {
     @Input()
     public set options(v: HacDatepickerOptions) {
         this._options = v;
+        this.setOptionsDefaults();
         this.buildStartMonth();
         this.buildCalendarModel();
     }
 
     calendars: HacCalendarModel[] = [];
-    weekDayList = WeekDayList;
+    weekDayList = [
+        WeekDay.Monday,
+        WeekDay.Tuesday,
+        WeekDay.Wednesday,
+        WeekDay.Thursday,
+        WeekDay.Friday,
+        WeekDay.Saturday,
+        WeekDay.Sunday
+    ];
+
+    private collapsed: boolean = true;
+
+    constructor(private elementRef: ElementRef) {
+        
+    }
 
     ngOnInit(): void {
         this.buildStartMonth();
         this.buildCalendarModel();
+    }
+
+    @HostListener('document:click', ['$event'])
+    onClick(event) {
+        if (!this.elementRef.nativeElement.contains(event.target)) {
+            this.collapsed = true;
+        }
     }
 
     buildStartMonth(): void {
@@ -39,27 +68,37 @@ export class HacDatepicker implements OnInit {
         this.options.currentDisplayMonth = startDate;
     }
 
-    buildCalendarModel() {
+    buildCalendarModel(): void {
         this.calendars = [];
         let currentMonth = new Date(this.options.currentDisplayMonth);
         let calendarMonths = this.options.showMonths > 0 ? this.options.showMonths : 1;
         for (let i = 0; i < calendarMonths; i++) {
             this.calendars.push(new HacCalendarModel(currentMonth));
-            currentMonth.setMonth(currentMonth.getMonth() +1);
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
         }
     }
 
-    getLocale(): IHacDatepickerLocalization {
-        return (this.options && this.options.locale) ? this.options.locale : DefaultDatePickerLabels;
-    }
-
-    select(day: Date) {
+    select(day: Date): void {
         this.selected = day;
         this.selectedChange.emit(this.selected);
     }
 
-    isSelected(day: Date) {
+    isSelected(day: Date): boolean {
         return DateHelper.areDatesEqual(day, this.selected);
+    }
+
+    prevMonth(): void {
+        this.options.currentDisplayMonth.setMonth(this.options.currentDisplayMonth.getMonth() - 1);
+        this.buildCalendarModel();
+    }
+
+    nextMonth(): void {
+        this.options.currentDisplayMonth.setMonth(this.options.currentDisplayMonth.getMonth() + 1);
+        this.buildCalendarModel();
+    }
+
+    toggleCalendar(): void {
+        this.collapsed = !this.collapsed;
     }
 
     private getLastDay(): Date {
@@ -69,6 +108,13 @@ export class HacDatepicker implements OnInit {
             this.options.currentDisplayMonth.getMonth() + months,
             0
         );
+    }
+
+    private setOptionsDefaults(): void {
+        this._options.startDatePlaceholder = this._options.startDatePlaceholder ? this._options.startDatePlaceholder : 'Select';
+        this._options.endDatePlaceholder = this._options.endDatePlaceholder ? this._options.endDatePlaceholder : 'Select';
+        this._options.startDateFormat = this._options.startDateFormat ? this._options.startDateFormat : 'mediumDate';
+        this._options.endDateFormat = this._options.endDateFormat ? this._options.endDateFormat : 'mediumDate';
     }
 }
 

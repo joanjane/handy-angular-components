@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { IHacDropdownOption, IHacDropdownOptionGroup } from "../hac.dropdown.model";
+import { IHacDropdownOption, IHacDropdownOptionGroup } from "../models";
 import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from "../pipes";
 
 @Component({
