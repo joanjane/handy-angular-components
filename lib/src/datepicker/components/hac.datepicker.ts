@@ -14,8 +14,23 @@ import { DatePipe } from "@angular/common";
     ]
 })
 export class HacDatepicker implements OnInit {
-    @Input() selected: Date;
+    @Input()
+    public startDate: Date;
+    @Input()
+    public endDate: Date;
+    @Output() startDateChange = new EventEmitter<Date>();
+    @Output() endDateChange = new EventEmitter<Date>();
+
+    /* Single date startDate alias */
+    public get selected(): Date {
+        return this.startDate;
+    }
+    @Input()
+    public set selected(v: Date) {
+        this.startDate = v;
+    }
     @Output() selectedChange = new EventEmitter<Date>();
+
 
     private _options: HacDatepickerOptions = {};
     public get options(): HacDatepickerOptions {
@@ -42,9 +57,7 @@ export class HacDatepicker implements OnInit {
 
     private collapsed: boolean = true;
 
-    constructor(private elementRef: ElementRef) {
-        
-    }
+    constructor(private elementRef: ElementRef) { }
 
     ngOnInit(): void {
         this.buildStartMonth();
@@ -79,12 +92,26 @@ export class HacDatepicker implements OnInit {
     }
 
     select(day: Date): void {
-        this.selected = day;
-        this.selectedChange.emit(this.selected);
+        if (!this.options.range || this.getSelectionKind() === 'start') {
+            this.startDate = day;
+            this.startDateChange.emit(day);
+            this.selectedChange.emit(day);
+            this.endDate = null;
+            this.endDateChange.emit(null);
+            
+            if (!this.options.range) {
+                this.collapsed = true;
+            }
+        } else {
+            this.endDate = day;
+            this.endDateChange.emit(day);
+            this.collapsed = true;
+        }
     }
 
     isSelected(day: Date): boolean {
-        return DateHelper.areDatesEqual(day, this.selected);
+        return DateHelper.areDatesEqual(day, this.startDate)
+            || this.options.range && DateHelper.areDatesEqual(day, this.endDate);
     }
 
     prevMonth($event?: Event): void {
@@ -103,6 +130,10 @@ export class HacDatepicker implements OnInit {
         this.collapsed = !this.collapsed;
     }
 
+    getSelectionKind(): 'start' | 'end' {
+        return !this.startDate || (this.options.range && this.startDate && this.endDate) ? 'start' : 'end';
+    }
+
     private getLastDay(): Date {
         let months = this.options.showMonths > 0 ? this.options.showMonths : 1;
         return new Date(
@@ -117,6 +148,7 @@ export class HacDatepicker implements OnInit {
         this._options.endDatePlaceholder = this._options.endDatePlaceholder ? this._options.endDatePlaceholder : 'Select';
         this._options.startDateFormat = this._options.startDateFormat ? this._options.startDateFormat : 'mediumDate';
         this._options.endDateFormat = this._options.endDateFormat ? this._options.endDateFormat : 'mediumDate';
+        this._options.range = this._options.range || false;
     }
 }
 

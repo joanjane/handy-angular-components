@@ -2,16 +2,16 @@
     <div class="hac-cal-selectorwrapper">
         <span class="hac-cal-icon" (click)="toggleCalendar()"></span>
         <span class="hac-cal-startdate">
-            <span *ngIf="selected">
-                {{selected | date: options?.startDateFormat}}
+            <span *ngIf="startDate">
+                {{startDate | date: options?.startDateFormat}}
             </span>
-            <span *ngIf="!selected">{{options?.startDatePlaceholder}}</span>
+            <span *ngIf="!startDate">{{options?.startDatePlaceholder}}</span>
         </span>
-        <span class="hac-cal-enddate" *ngIf="false">
-            <span *ngIf="selected">
-                {{selected | date: options?.endDateFormat}}
+        <span class="hac-cal-enddate" *ngIf="options?.range">
+            <span *ngIf="endDate">
+                {{endDate | date: options?.endDateFormat}}
             </span>
-            <span *ngIf="!selected">{{options?.endDatePlaceholder}}</span>
+            <span *ngIf="!endDate">{{options?.endDatePlaceholder}}</span>
         </span>
     </div>
     

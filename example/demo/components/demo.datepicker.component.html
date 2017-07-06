@@ -3,9 +3,20 @@
         <h2>Datepicker</h2>
 
         <div>
-            Using date outside component ({{selectedDate | date : 'yyyy-MM-dd'}}) <br/>
+            Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}}) <br/>
             <div style="max-width: 300px;">
-                <hac-datepicker [(selected)]="selectedDate" [options]="datepickerOptions"></hac-datepicker>
+                <hac-datepicker [(selected)]="selectedSingleDate" [options]="datepickerSingleOptions"></hac-datepicker>
+            </div>
+        </div>
+    </div>
+
+    <div id="datepicker-ranges">
+        <h2>Datepicker with start-end ranges</h2>
+
+        <div>
+            Using date outside component ({{selectedStartDate | date : 'yyyy-MM-dd'}} - {{selectedEndDate | date : 'yyyy-MM-dd'}}) <br/>
+            <div style="max-width: 300px;">
+                <hac-datepicker [(startDate)]="selectedStartDate" [(endDate)]="selectedEndDate" [options]="datepickerOptions"></hac-datepicker>
             </div>
         </div>
     </div>

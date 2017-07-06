@@ -9,16 +9,22 @@ import { HacDatepickerOptions } from 'handy-angular-components'
 })
 export class DemoDatepickerComponent implements OnInit {
   datepickerOptions: HacDatepickerOptions;
-  selectedDate: Date = null;
-  constructor(private formBuilder: FormBuilder) {
+  datepickerSingleOptions: HacDatepickerOptions;
+  selectedSingleDate: Date = null;
+  selectedStartDate: Date = null;
+  selectedEndDate: Date = null;
 
-  }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.datepickerOptions = new HacDatepickerOptions();
     this.datepickerOptions.showMonths = 2;
     this.datepickerOptions.startDatePlaceholder = 'from';
     this.datepickerOptions.endDatePlaceholder = 'to';
-    // this.datepickerOptions.startDateFormat = 'yyyy-MM-dd';
+    this.datepickerOptions.range = true;
+
+    this.datepickerSingleOptions = new HacDatepickerOptions();
+    this.datepickerSingleOptions.showMonths = 1;
+    this.datepickerSingleOptions.startDateFormat = 'yyyy-MM-dd';
   }
 }

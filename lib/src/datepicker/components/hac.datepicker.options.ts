@@ -6,4 +6,5 @@ export class HacDatepickerOptions {
     endDatePlaceholder?: string;
     startDateFormat?: string;
     endDateFormat?: string;
+    range?: boolean;
 }
