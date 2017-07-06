@@ -87,14 +87,16 @@ export class HacDatepicker implements OnInit {
         return DateHelper.areDatesEqual(day, this.selected);
     }
 
-    prevMonth(): void {
+    prevMonth($event?: Event): void {
         this.options.currentDisplayMonth.setMonth(this.options.currentDisplayMonth.getMonth() - 1);
         this.buildCalendarModel();
+        $event.stopPropagation();
     }
 
-    nextMonth(): void {
+    nextMonth($event?: Event): void {
         this.options.currentDisplayMonth.setMonth(this.options.currentDisplayMonth.getMonth() + 1);
         this.buildCalendarModel();
+        $event.stopPropagation();
     }
 
     toggleCalendar(): void {
