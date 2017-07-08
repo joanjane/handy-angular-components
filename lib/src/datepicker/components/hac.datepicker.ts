@@ -29,8 +29,11 @@ export class HacDatepicker implements OnInit {
     public set selected(v: Date) {
         this.startDate = v;
     }
-    @Output() selectedChange = new EventEmitter<Date>();
-
+    /* Single date startDate alias */
+    @Output()
+    public get selectedChange(): EventEmitter<Date> {
+        return this.startDateChange;
+    }
 
     private _options: HacDatepickerOptions = {};
     public get options(): HacDatepickerOptions {
@@ -116,6 +119,11 @@ export class HacDatepicker implements OnInit {
     isSelected(day: Date): boolean {
         return DateHelper.areDatesEqual(day, this.startDate)
             || this.options.range && DateHelper.areDatesEqual(day, this.endDate);
+    }
+
+    clearDates() {
+        this.startDate = null;
+        this.endDate = null;
     }
 
     prevMonth($event?: Event): void {
