@@ -134,7 +134,7 @@ hac-datepicker {
         top: 1px;
     }
     
-    .hac-cal-startdate, .hac-cal-enddate {
+    .hac-cal-date {
         border-bottom-color: $hacBorder;
         border-bottom-style: dashed;
         border-bottom-width: 1px;
@@ -146,7 +146,7 @@ hac-datepicker {
         margin-left: 0.3rem;
         margin-right: 0.3rem;
 
-        &--is-selected {
+        &--is-active {
             border-bottom-color: #da6863;
         }
     }

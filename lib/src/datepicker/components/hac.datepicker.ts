@@ -56,6 +56,7 @@ export class HacDatepicker implements OnInit {
     ];
 
     private collapsed: boolean = true;
+    private forcedSelectionKind?: SelectionKind;
 
     constructor(private elementRef: ElementRef) { }
 
@@ -96,16 +97,19 @@ export class HacDatepicker implements OnInit {
             this.startDate = day;
             this.startDateChange.emit(day);
             this.selectedChange.emit(day);
-            this.endDate = null;
-            this.endDateChange.emit(null);
-            
-            if (!this.options.range) {
-                this.collapsed = true;
+            if (!this.forcedSelectionKind) {
+                this.endDate = null;
+                this.endDateChange.emit(null);
+            } else if (this.options.range) {
+                this.forceSelectionKind('end');
             }
+
+            this.collapsed = !this.options.range;
         } else {
             this.endDate = day;
             this.endDateChange.emit(day);
             this.collapsed = true;
+            this.forceSelectionKind(null);
         }
     }
 
@@ -130,8 +134,20 @@ export class HacDatepicker implements OnInit {
         this.collapsed = !this.collapsed;
     }
 
-    getSelectionKind(): 'start' | 'end' {
+    getSelectionKind(): SelectionKind {
+        if (this.forcedSelectionKind) {
+            return this.forcedSelectionKind;
+        }
+
         return !this.startDate || (this.options.range && this.startDate && this.endDate) ? 'start' : 'end';
+    }
+
+    forceSelectionKind(kind?: SelectionKind): void {
+        this.forcedSelectionKind = kind;
+
+        if (kind) {
+            this.collapsed = false;
+        }
     }
 
     private getLastDay(): Date {
@@ -151,4 +167,6 @@ export class HacDatepicker implements OnInit {
         this._options.range = this._options.range || false;
     }
 }
+
+type SelectionKind = 'start' | 'end';
 
