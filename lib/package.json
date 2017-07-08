@@ -51,6 +51,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-rollup": "^2.11.0",
     "gulp-sass": "^3.1.0",
+    "gulp-wait": "0.0.2",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
     "karma": "~1.4.1",
