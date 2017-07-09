@@ -17,11 +17,14 @@ export class DemoDatepickerComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    const today = new Date();
     this.datepickerOptions = new HacDatepickerOptions();
     this.datepickerOptions.showMonths = 2;
     this.datepickerOptions.startDatePlaceholder = 'from';
     this.datepickerOptions.endDatePlaceholder = 'to';
     this.datepickerOptions.range = true;
+    this.datepickerOptions.minDate = new Date(today.getFullYear(), today.getMonth()-1, 3);
+    this.datepickerOptions.maxDate = new Date(today.getFullYear(), today.getMonth()+2, 8);
 
     this.datepickerSingleOptions = new HacDatepickerOptions();
     this.datepickerSingleOptions.showMonths = 1;

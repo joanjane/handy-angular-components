@@ -7,4 +7,6 @@ export class HacDatepickerOptions {
     startDateFormat?: string;
     endDateFormat?: string;
     range?: boolean;
+    minDate?: Date;
+    maxDate?: Date;
 }

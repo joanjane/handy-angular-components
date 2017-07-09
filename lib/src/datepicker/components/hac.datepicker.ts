@@ -123,8 +123,14 @@ export class HacDatepicker implements OnInit {
     }
 
     isDisabled(day: HacCalendarDayModel): boolean {
+        const exceedsMinDate = this.options.minDate && DateHelper.isGreater(this.options.minDate, day.day);
+        if (exceedsMinDate) return true;
+
+        const exceedsMaxDate = this.options.maxDate && DateHelper.isGreater(day.day, this.options.maxDate);
+        if (exceedsMaxDate) return true;
+
         const selectionKind = this.getSelectionKind();
-        const isPastOverflow = selectionKind === 'end' && day.day < this.startDate;
+        const isPastOverflow = selectionKind === 'end' && DateHelper.isGreater(this.startDate, day.day);
         return isPastOverflow;
     }
 

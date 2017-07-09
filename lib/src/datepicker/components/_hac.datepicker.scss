@@ -10,14 +10,13 @@ hac-datepicker {
         display: flex;
         opacity: 0;
         position: absolute;
-        transition: all 0.3s ease-in;
         visibility: hidden;
+        z-index: 1000;
         
         &--is-opened {
             opacity: 1;
-            transition: all 0.3s ease-in;
+            transition: all 0.25s ease-in;
             visibility: visible;
-            z-index: 1000;
         }
 
         
