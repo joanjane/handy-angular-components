@@ -11,6 +11,8 @@ _____________________
 
 */
 
+import { DateHelper } from ".";
+
 export enum WeekDay {
     Sunday = 0,
     Monday = 1,
@@ -101,15 +103,5 @@ export class HacCalendarDayModel {
 
     isToday() {
         return DateHelper.areDatesEqual(this.day, new Date());
-    }
-}
-
-export class DateHelper {
-    static formatIsoDate(day: Date): string {
-        return `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`
-    }
-
-    static areDatesEqual(day1: Date, day2: Date): boolean {
-        return !!(day1 && day2) && this.formatIsoDate(day1) === this.formatIsoDate(day2);
     }
 }

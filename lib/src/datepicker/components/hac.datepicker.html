@@ -18,7 +18,7 @@
         <span class="hac-cal-cross" (click)="clearDates()"></span>
     </div>
     
-    <div class="hac-cal-wrapper" [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }">
+    <div class="hac-cal-wrapper" [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }" >
         <div *ngFor="let calendar of calendars; let i = index" 
             class="hac-cal-month"
             [ngClass]="{ 'hac-cal-separator': i > 0 && i < calendars.length }">
@@ -41,11 +41,16 @@
                     <div *ngFor="let day of week.days" 
                         class="hac-cal-day"
                         (click)="select(day)"
+                        (mouseover)="setHoverDate(day)"
                         [ngClass]="{ 
                             'hac-cal-day--is-selected': isSelected(day),
                             'hac-cal-day--is-hidden': !calendar.contains(day),
                             'hac-cal-day--is-disabled': isDisabled(day),
-                            'hac-cal-day--is-today': day.isToday()
+                            'hac-cal-day--is-today': day.isToday(),
+                            'hac-cal-day--is-start': isStart(day),
+                            'hac-cal-day--is-end': isEnd(day),
+                            'hac-cal-day--in-range': inRange(day),
+                            'hac-cal-day--in-rangehover': inRange(day, true)
                         }">
                         
                         <div class="hac-cal-daynum" 

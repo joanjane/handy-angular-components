@@ -19,6 +19,12 @@ hac-datepicker {
             visibility: visible;
             z-index: 1000;
         }
+
+        
+        &:hover .hac-cal-day--in-rangehover:not(.hac-cal-day--is-hidden):not(.hac-cal-day--is-disabled) {
+            background: lighten($hac-selected-bg, 0.08);
+        }
+
     }
 
     .hac-cal-month {
@@ -55,7 +61,6 @@ hac-datepicker {
         cursor: pointer;
         flex: 1;
         font-size: 0.75rem;
-        margin: 0.07rem;
         padding: 0.4rem;
         border-bottom-color: transparent;
         border-bottom-style: solid;
@@ -69,6 +74,23 @@ hac-datepicker {
         &--is-selected {
             background: darken($hac-selected-bg, 5);
         }
+        
+        &--is-start {
+            border-left-color: $hac-brand-color;
+            border-left-style: solid;
+            border-left-width: 0.12rem;
+        }
+
+        &--is-end {
+            border-right-color: $hac-brand-color;
+            border-right-style: solid;
+            border-right-width: 0.12rem;
+        }
+
+        &--in-range, &--is-start, &--is-end {
+            background: darken($hac-selected-bg, 5);
+        }
+
 
         &--is-hidden {
             background: transparent;
@@ -78,7 +100,6 @@ hac-datepicker {
                 opacity: 0.1;
             }
         }
-        
 
         &--is-disabled {
             background: transparent;
@@ -129,7 +150,7 @@ hac-datepicker {
         padding-bottom: 0.2rem;
 
         &--is-active {
-            border-bottom-color: #da6863;
+            border-bottom-color: $hac-brand-color;
         }
     }
 

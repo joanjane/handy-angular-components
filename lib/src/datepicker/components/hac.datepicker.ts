@@ -60,6 +60,7 @@ export class HacDatepicker implements OnInit {
 
     private collapsed: boolean = true;
     private forcedSelectionKind?: SelectionKind;
+    private hoverDate?: Date;
 
     constructor(private elementRef: ElementRef) { }
 
@@ -103,7 +104,7 @@ export class HacDatepicker implements OnInit {
                 this.setEndDate(null);
             } else if (this.options.range) {
                 this.forceSelectionKind('end');
-                if(day.day > this.endDate) {
+                if (day.day > this.endDate) {
                     this.setEndDate(null);
                 }
             }
@@ -125,6 +126,28 @@ export class HacDatepicker implements OnInit {
         const selectionKind = this.getSelectionKind();
         const isPastOverflow = selectionKind === 'end' && day.day < this.startDate;
         return isPastOverflow;
+    }
+
+    isStart(day: HacCalendarDayModel): boolean {
+        return this.options.range && DateHelper.areDatesEqual(day.day, this.startDate);
+    }
+
+    isEnd(day: HacCalendarDayModel): boolean {
+        return this.options.range && DateHelper.areDatesEqual(day.day, this.endDate);
+    }
+
+    inRange(day: HacCalendarDayModel, useHover: boolean = false): boolean {
+        if (!this.options.range) return false;
+
+        const startDate = useHover ? this.getFirstRangeDay() : this.startDate;
+        const endDate = useHover ? this.getLastRangeDay() : this.endDate;
+        if (!startDate || !endDate) return false;
+
+        return this.options.range && DateHelper.isInRange(day.day, startDate, endDate);
+    }
+
+    setHoverDate(day: HacCalendarDayModel) {
+        this.hoverDate = day.day;
     }
 
     clearDates() {
@@ -184,13 +207,27 @@ export class HacDatepicker implements OnInit {
     private setStartDate(day?: Date) {
         this.startDate = day;
         this.startDateChange.emit(this.startDate);
-        console.log(`start date is ${day}`);
+        this.hoverDate = day;
     }
 
     private setEndDate(day?: Date) {
         this.endDate = day;
         this.endDateChange.emit(this.endDate);
-        console.log(`end date is ${day}`);
+        this.hoverDate = day;
+    }
+
+    private getFirstRangeDay(): Date {
+        if (this.getSelectionKind() === 'end') {
+            return this.startDate;
+        }
+        return this.hoverDate || this.startDate;
+    }
+
+    private getLastRangeDay(): Date {
+        if (this.getSelectionKind() === 'start') {
+            return this.endDate;
+        }
+        return this.hoverDate || this.endDate;
     }
 }
 
