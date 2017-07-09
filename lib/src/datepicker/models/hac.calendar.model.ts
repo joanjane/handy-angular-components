@@ -57,8 +57,8 @@ export class HacCalendarModel {
         }
     }
 
-    contains(day: Date): boolean {
-        return day.getFullYear() === this.month.getFullYear() && day.getMonth() === this.month.getMonth();
+    contains(day: HacCalendarDayModel): boolean {
+        return day.day.getFullYear() === this.month.getFullYear() && day.day.getMonth() === this.month.getMonth();
     }
 
     private getLastDay(): Date {
@@ -80,7 +80,7 @@ export class HacCalendarWeekModel {
             previousDay.setDate(previousDay.getDate() -1);
             this.addDay(previousDay);
         }
-        this.days.push(day);
+        this.days.push(new HacCalendarDayModel(day));
     }
 
     private getPreviousWeekDay(weekDay: number): WeekDay {
@@ -93,7 +93,15 @@ export class HacCalendarWeekModel {
 }
 
 export class HacCalendarDayModel {
-    day?: Date;
+    day: Date;
+    
+    constructor(day: Date){
+        this.day = day;
+    }
+
+    isToday() {
+        return DateHelper.areDatesEqual(this.day, new Date());
+    }
 }
 
 export class DateHelper {
@@ -102,6 +110,6 @@ export class DateHelper {
     }
 
     static areDatesEqual(day1: Date, day2: Date): boolean {
-        return day1 && day2 && this.formatIsoDate(day1) === this.formatIsoDate(day2);
+        return !!(day1 && day2) && this.formatIsoDate(day1) === this.formatIsoDate(day2);
     }
 }

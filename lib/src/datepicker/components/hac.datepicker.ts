@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
 import { HacDatepickerOptions } from "./hac.datepicker.options";
-import { HacCalendarModel, DateHelper, WeekDay } from "../models";
+import { HacCalendarModel, DateHelper, WeekDay, HacCalendarDayModel } from "../models";
 import { HacWeekDayFormatter } from "../pipes";
 import { DatePipe } from "@angular/common";
 
@@ -27,7 +27,7 @@ export class HacDatepicker implements OnInit {
     }
     @Input()
     public set selected(v: Date) {
-        this.startDate = v;
+        this.setStartDate(v);
     }
     /* Single date startDate alias */
     @Output()
@@ -95,35 +95,41 @@ export class HacDatepicker implements OnInit {
         }
     }
 
-    select(day: Date): void {
+    select(day: HacCalendarDayModel): void {
         if (!this.options.range || this.getSelectionKind() === 'start') {
-            this.startDate = day;
-            this.startDateChange.emit(day);
-            this.selectedChange.emit(day);
+            this.setStartDate(day.day);
+
             if (!this.forcedSelectionKind) {
-                this.endDate = null;
-                this.endDateChange.emit(null);
+                this.setEndDate(null);
             } else if (this.options.range) {
                 this.forceSelectionKind('end');
+                if(day.day > this.endDate) {
+                    this.setEndDate(null);
+                }
             }
 
             this.collapsed = !this.options.range;
         } else {
-            this.endDate = day;
-            this.endDateChange.emit(day);
+            this.setEndDate(day.day);
             this.collapsed = true;
             this.forceSelectionKind(null);
         }
     }
 
-    isSelected(day: Date): boolean {
-        return DateHelper.areDatesEqual(day, this.startDate)
-            || this.options.range && DateHelper.areDatesEqual(day, this.endDate);
+    isSelected(day: HacCalendarDayModel): boolean {
+        return DateHelper.areDatesEqual(day.day, this.startDate)
+            || this.options.range && DateHelper.areDatesEqual(day.day, this.endDate);
+    }
+
+    isDisabled(day: HacCalendarDayModel): boolean {
+        const selectionKind = this.getSelectionKind();
+        const isPastOverflow = selectionKind === 'end' && day.day < this.startDate;
+        return isPastOverflow;
     }
 
     clearDates() {
-        this.startDate = null;
-        this.endDate = null;
+        this.setStartDate(null);
+        this.setEndDate(null);
     }
 
     prevMonth($event?: Event): void {
@@ -173,6 +179,18 @@ export class HacDatepicker implements OnInit {
         this._options.startDateFormat = this._options.startDateFormat ? this._options.startDateFormat : 'mediumDate';
         this._options.endDateFormat = this._options.endDateFormat ? this._options.endDateFormat : 'mediumDate';
         this._options.range = this._options.range || false;
+    }
+
+    private setStartDate(day?: Date) {
+        this.startDate = day;
+        this.startDateChange.emit(this.startDate);
+        console.log(`start date is ${day}`);
+    }
+
+    private setEndDate(day?: Date) {
+        this.endDate = day;
+        this.endDateChange.emit(this.endDate);
+        console.log(`end date is ${day}`);
     }
 }
 

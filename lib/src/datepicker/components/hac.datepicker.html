@@ -43,12 +43,14 @@
                         (click)="select(day)"
                         [ngClass]="{ 
                             'hac-cal-day--is-selected': isSelected(day),
-                            'hac-cal-day--is-hidden': !calendar.contains(day)
+                            'hac-cal-day--is-hidden': !calendar.contains(day),
+                            'hac-cal-day--is-disabled': isDisabled(day),
+                            'hac-cal-day--is-today': day.isToday()
                         }">
                         
                         <div class="hac-cal-daynum" 
-                            title="{{ day | date : 'fullDate'}}">
-                            {{ day | date : 'd'}}
+                            title="{{ day?.day | date : 'fullDate'}}">
+                            {{ day?.day | date : 'd'}}
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,11 @@
 @import '../../assets/styles/variables';
 
 hac-datepicker {
-    color: $hacFontColor;
-    font-family: $hacFontFamily;
+    color: $hac-font-color;
+    font-family: $hac-font-family;
 
     .hac-cal-wrapper {
-        border: 1px solid $hacBorder;
+        border: 1px solid $hac-border;
         background: #fff;
         display: flex;
         opacity: 0;
@@ -54,12 +54,20 @@ hac-datepicker {
     .hac-cal-day {
         cursor: pointer;
         flex: 1;
-        font-size: 12px;
-        margin: 1px;
+        font-size: 0.75rem;
+        margin: 0.07rem;
         padding: 0.4rem;
-        
+        border-bottom-color: transparent;
+        border-bottom-style: solid;
+        border-bottom-width: 0.12rem;
+
+        &--is-today {
+            border-bottom-color: $hac-brand-color;
+            font-weight: bold;
+        }
+
         &--is-selected {
-            background: darken($hacSelectedBg, 5);
+            background: darken($hac-selected-bg, 5);
         }
 
         &--is-hidden {
@@ -70,10 +78,21 @@ hac-datepicker {
                 opacity: 0.1;
             }
         }
+        
+
+        &--is-disabled {
+            background: transparent;
+            pointer-events: none;
+
+            .hac-cal-daynum {
+                opacity: 0.1;
+            }
+        }
     }
 
     .hac-cal-separator {
-        border-left: 1px solid $hacBorder;
+        border-left: 1px solid $hac-border;
+        padding-left: 0.5rem;
     }
 
     .hac-cal-weedays {
@@ -88,7 +107,7 @@ hac-datepicker {
     }
 
     .hac-cal-selectorwrapper {
-        border: 1px solid $hacBorder;
+        border: 1px solid $hac-border;
         display: flex;
         padding: 0.3rem;
         position: relative;
@@ -97,7 +116,7 @@ hac-datepicker {
     
     .hac-cal-date {
         align-self: flex-end;
-        border-bottom-color: $hacBorder;
+        border-bottom-color: $hac-border;
         border-bottom-style: dashed;
         border-bottom-width: 1px;
         display: inline-block;

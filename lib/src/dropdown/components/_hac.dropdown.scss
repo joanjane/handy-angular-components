@@ -3,15 +3,15 @@ $hacDropdownMaxHeight: 300px;
 $hacDropdownGroupBg: #f7f4f4;
 
 hac-dropdown {
-    color: $hacFontColor;
+    color: $hac-font-color;
     display: inline-block;
-    font-family: $hacFontFamily;
-    font-size: $hacFontSize;
+    font-family: $hac-font-family;
+    font-size: $hac-font-size;
     width: 100%;
 
     .hac-dd-list {
         background: #fff;
-        border: 1px solid $hacSelectedBg;
+        border: 1px solid $hac-selected-bg;
         border-top: none;
         border-bottom-left-radius: 0.2rem;
         border-bottom-right-radius: 0.2rem;
@@ -43,11 +43,11 @@ hac-dropdown {
         word-break: break-all;
 
         &:hover {
-            background: lighten($hacSelectedBg, 0.4);            
+            background: lighten($hac-selected-bg, 0.4);            
         }
 
         &--is-selected {
-            background: $hacSelectedBg;
+            background: $hac-selected-bg;
             font-weight: bold;
         }
     }
@@ -68,13 +68,13 @@ hac-dropdown {
 
     .hac-dd-label {
         cursor: pointer;
-        border: 1px solid $hacBorder;
+        border: 1px solid $hac-border;
         padding: 0.3rem 0.3rem;
 
         input {
             background: transparent;
             border: none;
-            color: $hacFontColor;
+            color: $hac-font-color;
             width: 90%;
         }
 
