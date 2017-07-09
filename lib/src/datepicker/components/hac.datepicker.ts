@@ -43,7 +43,6 @@ export class HacDatepicker implements OnInit {
     public set options(v: HacDatepickerOptions) {
         this._options = v;
         this.setOptionsDefaults();
-        this.buildStartMonth();
         this.buildCalendarModel();
     }
 
@@ -65,7 +64,7 @@ export class HacDatepicker implements OnInit {
     constructor(private elementRef: ElementRef) { }
 
     ngOnInit(): void {
-        this.buildStartMonth();
+        this.setOptionsDefaults();
         this.buildCalendarModel();
     }
 
@@ -74,16 +73,6 @@ export class HacDatepicker implements OnInit {
         if (!this.elementRef.nativeElement.contains(event.target)) {
             this.collapsed = true;
         }
-    }
-
-    buildStartMonth(): void {
-        if (!this.options) {
-            this.options = {};
-        }
-        let startDate = this.options.currentDisplayMonth ? this.options.currentDisplayMonth : new Date();
-        startDate.setDate(1);
-
-        this.options.currentDisplayMonth = startDate;
     }
 
     buildCalendarModel(): void {
@@ -129,8 +118,11 @@ export class HacDatepicker implements OnInit {
         const exceedsMaxDate = this.options.maxDate && DateHelper.isGreater(day.day, this.options.maxDate);
         if (exceedsMaxDate) return true;
 
-        const selectionKind = this.getSelectionKind();
-        const isPastOverflow = selectionKind === 'end' && DateHelper.isGreater(this.startDate, day.day);
+        let isBlacklisted = this.options.dayList && this.options.dayListKind === 'blacklist' && this.isInDayList(day);
+        isBlacklisted = isBlacklisted || this.options.dayList && this.options.dayListKind === 'whitelist' && !this.isInDayList(day);
+        if (isBlacklisted) return true;
+
+        const isPastOverflow = this.getSelectionKind() === 'end' && DateHelper.isGreater(this.startDate, day.day);
         return isPastOverflow;
     }
 
@@ -203,11 +195,17 @@ export class HacDatepicker implements OnInit {
     }
 
     private setOptionsDefaults(): void {
+        let startDate = this._options.currentDisplayMonth ? this.options.currentDisplayMonth : new Date();
+        startDate.setDate(1);
+        this._options.currentDisplayMonth = startDate;
+
         this._options.startDatePlaceholder = this._options.startDatePlaceholder ? this._options.startDatePlaceholder : 'Select';
         this._options.endDatePlaceholder = this._options.endDatePlaceholder ? this._options.endDatePlaceholder : 'Select';
         this._options.startDateFormat = this._options.startDateFormat ? this._options.startDateFormat : 'mediumDate';
         this._options.endDateFormat = this._options.endDateFormat ? this._options.endDateFormat : 'mediumDate';
         this._options.range = this._options.range || false;
+        this._options.showMonths = this._options.showMonths || 1;
+        this._options.dayListKind = this._options.dayListKind || 'blacklist';
     }
 
     private setStartDate(day?: Date) {
@@ -234,6 +232,18 @@ export class HacDatepicker implements OnInit {
             return this.endDate;
         }
         return this.hoverDate || this.endDate;
+    }
+
+    private isInDayList(day: HacCalendarDayModel): boolean {
+        if(!this.options.dayList) return false;
+
+        const year = this.options.dayList[day.day.getFullYear()];
+        if(!year) return false;
+
+        const month = year[day.day.getMonth()+1];
+        if(!month) return false;
+
+        return month.indexOf(day.day.getDate()) > -1;
     }
 }
 

@@ -57,16 +57,17 @@ hac-datepicker {
     }
 
     .hac-cal-day {
+        $border-width: 0.12rem;
+
         cursor: pointer;
         flex: 1;
         font-size: 0.75rem;
         padding: 0.4rem;
-        border-bottom-color: transparent;
-        border-bottom-style: solid;
-        border-bottom-width: 0.12rem;
+        border-color: transparent;
+        border-style: solid;
+        border-width: $border-width;
 
         &--is-today {
-            border-bottom-color: $hac-brand-color;
             font-weight: bold;
         }
 
@@ -76,14 +77,10 @@ hac-datepicker {
         
         &--is-start {
             border-left-color: $hac-brand-color;
-            border-left-style: solid;
-            border-left-width: 0.12rem;
         }
 
         &--is-end {
             border-right-color: $hac-brand-color;
-            border-right-style: solid;
-            border-right-width: 0.12rem;
         }
 
         &--in-range, &--is-start, &--is-end {
