@@ -23,6 +23,14 @@ export class DemoDatepickerComponent implements OnInit {
   ngOnInit(): void {
     const today = new Date();
 
+    // Simple date picker with single dates and 1 visible month calendar, custom date formatting
+    this.datepickerSingleOptions = {
+      showMonths: 1,
+      startDateFormat: 'yyyy-MM-dd',
+      enableTodayAction: true,
+      todayActionLabel: 'Today'
+    };
+
     this.datepickerOptions = {
       // set placeholder for selected dates box
       startDatePlaceholder: 'from',
@@ -35,22 +43,17 @@ export class DemoDatepickerComponent implements OnInit {
       // Allow min and max dates from day 3 of previous month to day 8 in 2 months.
       minDate: new Date(today.getFullYear(), today.getMonth()-1, 3),
       maxDate: new Date(today.getFullYear(), today.getMonth()+2, 8),
+
+      // Enable today action, but won't be shown because today is blacklisted
+      enableTodayAction: true
     };
 
-    // Disable day 5 of current month
+    // Disable day 5 of current month and today
     this.datepickerOptions.dayListKind = 'blacklist';
     this.datepickerOptions.dayList = {};
     this.datepickerOptions.dayList[today.getFullYear()] = {};
-    this.datepickerOptions.dayList[today.getFullYear()][today.getMonth()+1] = [5];
+    this.datepickerOptions.dayList[today.getFullYear()][today.getMonth()+1] = [5, today.getDate()];
     
-
-    // Simple date picker with single dates and 1 visible month calendar, custom date formatting
-    this.datepickerSingleOptions = {
-      showMonths: 1,
-      startDateFormat: 'yyyy-MM-dd'
-    };
-
-
     // Whitelisted days demo
     this.datepickerWhitelistOptions = {
       dayListKind: 'whitelist',
@@ -58,8 +61,16 @@ export class DemoDatepickerComponent implements OnInit {
       range: true
     };
 
-    // Enable day 1, 3, 5, 8, 10, 20 of current month
+    // Enable day 1, 3, 5, 8, 10, 20 of current month and today
     this.datepickerWhitelistOptions.dayList[today.getFullYear()] = {};
-    this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth()+1] = [1, 3, 5, 8, 10, 20];
+    this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth()+1] = [1, 3, 5, 8, 10, 20, today.getDate()];
+  }
+
+  forceTodayOnBlacklistDemo() {
+    this.selectedStartDate = new Date();
+  }
+
+  forceTodayOnWhitelistDemo() {
+    this.selectedDateWhitelist = new Date();
   }
 }

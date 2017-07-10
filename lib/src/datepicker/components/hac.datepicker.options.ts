@@ -70,6 +70,19 @@ export interface HacDatepickerOptions {
      * }
      */
     dayList?: HacDatepickerDayList;
+
+    /**
+     * @default false
+     * Display a 'today' button to select current date. If date cannot be selected
+     * for some rule, the button won't be visible.
+     */
+    enableTodayAction?: boolean;
+
+    /**
+     * @default 'Today'
+     * When today action is enabled, you can specify the text that will be shown
+     */
+    todayActionLabel?: string;
 }
 
 export type HacDatepickerDayList = {

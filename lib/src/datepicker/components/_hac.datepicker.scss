@@ -150,7 +150,25 @@ hac-datepicker {
         }
     }
 
-    
+    .hac-cal-todaybtn {
+        $color: $hac-brand-color;
+
+        background: none;
+        border: 0.05rem solid $color;
+        border-radius: 0.25rem;
+        color: $color;
+        cursor: pointer;
+        font-family: $hac-font-family;
+        margin: 0.4rem 0;
+        opacity: 0.7;
+        padding: 0.3rem 1rem;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    /* icons */
     .hac-cal-chevron {
         &::before {
             border-style: solid;

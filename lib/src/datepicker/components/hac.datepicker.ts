@@ -14,10 +14,36 @@ import { DatePipe } from "@angular/common";
     ]
 })
 export class HacDatepicker implements OnInit {
+
+    private _startDate: Date;
+    public get startDate(): Date {
+        return this._startDate;
+    }
     @Input()
-    public startDate: Date;
+    public set startDate(v: Date) {
+        if (v && (this.isDisabled(new HacCalendarDayModel(v)) 
+        || this.options.range && this.endDate && DateHelper.isGreater(v, this.endDate)) ) {
+            this.startDateChange.emit(null); // reset invalid dates
+            return;
+        }
+
+        this._startDate = v;
+    }
+
+    private _endDate: Date;
+    public get endDate(): Date {
+        return this._endDate;
+    }
     @Input()
-    public endDate: Date;
+    public set endDate(v: Date) {
+        if (v && (this.isDisabled(new HacCalendarDayModel(v)) 
+        || this.options.range && this.startDate && DateHelper.isGreater(this.startDate, v)) ) {
+            this.endDateChange.emit(null); // reset invalid dates
+            return;
+        }
+        this._endDate = v;
+    }
+
     @Output() startDateChange = new EventEmitter<Date>();
     @Output() endDateChange = new EventEmitter<Date>();
 
@@ -86,6 +112,10 @@ export class HacDatepicker implements OnInit {
     }
 
     select(day: HacCalendarDayModel): void {
+        if (this.isDisabled(day)) {
+            return;
+        }
+
         if (!this.options.range || this.getSelectionKind() === 'start') {
             this.setStartDate(day.day);
 
@@ -185,6 +215,15 @@ export class HacDatepicker implements OnInit {
         }
     }
 
+    selectToday() {
+        const today = new HacCalendarDayModel(DateHelper.today());
+        this.select(today);
+    }
+
+    isTodayActionEnabled() {
+        return !this.isDisabled(new HacCalendarDayModel(DateHelper.today()));
+    }
+
     private getLastDay(): Date {
         let months = this.options.showMonths > 0 ? this.options.showMonths : 1;
         return new Date(
@@ -206,6 +245,9 @@ export class HacDatepicker implements OnInit {
         this._options.range = this._options.range || false;
         this._options.showMonths = this._options.showMonths || 1;
         this._options.dayListKind = this._options.dayListKind || 'blacklist';
+        this._options.enableTodayAction = this._options.enableTodayAction || false;
+        this._options.todayActionLabel = this._options.todayActionLabel || 'Today';
+
     }
 
     private setStartDate(day?: Date) {
@@ -235,13 +277,13 @@ export class HacDatepicker implements OnInit {
     }
 
     private isInDayList(day: HacCalendarDayModel): boolean {
-        if(!this.options.dayList) return false;
+        if (!this.options.dayList) return false;
 
         const year = this.options.dayList[day.day.getFullYear()];
-        if(!year) return false;
+        if (!year) return false;
 
-        const month = year[day.day.getMonth()+1];
-        if(!month) return false;
+        const month = year[day.day.getMonth() + 1];
+        if (!month) return false;
 
         return month.indexOf(day.day.getDate()) > -1;
     }

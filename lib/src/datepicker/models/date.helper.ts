@@ -39,4 +39,13 @@ export class DateHelper {
     static isGreater(day1: Date, day2: Date): boolean {
         return day1 && day2 && this.formatIsoDate(day1) > this.formatIsoDate(day2);
     }
+
+    
+    /**
+     * Get today date at 00:00h
+     */
+    static today(): Date {
+        const today = new Date();
+        return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    }
 }

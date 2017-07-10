@@ -14,7 +14,8 @@
         <h2>Datepicker with start-end ranges, blacklist and min/max allowed dates</h2>
 
         <div>
-            Using date outside component ({{selectedStartDate | date : 'yyyy-MM-dd'}} - {{selectedEndDate | date : 'yyyy-MM-dd'}}) <br/>
+            Using date outside component ({{selectedStartDate | date : 'yyyy-MM-dd'}} - {{selectedEndDate | date : 'yyyy-MM-dd'}})
+            <button (click)="forceTodayOnBlacklistDemo()">Try force today</button><br/>
             <div class="medium-width">
                 <hac-datepicker [(startDate)]="selectedStartDate" [(endDate)]="selectedEndDate" [options]="datepickerOptions"></hac-datepicker>
             </div>
@@ -25,7 +26,9 @@
         <h2>Datepicker with white list mode</h2>
 
         <div>
-            Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}}) <br/>
+            Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}})
+            <button (click)="forceTodayOnWhitelistDemo()">force today</button><br/>
+            
             <div class="medium-width">
                 <hac-datepicker [(selected)]="selectedDateWhitelist" [options]="datepickerWhitelistOptions"></hac-datepicker>
             </div>
