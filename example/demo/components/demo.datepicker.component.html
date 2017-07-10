@@ -4,7 +4,7 @@
 
         <div>
             Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}}) <br/>
-            <div style="max-width: 300px;">
+            <div class="medium-width">
                 <hac-datepicker [(selected)]="selectedSingleDate" [options]="datepickerSingleOptions"></hac-datepicker>
             </div>
         </div>
@@ -15,7 +15,7 @@
 
         <div>
             Using date outside component ({{selectedStartDate | date : 'yyyy-MM-dd'}} - {{selectedEndDate | date : 'yyyy-MM-dd'}}) <br/>
-            <div style="max-width: 300px;">
+            <div class="medium-width">
                 <hac-datepicker [(startDate)]="selectedStartDate" [(endDate)]="selectedEndDate" [options]="datepickerOptions"></hac-datepicker>
             </div>
         </div>
@@ -26,7 +26,7 @@
 
         <div>
             Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}}) <br/>
-            <div style="max-width: 300px;">
+            <div class="medium-width">
                 <hac-datepicker [(selected)]="selectedDateWhitelist" [options]="datepickerWhitelistOptions"></hac-datepicker>
             </div>
         </div>

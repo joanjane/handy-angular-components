@@ -36,11 +36,11 @@ hac-datepicker {
         text-align: center;
 
         & .hac-cal-arrow {
-            flex: 1;
+            flex: 1 0 auto;
         }
 
         & .hac-cal-monthlabel {
-            flex: 4;
+            flex: 4 0 auto;
         }
     }
 
@@ -60,7 +60,7 @@ hac-datepicker {
         $border-width: 0.12rem;
 
         cursor: pointer;
-        flex: 1;
+        flex: 1 0 auto;
         font-size: 0.75rem;
         padding: 0.4rem;
         border-color: transparent;
@@ -117,7 +117,7 @@ hac-datepicker {
     }
 
     .hac-cal-weekday {
-        flex: 1;
+        flex: 1 0 auto;
         font-size: 11px;
         text-transform: uppercase;
         text-align: center;
@@ -137,7 +137,7 @@ hac-datepicker {
         border-bottom-style: dashed;
         border-bottom-width: 1px;
         display: inline-block;
-        flex: 4;
+        flex: 4 0 auto;
         font-size: 0.9rem;
         margin-left: 0.3rem;
         margin-right: 0.3rem;
