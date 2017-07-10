@@ -83,7 +83,7 @@ export class HacDatepicker implements OnInit {
         WeekDay.Sunday
     ];
 
-    private collapsed: boolean = true;
+    private collapsed : boolean = true;;
     private forcedSelectionKind?: SelectionKind;
     private hoverDate?: Date;
 
@@ -96,7 +96,9 @@ export class HacDatepicker implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onClick(event) {
-        if (!this.elementRef.nativeElement.contains(event.target)) {
+        if((this.options.elementId && event.target.htmlFor === this.options.elementId)) {
+            this.collapsed = false;
+        } else if (!this.elementRef.nativeElement.contains(event.target)) {
             this.collapsed = true;
         }
     }
@@ -247,7 +249,6 @@ export class HacDatepicker implements OnInit {
         this._options.dayListKind = this._options.dayListKind || 'blacklist';
         this._options.enableTodayAction = this._options.enableTodayAction || false;
         this._options.todayActionLabel = this._options.todayActionLabel || 'Today';
-
     }
 
     private setStartDate(day?: Date) {

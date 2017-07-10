@@ -83,6 +83,13 @@ export interface HacDatepickerOptions {
      * When today action is enabled, you can specify the text that will be shown
      */
     todayActionLabel?: string;
+
+    /**
+     * @default null
+     * Useful when having a label with for attribute which value is this, to 
+     * trigger focus of the datepicker and open it.
+     */
+    elementId?: string;
 }
 
 export type HacDatepickerDayList = {

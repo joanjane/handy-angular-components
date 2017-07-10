@@ -58,7 +58,8 @@ export class DemoDatepickerComponent implements OnInit {
     this.datepickerWhitelistOptions = {
       dayListKind: 'whitelist',
       dayList: { },
-      range: true
+      range: true,
+      elementId: 'test'
     };
 
     // Enable day 1, 3, 5, 8, 10, 20 of current month and today
@@ -66,11 +67,11 @@ export class DemoDatepickerComponent implements OnInit {
     this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth()+1] = [1, 3, 5, 8, 10, 20, today.getDate()];
   }
 
-  forceTodayOnBlacklistDemo() {
+  forceTodayOnBlacklistDemo(): void {
     this.selectedStartDate = new Date();
   }
 
-  forceTodayOnWhitelistDemo() {
+  forceTodayOnWhitelistDemo(): void {
     this.selectedDateWhitelist = new Date();
   }
 }

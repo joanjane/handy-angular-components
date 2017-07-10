@@ -1,6 +1,7 @@
 <div>
     <!-- selector wrapper -->
     <div class="hac-cal-selectorwrapper">
+        <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}" (focus)="forceSelectionKind('start')">
         <!-- cal icon selector -->
         <span class="hac-cal-icon" (click)="toggleCalendar()"></span>
 

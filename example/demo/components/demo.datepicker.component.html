@@ -28,8 +28,8 @@
         <div>
             Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}})
             <button (click)="forceTodayOnWhitelistDemo()">force today</button><br/>
-            
             <div class="medium-width">
+                <label for="{{datepickerWhitelistOptions.elementId}}">Select date (click this label to toggle datepicker)</label>
                 <hac-datepicker [(selected)]="selectedDateWhitelist" [options]="datepickerWhitelistOptions"></hac-datepicker>
             </div>
         </div>

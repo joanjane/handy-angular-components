@@ -17,6 +17,7 @@ export class HacDropdown {
   @Input() filtrable = false;
   @Input() columns = 1;
   @Output() selectedChange = new EventEmitter();
+  @Input() id: string;
 
   private _selected: string | number;
   public get selected(): string | number {

@@ -2,6 +2,7 @@
     (click)="openDropdown($event)">
     <input 
         type="text" class="hac-dd-filter" [placeholder]="placeholder"
+        id="{{id}}"
         [(ngModel)]="filter"
         [readonly]="!filtrable"
         (keyup)="handleKey($event)"
