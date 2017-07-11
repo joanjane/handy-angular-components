@@ -31,7 +31,7 @@
       "assets": [
       ],
       "index": "index.html",
-      "main": "main.demo.ts",
+      "main": "main.aot.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.demo-aot.json",

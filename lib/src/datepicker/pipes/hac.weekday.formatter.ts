@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { WeekDay } from '../models';
+import { WeekDay } from '../models/hac.calendar.model';
 import { DatePipe } from '@angular/common';
 
 @Injectable()

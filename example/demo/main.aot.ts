@@ -5,4 +5,4 @@ import { DemoModuleNgFactory } from './aot/demo.module.ngfactory';
 
 enableProdMode();
 
-platformBrowser().bootstrapModuleFactory(DemoModule);
+platformBrowser().bootstrapModuleFactory(DemoModuleNgFactory);

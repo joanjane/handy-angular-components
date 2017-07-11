@@ -1,7 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
 import { HacDatepickerOptions } from './hac.datepicker.options';
-import { HacCalendarModel, DateHelper, HacCalendarDayModel, weekDayList, WeekDay } from '../models';
-import { HacWeekDayFormatter } from '../pipes';
+import { HacCalendarModel, HacCalendarDayModel, weekDayList, WeekDay } from '../models/hac.calendar.model';
+import { DateHelper } from '../models/date.helper';
+import { HacWeekDayFormatter } from '../pipes/hac.weekday.formatter';
 import { DatePipe } from '@angular/common';
 
 

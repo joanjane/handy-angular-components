@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { IHacDropdownOption, IHacDropdownOptionGroup } from '../models';
-import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from '../pipes';
+import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
+import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
+import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
 
 @Component({
   selector: 'hac-dropdown',
@@ -11,7 +12,7 @@ import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from '../pipes';
   ]
 })
 export class HacDropdown {
-  @Input() optionGroups: IHacDropdownOptionGroup[] = [];
+  @Input() optionGroups: HacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
   @Input() filtrable = false;
@@ -50,7 +51,7 @@ export class HacDropdown {
     this.syncWindowHeight();
   }
 
-  getSelected(): IHacDropdownOption {
+  getSelected(): HacDropdownOption {
     if (this.hasGroups()) {
       return this.optionGroups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
     }

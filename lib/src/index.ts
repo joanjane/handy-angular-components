@@ -3,11 +3,20 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { HacDropdown, HacDropdownFilterPipe, HacDropdownColumnizerPipe } from './dropdown';
-import { HacDatepicker, HacWeekDayFormatter } from './datepicker';
+import { HacDropdown } from './dropdown/components/hac.dropdown';
+import { HacDropdownOption, HacDropdownOptionGroup } from './dropdown/models';
+import { HacDropdownFilterPipe } from './dropdown/pipes/hac.dropdown.filter';
+import { HacDropdownColumnizerPipe } from './dropdown/pipes/hac.dropdown.columnizer';
 
-export * from './dropdown';
-export * from './datepicker';
+import { HacDatepicker } from './datepicker/components/hac.datepicker';
+import { HacDatepickerOptions } from './datepicker/components/hac.datepicker.options';
+import { HacWeekDayFormatter } from './datepicker/pipes/hac.weekday.formatter';
+
+// Export for AOT compilation
+export { 
+  HacDatepicker, HacDatepickerOptions, HacWeekDayFormatter,
+  HacDropdown, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe
+};
 
 @NgModule({
   declarations: [

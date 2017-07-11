@@ -11,7 +11,7 @@ _____________________
 
 */
 
-import { DateHelper } from '.';
+import { DateHelper } from './date.helper';
 
 export enum WeekDay {
     Sunday = 0,
@@ -23,7 +23,7 @@ export enum WeekDay {
     Saturday = 6
 }
 
-export const weekDayList = [
+export const weekDayList: WeekDay[] = [
     WeekDay.Monday,
     WeekDay.Tuesday,
     WeekDay.Wednesday,

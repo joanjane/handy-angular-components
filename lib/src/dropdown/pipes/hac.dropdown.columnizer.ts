@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { IHacDropdownOption } from '../models';
+import { HacDropdownOption } from '../models';
 
 @Injectable()
 @Pipe({
     name: 'hacDropdownColumnizer'
 })
 export class HacDropdownColumnizerPipe implements PipeTransform {
-    transform(value: IHacDropdownOption[], columns: number = 1) {
+    transform(value: HacDropdownOption[], columns: number = 1) {
         if (typeof columns !== 'number' || columns === 1) return [value];
 
         let output = [];

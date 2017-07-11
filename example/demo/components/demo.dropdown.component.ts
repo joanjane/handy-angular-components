@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { IHacDropdownOption, IHacDropdownOptionGroup } from 'handy-angular-components'
+import { HacDropdownOption, HacDropdownOptionGroup } from 'handy-angular-components'
 
 @Component({
   selector: 'demo-dropdown',
   templateUrl: './demo.dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
-  dropdownGroupsList: IHacDropdownOptionGroup[];
+  dropdownGroupsList: HacDropdownOptionGroup[];
   demoForm: FormGroup;
-  dropdownList: IHacDropdownOptionGroup[] = [];
+  dropdownList: HacDropdownOptionGroup[] = [];
   selectedNumber: number = null;
   groupsSelectedNumber: number = null;
 
