@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
-import { WeekDay } from "../models";
-import { DatePipe } from "@angular/common";
+import { WeekDay } from '../models';
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 @Pipe({
     name: 'hacWeekDayFormatter'
 })
 export class HacWeekDayFormatter implements PipeTransform {
-
-    constructor(private datePipe: DatePipe) { }
-
     private Monday      = new Date(2016, 1, 1, 0, 0, 0, 0);
     private Tuesday     = new Date(2016, 1, 2, 0, 0, 0, 0);
     private Wednesday   = new Date(2016, 1, 3, 0, 0, 0, 0);
@@ -17,6 +14,8 @@ export class HacWeekDayFormatter implements PipeTransform {
     private Friday      = new Date(2016, 1, 5, 0, 0, 0, 0);
     private Saturday    = new Date(2016, 1, 6, 0, 0, 0, 0);
     private Sunday      = new Date(2016, 1, 7, 0, 0, 0, 0);
+
+    constructor(private datePipe: DatePipe) { }
 
     transform(value: WeekDay, customFormat = 'EEE'): string {
         if (value != null) {

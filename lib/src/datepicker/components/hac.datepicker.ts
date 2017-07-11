@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
-import { HacDatepickerOptions } from "./hac.datepicker.options";
-import { HacCalendarModel, DateHelper, WeekDay, HacCalendarDayModel } from "../models";
-import { HacWeekDayFormatter } from "../pipes";
-import { DatePipe } from "@angular/common";
+import { HacDatepickerOptions } from './hac.datepicker.options';
+import { HacCalendarModel, DateHelper, HacCalendarDayModel, weekDayList, WeekDay } from '../models';
+import { HacWeekDayFormatter } from '../pipes';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -72,17 +72,9 @@ export class HacDatepicker implements OnInit {
     }
 
     calendars: HacCalendarModel[] = [];
-    weekDayList = [
-        WeekDay.Monday,
-        WeekDay.Tuesday,
-        WeekDay.Wednesday,
-        WeekDay.Thursday,
-        WeekDay.Friday,
-        WeekDay.Saturday,
-        WeekDay.Sunday
-    ];
+    weekDayList: WeekDay[] = weekDayList;
 
-    private _collapsed: boolean = true;
+    private _collapsed = true;
     public get collapsed(): boolean {
         return this._collapsed;
     }
@@ -235,15 +227,6 @@ export class HacDatepicker implements OnInit {
         return !this.isDisabled(new HacCalendarDayModel(DateHelper.today()));
     }
 
-    private getLastDay(): Date {
-        let months = this.options.showMonths > 0 ? this.options.showMonths : 1;
-        return new Date(
-            this.options.currentDisplayMonth.getFullYear(),
-            this.options.currentDisplayMonth.getMonth() + months,
-            0
-        );
-    }
-
     private setOptionsDefaults(): void {
         let startDate = this._options.currentDisplayMonth ? this.options.currentDisplayMonth : new Date();
         startDate.setDate(1);
@@ -305,5 +288,5 @@ export class HacDatepicker implements OnInit {
     }
 }
 
-type SelectionKind = 'start' | 'end';
+export type SelectionKind = 'start' | 'end';
 

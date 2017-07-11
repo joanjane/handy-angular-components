@@ -14,9 +14,7 @@ export class DemoDropdownComponent implements OnInit {
   selectedNumber: number = null;
   groupsSelectedNumber: number = null;
 
-  constructor(private formBuilder: FormBuilder) {
-
-  }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.buildOptions();
@@ -93,7 +91,7 @@ export class DemoDropdownComponent implements OnInit {
           {
             key: 6,
             label: 'six'
-          },{
+          }, {
             key: 44,
             label: 'fourfour'
           },

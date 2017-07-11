@@ -5,8 +5,8 @@ export class DateHelper {
      * @param day
      */
     static formatIsoDate(day: Date): string {
-        const monthNum = day.getMonth() +1;
-        return `${day.getFullYear()}-${monthNum < 10? '0' : ''}${monthNum}-${day.getDate() < 10? '0' : ''}${day.getDate()}`
+        const monthNum = day.getMonth() + 1;
+        return `${day.getFullYear()}-${monthNum < 10 ? '0' : ''}${monthNum}-${day.getDate() < 10 ? '0' : ''}${day.getDate()}`
     }
 
     /**
@@ -25,7 +25,7 @@ export class DateHelper {
      * @param endRange 
      */
     static isInRange(candidate: Date, startRange: Date, endRange: Date): boolean {
-        if(!candidate || !startRange || !endRange) return false;
+        if (!candidate || !startRange || !endRange) return false;
 
         const candidateFormatted = this.formatIsoDate(candidate);
         return candidateFormatted >= this.formatIsoDate(startRange) && candidateFormatted <= this.formatIsoDate(endRange);
@@ -40,7 +40,7 @@ export class DateHelper {
         return day1 && day2 && this.formatIsoDate(day1) > this.formatIsoDate(day2);
     }
 
-    
+
     /**
      * Get today date at 00:00h
      */

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { HacDropdown, HacDropdownFilterPipe, HacDropdownColumnizerPipe } from './dropdown';
@@ -26,10 +26,6 @@ export * from './datepicker';
     HacDropdown,
     HacDatepicker
   ]
-  //, providers: [
-  //   HacWeekDayFormatter,
-  //   DatePipe
-  // ]
 })
 export class HacModule {
   static forRoot(): ModuleWithProviders {

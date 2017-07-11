@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { IHacDropdownOption, IHacDropdownOptionGroup } from "../models";
-import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from "../pipes";
+import { IHacDropdownOption, IHacDropdownOptionGroup } from '../models';
+import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from '../pipes';
 
 @Component({
   selector: 'hac-dropdown',
@@ -85,7 +85,7 @@ export class HacDropdown {
   }
 
   handleKey(e: KeyboardEvent) {
-    switch(e.keyCode) {
+    switch (e.keyCode) {
       case 13: // Enter key
         this.selectFirstMatchingOption();
         break;
@@ -118,7 +118,7 @@ export class HacDropdown {
 
   private getPos(el) {
     let lx, ly;
-    for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+    for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent) { };
     return { x: lx, y: ly };
   }
 
@@ -127,7 +127,7 @@ export class HacDropdown {
   }
 
   private selectFirstMatchingOption() {
-    for (var group of this.optionGroups) {
+    for (let group of this.optionGroups) {
       const candidates = this.dropdownFilter.transform(group.options, this.filter);
       if (candidates.length > 0) {
         this.select(candidates[0].key);

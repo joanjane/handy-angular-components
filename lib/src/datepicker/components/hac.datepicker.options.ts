@@ -17,12 +17,12 @@ export interface HacDatepickerOptions {
      * Define a placeholer on selected start/single date box when value is not set
      */
     startDatePlaceholder?: string;
-    
+
     /**
      * Define a placeholer on selected end date box when value is not set
      */
     endDatePlaceholder?: string;
-    
+
     /**
      * @default 'mediumDate'
      * Choose a custom formatting of selected start/single date. 
@@ -47,7 +47,7 @@ export interface HacDatepickerOptions {
      * (Optional) define a min date allowed
      */
     minDate?: Date;
-    
+
     /**
      * (Optional) define a max date allowed
      */
@@ -96,4 +96,4 @@ export type HacDatepickerDayList = {
     [year: number]: {
         [month: number]: number[]
     }
-}
+};

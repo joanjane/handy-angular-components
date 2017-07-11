@@ -15,7 +15,8 @@
       "dom"
     ],
     "skipLibCheck": true,
-    "types": []
+    "types": [],
+    "sourceMap": true
   },
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,

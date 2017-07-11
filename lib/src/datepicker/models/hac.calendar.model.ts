@@ -11,7 +11,7 @@ _____________________
 
 */
 
-import { DateHelper } from ".";
+import { DateHelper } from '.';
 
 export enum WeekDay {
     Sunday = 0,
@@ -23,8 +23,42 @@ export enum WeekDay {
     Saturday = 6
 }
 
+export const weekDayList = [
+    WeekDay.Monday,
+    WeekDay.Tuesday,
+    WeekDay.Wednesday,
+    WeekDay.Thursday,
+    WeekDay.Friday,
+    WeekDay.Saturday,
+    WeekDay.Sunday
+];
+
 const startWeekDay = WeekDay.Monday;
-const endWeekDay = WeekDay.Sunday;
+
+export class HacCalendarDayModel {
+    day: Date;
+
+    constructor(day: Date) {
+        this.day = day;
+    }
+
+    isToday() {
+        return DateHelper.areDatesEqual(this.day, new Date());
+    }
+}
+
+export class HacCalendarWeekModel {
+    days: HacCalendarDayModel[] = [];
+
+    addDay(day: Date): void {
+        if (this.days.length === 0 && day.getDay() !== startWeekDay) {
+            const previousDay = new Date(day);
+            previousDay.setDate(previousDay.getDate() - 1);
+            this.addDay(previousDay);
+        }
+        this.days.push(new HacCalendarDayModel(day));
+    }
+}
 
 export class HacCalendarModel {
     month: Date;
@@ -69,39 +103,5 @@ export class HacCalendarModel {
             this.month.getMonth() + 1,
             0
         );
-    }
-
-}
-
-export class HacCalendarWeekModel {
-    days: HacCalendarDayModel[] = [];
-
-    addDay(day: Date): void {
-        if (this.days.length === 0 && day.getDay() != startWeekDay) {
-            var previousDay = new Date(day);
-            previousDay.setDate(previousDay.getDate() -1);
-            this.addDay(previousDay);
-        }
-        this.days.push(new HacCalendarDayModel(day));
-    }
-
-    private getPreviousWeekDay(weekDay: number): WeekDay {
-        if(weekDay === WeekDay.Sunday) {
-            return WeekDay.Saturday;
-        } else {
-            return weekDay--;
-        }
-    }
-}
-
-export class HacCalendarDayModel {
-    day: Date;
-    
-    constructor(day: Date){
-        this.day = day;
-    }
-
-    isToday() {
-        return DateHelper.areDatesEqual(this.day, new Date());
     }
 }

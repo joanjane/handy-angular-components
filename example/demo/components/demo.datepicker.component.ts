@@ -14,7 +14,7 @@ export class DemoDatepickerComponent implements OnInit {
 
   datepickerSingleOptions: HacDatepickerOptions;
   selectedSingleDate: Date = null;
-  
+
   datepickerWhitelistOptions: HacDatepickerOptions;
   selectedDateWhitelist: Date = null;
 
@@ -35,14 +35,14 @@ export class DemoDatepickerComponent implements OnInit {
       // set placeholder for selected dates box
       startDatePlaceholder: 'from',
       endDatePlaceholder: 'to',
-      
+
       // Enable date ranges selection with 2 month visible
       range: true,
       showMonths: 2,
-      
+
       // Allow min and max dates from day 3 of previous month to day 8 in 2 months.
-      minDate: new Date(today.getFullYear(), today.getMonth()-1, 3),
-      maxDate: new Date(today.getFullYear(), today.getMonth()+2, 8),
+      minDate: new Date(today.getFullYear(), today.getMonth() - 1, 3),
+      maxDate: new Date(today.getFullYear(), today.getMonth() + 2, 8),
 
       // Enable today action, but won't be shown because today is blacklisted
       enableTodayAction: true
@@ -52,19 +52,19 @@ export class DemoDatepickerComponent implements OnInit {
     this.datepickerOptions.dayListKind = 'blacklist';
     this.datepickerOptions.dayList = {};
     this.datepickerOptions.dayList[today.getFullYear()] = {};
-    this.datepickerOptions.dayList[today.getFullYear()][today.getMonth()+1] = [5, today.getDate()];
-    
+    this.datepickerOptions.dayList[today.getFullYear()][today.getMonth() + 1] = [5, today.getDate()];
+
     // Whitelisted days demo
     this.datepickerWhitelistOptions = {
       dayListKind: 'whitelist',
-      dayList: { },
+      dayList: {},
       range: true,
       elementId: 'test'
     };
 
     // Enable day 1, 3, 5, 8, 10, 20 of current month and today
     this.datepickerWhitelistOptions.dayList[today.getFullYear()] = {};
-    this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth()+1] = [1, 3, 5, 8, 10, 20, today.getDate()];
+    this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, today.getDate()];
   }
 
   forceTodayOnBlacklistDemo(): void {
