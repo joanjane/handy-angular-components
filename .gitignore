@@ -6,6 +6,7 @@ dist
 example/dist
 example/tmp
 example/out-tsc
+example/demo/aot
 
 # dependencies
 **/node_modules

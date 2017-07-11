@@ -1,6 +1,31 @@
 # Handy Angular Components
 
-Work in progress angular 4+ components library to easily build nice forms
+Angular 4+ components library to easily build nice forms, still in development.
+
+## Features
+
+* Well built
+  - AOT Ready
+  - You can make it work with reactive forms and template driven forms
+
+* Dropdowns
+  - Choose a single option from list
+  - Optional filter to choose an option with basic keyboard support
+  - html label[for] attribute support to trigger focus consistently from your component
+  - Optional multicolumn layout (by default 1 col classic layout)
+  - Support option groups to categorize options
+
+* Datepicker
+  - Configurable visible months (by default 1)
+	- Single date mode
+  - Date range mode (start - end)
+	- Localization via angular DatePipe
+	- Customizable date format for selected dates
+	- Whitelist/blacklist days mode
+	- Min/Max date ranges
+	- Toggeable today button to set current date
+  - Configurable current month visible
+  
 
 ## Installation
 
@@ -42,14 +67,14 @@ Once your library is imported, you can use its components, directives and pipes 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { IHacDropdownOptionGroup } from 'handy-angular-components'; // Import this type to type your code
+import { HacDropdownOptionGroup } from 'handy-angular-components'; // Import this type to type your code
 
 @Component({
   selector: 'demo-dropdown',
   templateUrl: './demo.dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
-  dropdownList: IHacDropdownOptionGroup[] = [];
+  dropdownList: HacDropdownOptionGroup[] = [];
   selectedNumber: number = null;
 
   ngOnInit(): void {
@@ -60,8 +85,8 @@ export class DemoDropdownComponent implements OnInit {
     this.dropdownList = [
       // you can add many option groups or just one. Each option group can have a label
       {
-		label: "The label on option groups is optional",
-		// options of this group
+        label: "The label on option groups is optional",
+        // options of this group
         options: [
           {
             key: 1,
@@ -88,36 +113,9 @@ Then use `hac-dropdown` component on the `demo.dropdown.component.html` template
 <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
 ```
 
-## Running example:
+## Example
 
-1)  Build lib
-
-To build lib, open a console and run `cd lib` and then install npm packages: 
-
-```bash
-$ npm install
-```
-And then, build the library:
-
-```bash
-$ npm run build
-```
-
-2) Build example
-
-After building the library, you need to place on example folder (`cd example`) and install npm packages: 
-
-```bash
-$ npm install
-```
-
-Finally, you can start a server and build the application with:
-
-```bash
-$ npm start
-```
-
-You should be able to open [localhost:8000](http://localhost:8000) in a browser and see the demo after some seconds.
+See [this example](https://github.com/joanjane/handy-angular-components/tree/master/example) to discover all the features.
 
 
 ## License

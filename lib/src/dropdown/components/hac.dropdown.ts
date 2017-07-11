@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
-import { IHacDropdownOption, IHacDropdownOptionGroup } from "../hac.dropdown.model";
-import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from "../pipes";
+import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
+import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
+import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
 
 @Component({
   selector: 'hac-dropdown',
@@ -11,12 +12,13 @@ import { HacDropdownFilterPipe, HacDropdownColumnizerPipe } from "../pipes";
   ]
 })
 export class HacDropdown {
-  @Input() optionGroups: IHacDropdownOptionGroup[] = [];
+  @Input() optionGroups: HacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
   @Input() filtrable = false;
   @Input() columns = 1;
   @Output() selectedChange = new EventEmitter();
+  @Input() id: string;
 
   private _selected: string | number;
   public get selected(): string | number {
@@ -49,7 +51,7 @@ export class HacDropdown {
     this.syncWindowHeight();
   }
 
-  getSelected(): IHacDropdownOption {
+  getSelected(): HacDropdownOption {
     if (this.hasGroups()) {
       return this.optionGroups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
     }
@@ -84,7 +86,7 @@ export class HacDropdown {
   }
 
   handleKey(e: KeyboardEvent) {
-    switch(e.keyCode) {
+    switch (e.keyCode) {
       case 13: // Enter key
         this.selectFirstMatchingOption();
         break;
@@ -117,7 +119,7 @@ export class HacDropdown {
 
   private getPos(el) {
     let lx, ly;
-    for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent);
+    for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent) { };
     return { x: lx, y: ly };
   }
 
@@ -126,7 +128,7 @@ export class HacDropdown {
   }
 
   private selectFirstMatchingOption() {
-    for (var group of this.optionGroups) {
+    for (let group of this.optionGroups) {
       const candidates = this.dropdownFilter.transform(group.options, this.filter);
       if (candidates.length > 0) {
         this.select(candidates[0].key);

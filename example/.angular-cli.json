@@ -1,20 +1,40 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "handy-angular-components"
+    "name": "demo-handy-angular-components"
   },
   "apps": [
     {
-      "name": "demo",
+      "name": "demo-jit",
       "root": "demo",
       "outDir": "./dist",
       "assets": [
       ],
       "index": "index.html",
-      "main": "main.demo.ts",
+      "main": "main.jit.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",
-      "tsconfig": "tsconfig.demo.json",
+      "tsconfig": "tsconfig.demo-jit.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "demo",
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "name": "demo-aot",
+      "root": "demo",
+      "outDir": "./dist",
+      "assets": [
+      ],
+      "index": "index.html",
+      "main": "main.aot.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.demo-aot.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "demo",
       "scripts": [],
@@ -32,7 +52,7 @@
   },
   "lint": [
     {
-      "project": "demo/tsconfig.demo.json"
+      "project": "demo/tsconfig.demo-jit.json"
     },
     {
       "project": "demo/tsconfig.spec.json"
