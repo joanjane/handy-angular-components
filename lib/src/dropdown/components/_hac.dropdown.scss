@@ -2,14 +2,14 @@
 $hacDropdownMaxHeight: 300px;
 $hacDropdownGroupBg: #f7f4f4;
 
-hac-dropdown {
+.hac-dd {
     color: $hac-font-color;
     display: inline-block;
     font-family: $hac-font-family;
     font-size: $hac-font-size;
     width: 100%;
 
-    .hac-dd-list {
+    &-list {
         background: #fff;
         border: 1px solid $hac-selected-bg;
         border-top: none;
@@ -36,7 +36,7 @@ hac-dropdown {
         }
     }
 
-    .hac-dd-option {
+    &-option {
         cursor: pointer;
         flex: 1 0 auto;
         padding: 0.3rem 0.5rem;
@@ -52,12 +52,12 @@ hac-dropdown {
         }
     }
 
-    .hac-dd-grouplabel {
+    &-grouplabel {
         padding: 0.3rem 0.5rem;
         background: $hacDropdownGroupBg;            
     }
     
-    .hac-dd-optrow {
+    &-optrow {
         display: flex;
         justify-content: space-around;
 
@@ -66,28 +66,24 @@ hac-dropdown {
         }
     }
 
-    .hac-dd-label {
+    &-label {
         cursor: pointer;
         border: 1px solid $hac-border;
         padding: 0.3rem 0.3rem;
+    }
 
-        input {
-            background: transparent;
-            border: none;
-            color: $hac-font-color;
-            width: 90%;
-        }
+    &-filter {
+        background: transparent;
+        border: none;
+        color: $hac-font-color;
+        width: 90%;
 
-        input:focus {
+        &:focus {
             outline: none;
-        }
-        
-        .hac-dd-placeholder::selection {
-            background: transparent;
         }
     }
 
-    .hac-dd-caret {
+    &-caret {
         float: right;
         position: relative;
         top: 0.4rem;
@@ -102,17 +98,4 @@ hac-dropdown {
         }
     }
 
-    ::-webkit-scrollbar {
-        width: 12px;  /* for vertical scrollbars */
-        height: 12px; /* for horizontal scrollbars */
-    }
-
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: rgba(128, 128, 128, 0.53);
-        border-radius: 3px;
-    }
 }
