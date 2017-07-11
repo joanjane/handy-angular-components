@@ -1,6 +1,6 @@
 @import '../../assets/styles/variables';
 
-hac-datepicker {
+.hac-cal {
     color: $hac-font-color;
     font-family: $hac-font-family;
 
@@ -15,14 +15,100 @@ hac-datepicker {
         
         &--is-opened {
             opacity: 1;
-            transition: all 0.25s ease-in;
+            transition: opacity 0.25s ease-in;
             visibility: visible;
+        }
+
+        &--animating.hac-cal-wrapper--is-opened {
+            & .hac-cal-day {
+                opacity: 1 !important;
+            }
+
+            & .hac-cal-week {
+                opacity: 1 !important;
+            }
         }
 
         
         &:hover .hac-cal-day--in-rangehover:not(.hac-cal-day--is-hidden):not(.hac-cal-day--is-disabled) {
             background: lighten($hac-selected-bg, 0.08);
         }
+
+        /* Animations */
+        & .hac-cal-day {
+            transition: opacity 0.2s ease-in;
+            transform: rotateY(360deg);
+        }
+        
+        & .hac-cal-day:nth-child(1) {
+            transition-delay: 0.25s;
+        }
+        
+        & .hac-cal-day:nth-child(2) {
+            transition-delay: 0.32s;
+        }
+        
+        & .hac-cal-day:nth-child(3) {
+            transition-delay: 0.39s;
+        }
+        
+        & .hac-cal-day:nth-child(4) {
+            transition-delay: 0.45s;
+        }
+        
+        & .hac-cal-day:nth-child(5) {
+            transition-delay: 0.5s;
+        }
+        
+        & .hac-cal-day:nth-child(6) {
+            transition-delay: 0.53s;
+        }
+        
+        & .hac-cal-day:nth-child(7) {
+            transition-delay: 0.55s;
+        }
+
+
+        
+        & .hac-cal-week {
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+        
+        & .hac-cal-week:nth-child(1) {
+            transition-delay: 0;
+        }
+        
+        & .hac-cal-week:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        & .hac-cal-week:nth-child(3) {
+            transition-delay: 0.25s;
+        }
+        
+        & .hac-cal-week:nth-child(4) {
+            transition-delay: 0.29s;
+        }
+        
+        & .hac-cal-week:nth-child(5) {
+            transition-delay: 0.33s;
+        }
+        
+        & .hac-cal-week:nth-child(6) {
+            transition-delay: 0.37s;
+        }
+        
+        & .hac-cal-week:nth-child(7) {
+            transition-delay: 0.40s;
+        }
+        
+        & .hac-cal-week:nth-child(8) {
+            transition-delay: 0.45s;
+        }
+        
+        
+        
 
     }
 

@@ -14,15 +14,14 @@ import { DatePipe } from "@angular/common";
     ]
 })
 export class HacDatepicker implements OnInit {
-
     private _startDate: Date;
     public get startDate(): Date {
         return this._startDate;
     }
     @Input()
     public set startDate(v: Date) {
-        if (v && (this.isDisabled(new HacCalendarDayModel(v)) 
-        || this.options.range && this.endDate && DateHelper.isGreater(v, this.endDate)) ) {
+        if (v && (this.isDisabled(new HacCalendarDayModel(v))
+            || this.options.range && this.endDate && DateHelper.isGreater(v, this.endDate))) {
             this.startDateChange.emit(null); // reset invalid dates
             return;
         }
@@ -36,8 +35,8 @@ export class HacDatepicker implements OnInit {
     }
     @Input()
     public set endDate(v: Date) {
-        if (v && (this.isDisabled(new HacCalendarDayModel(v)) 
-        || this.options.range && this.startDate && DateHelper.isGreater(this.startDate, v)) ) {
+        if (v && (this.isDisabled(new HacCalendarDayModel(v))
+            || this.options.range && this.startDate && DateHelper.isGreater(this.startDate, v))) {
             this.endDateChange.emit(null); // reset invalid dates
             return;
         }
@@ -83,7 +82,15 @@ export class HacDatepicker implements OnInit {
         WeekDay.Sunday
     ];
 
-    private collapsed : boolean = true;;
+    private _collapsed: boolean = true;
+    public get collapsed(): boolean {
+        return this._collapsed;
+    }
+    public set collapsed(v: boolean) {
+        this.animate();
+        this._collapsed = v;
+    }
+
     private forcedSelectionKind?: SelectionKind;
     private hoverDate?: Date;
 
@@ -96,7 +103,7 @@ export class HacDatepicker implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onClick(event) {
-        if((this.options.elementId && event.target.htmlFor === this.options.elementId)) {
+        if ((this.options.elementId && event.target.htmlFor === this.options.elementId)) {
             this.collapsed = false;
         } else if (!this.elementRef.nativeElement.contains(event.target)) {
             this.collapsed = true;
@@ -188,12 +195,14 @@ export class HacDatepicker implements OnInit {
     prevMonth($event?: Event): void {
         this.options.currentDisplayMonth.setMonth(this.options.currentDisplayMonth.getMonth() - 1);
         this.buildCalendarModel();
+        this.animate();
         $event.stopPropagation();
     }
 
     nextMonth($event?: Event): void {
         this.options.currentDisplayMonth.setMonth(this.options.currentDisplayMonth.getMonth() + 1);
         this.buildCalendarModel();
+        this.animate();
         $event.stopPropagation();
     }
 
@@ -287,6 +296,12 @@ export class HacDatepicker implements OnInit {
         if (!month) return false;
 
         return month.indexOf(day.day.getDate()) > -1;
+    }
+
+    private animate() {
+        const animatingCssClass = 'hac-cal-wrapper--animating';
+        this.elementRef.nativeElement.querySelector('.hac-cal-wrapper').classList.remove(animatingCssClass);
+        setTimeout(() => this.elementRef.nativeElement.querySelector('.hac-cal-wrapper').classList.add(animatingCssClass), 100);
     }
 }
 
