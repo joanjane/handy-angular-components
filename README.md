@@ -6,6 +6,7 @@ Angular 4+ components library to easily build nice forms, still in development.
 
 * Well built
   - AOT Ready
+  - Sass compatible and pure CSS options 
   - You can make it work with reactive forms and template driven forms
 
 * Dropdowns
@@ -55,7 +56,7 @@ import { HacModule } from 'handy-angular-components';
   imports: [
     BrowserModule,
 
-    HacModule.forRoot()
+    HacModule.forRoot() //Import module
   ],
   providers: [],
   bootstrap: [AppComponent]
