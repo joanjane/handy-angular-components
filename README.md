@@ -118,6 +118,8 @@ Then use `hac-dropdown` component on the `demo.dropdown.component.html` template
 
 See [this example](https://github.com/joanjane/handy-angular-components/tree/master/example) to discover all the features.
 
+New! Look at [hac-playground](https://github.com/joanjane/hac-playground) repo for a clean sample, that supports localization and JIT/AOT.
+
 
 ## License
 
