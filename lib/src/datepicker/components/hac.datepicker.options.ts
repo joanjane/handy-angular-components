@@ -90,6 +90,13 @@ export interface HacDatepickerOptions {
      * trigger focus of the datepicker and open it.
      */
     elementId?: string;
+
+    /**
+     * @default false
+     * Use selector box width on calendar. When calendars width are not sufficient,
+     * horizontal scroll will appear.
+     */
+    useSelectorWidth?: boolean;
 }
 
 export type HacDatepickerDayList = {

@@ -11,6 +11,7 @@ import { HacDropdownColumnizerPipe } from './dropdown/pipes/hac.dropdown.columni
 import { HacDatepicker } from './datepicker/components/hac.datepicker';
 import { HacDatepickerOptions } from './datepicker/components/hac.datepicker.options';
 import { HacWeekDayFormatter } from './datepicker/pipes/hac.weekday.formatter';
+import { HacCopyWidthDirective } from './common/directives/copy-width.directive';
 
 // Export for AOT compilation
 export { 
@@ -24,7 +25,8 @@ export {
     HacDropdownFilterPipe,
     HacDropdownColumnizerPipe,
     HacDatepicker,
-    HacWeekDayFormatter
+    HacWeekDayFormatter,
+    HacCopyWidthDirective
   ],
   imports: [
     BrowserModule,

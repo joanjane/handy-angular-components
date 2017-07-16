@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { HacDatepickerOptions } from 'handy-angular-components'
@@ -65,6 +65,8 @@ export class DemoDatepickerComponent implements OnInit {
     // Enable day 1, 3, 5, 8, 10, 20 of current month and today
     this.datepickerWhitelistOptions.dayList[today.getFullYear()] = {};
     this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, today.getDate()];
+
+    this.checkScreenOptions();
   }
 
   forceTodayOnBlacklistDemo(): void {
@@ -73,5 +75,22 @@ export class DemoDatepickerComponent implements OnInit {
 
   forceTodayOnWhitelistDemo(): void {
     this.selectedDateWhitelist = new Date();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  checkScreenOptions($event?: Event): void {
+    // On small screens, show only one month
+    this.datepickerOptions.showMonths = window.innerWidth <= 640 ? 1 : 2;
+  }
+
+  testFiveMonthsOnSingleDemo() {
+    // if you want to change this options, you need to do Object.assign to trigger input changes
+    this.datepickerSingleOptions = Object.assign(
+      {},
+      this.datepickerSingleOptions,
+      {
+        showMonths: 5,
+        useSelectorWidth: true
+      });
   }
 }
