@@ -15,8 +15,12 @@ import { HacCopyWidthDirective } from './common/directives/copy-width.directive'
 
 // Export for AOT compilation
 export { 
+  // datepicker
   HacDatepicker, HacDatepickerOptions, HacWeekDayFormatter,
-  HacDropdown, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe
+  // dropdown
+  HacDropdown, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe,
+  // common
+  HacCopyWidthDirective
 };
 
 @NgModule({
@@ -35,7 +39,8 @@ export {
   ],
   exports: [
     HacDropdown,
-    HacDatepicker
+    HacDatepicker,
+    HacCopyWidthDirective
   ]
 })
 export class HacModule {
