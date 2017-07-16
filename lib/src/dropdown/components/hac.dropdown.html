@@ -17,7 +17,9 @@
     <div class="hac-dd-list" 
         [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
         *ngIf="hasGroups()"
-        [style.minWidth]="calcDropdownWidth()"
+        [hacCopyWidth]="getLabelElem()"
+        widthCssProperty="width"
+        [skip]="collapsed"
         [style.maxHeight]="calcDropdownHeight()">
 
         <div class="hac-dd-option" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</div>

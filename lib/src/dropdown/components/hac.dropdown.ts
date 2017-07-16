@@ -98,13 +98,8 @@ export class HacDropdown {
   }
 
   /* Dropdown styling dimensions */
-
-  calcDropdownWidth(): string {
-    const labelElem = this.elementRef.nativeElement.querySelector('.hac-dd-label');
-    const computedStyle = getComputedStyle(labelElem, null);
-    const borderLeft = parseFloat(computedStyle.borderLeftWidth.replace('px', ''));
-    const borderRight = parseFloat(computedStyle.borderRightWidth.replace('px', ''));
-    return `${labelElem.offsetWidth - borderLeft - borderRight}px`;
+  getLabelElem(): HTMLElement {
+    return this.elementRef.nativeElement.querySelector('.hac-dd-label');
   }
 
   calcDropdownHeight(): string {
