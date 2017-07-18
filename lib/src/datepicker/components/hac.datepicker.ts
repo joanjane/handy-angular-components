@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { HacDatepickerOptions } from './hac.datepicker.options';
 import { HacCalendarModel, HacCalendarDayModel, weekDayList, WeekDay } from '../models/hac.calendar.model';
 import { DateHelper } from '../models/date.helper';
@@ -15,46 +15,40 @@ import { DatePipe } from '@angular/common';
     ]
 })
 export class HacDatepicker implements OnInit {
-    private _startDate: Date;
+    private _startDate: Date | string;
     public get startDate(): Date | string {
         return this._startDate;
     }
     @Input()
     public set startDate(v: Date | string) {
-        const startDate = (typeof v === 'string') ? new Date(v) : v;
+        this._startDate = v;
+        if(!v) return;
 
-        if (v && (this.isDisabled(new HacCalendarDayModel(startDate))
-            || this.options.range && this._endDate && DateHelper.isGreater(startDate, this._endDate))) {
-            setTimeout(() => {
-                this.startDateChange.emit(null); // reset invalid dates;
-            }, 0);
-            return;
+        // reset invalid dates (disabled day or past time)
+        if (this.isDisabled(new HacCalendarDayModel(v)) 
+            || (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate))) {
+            setTimeout(() => this.setStartDate(null), 0);
         }
-
-        this._startDate = startDate;
     }
 
-    private _endDate: Date;
+    private _endDate: Date | string;
     public get endDate(): Date | string {
         return this._endDate;
     }
     @Input()
     public set endDate(v: Date | string) {
-        const endDate = (typeof v === 'string') ? new Date(v) : v;
+        this._endDate = v;
+        if(!v) return;
 
-        if (v && (this.isDisabled(new HacCalendarDayModel(endDate))
-            || this.options.range && this.startDate && DateHelper.isGreater(this._startDate, endDate))) {
-            setTimeout(() => {
-                this.endDateChange.emit(null); // reset invalid dates
-            }, 0);
-            return;
+        // reset invalid dates (disabled day or past time)
+        if (this.isDisabled(new HacCalendarDayModel(v)) 
+            || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
+            setTimeout(() => this.setEndDate(null), 0);
         }
-
-        this._endDate = endDate;
     }
 
-    @Output() startDateChange = new EventEmitter<Date>();
-    @Output() endDateChange = new EventEmitter<Date>();
+    @Output() startDateChange = new EventEmitter<Date | string>();
+    @Output() endDateChange = new EventEmitter<Date | string>();
 
     /* Single date startDate alias */
     public get selected(): Date | string {
@@ -66,7 +60,7 @@ export class HacDatepicker implements OnInit {
     }
     /* Single date startDate alias */
     @Output()
-    public get selectedChange(): EventEmitter<Date> {
+    public get selectedChange(): EventEmitter<Date | string> {
         return this.startDateChange;
     }
 
@@ -96,7 +90,7 @@ export class HacDatepicker implements OnInit {
     private forcedSelectionKind?: SelectionKind;
     private hoverDate?: Date;
 
-    constructor(private elementRef: ElementRef) { }
+    constructor(private elementRef: ElementRef, private changeDetector: ChangeDetectorRef) { }
 
     ngOnInit(): void {
         this.setOptionsDefaults();
@@ -246,8 +240,12 @@ export class HacDatepicker implements OnInit {
     }
 
     private setOptionsDefaults(): void {
-        let startDate = this._options.currentDisplayMonth ? new Date(this.options.currentDisplayMonth) : new Date();
+        let startDate = this._options.currentDisplayMonth ?
+            new Date(this.options.currentDisplayMonth) : 
+            this._startDate ? DateHelper.ensureDateObject(this._startDate) : new Date();
         startDate.setDate(1);
+        DateHelper.resetTime(startDate);
+
         this._options.currentDisplayMonth = startDate;
 
         this._options.startDatePlaceholder = this._options.startDatePlaceholder ? this._options.startDatePlaceholder : 'Select';
@@ -265,7 +263,7 @@ export class HacDatepicker implements OnInit {
     private setStartDate(day?: Date | string) {
         this.startDate = day;
         this.startDateChange.emit(this._startDate);
-        this.hoverDate = this._startDate;
+        this.hoverDate = DateHelper.ensureDateObject(this._startDate);
     }
 
     private setEndDate(day?: Date) {
@@ -274,14 +272,14 @@ export class HacDatepicker implements OnInit {
         this.hoverDate = day;
     }
 
-    private getFirstRangeDay(): Date {
+    private getFirstRangeDay(): Date | string {
         if (this.getSelectionKind() === 'end') {
             return this._startDate;
         }
         return this.hoverDate || this._startDate;
     }
 
-    private getLastRangeDay(): Date {
+    private getLastRangeDay(): Date | string {
         if (this.getSelectionKind() === 'start') {
             return this._endDate;
         }

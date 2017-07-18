@@ -5,6 +5,7 @@
         <div>
             Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}})
             <button (click)="testFiveMonthsOnSingleDemo()">Show 5 months</button>
+            <button (click)="forceMarchMonthOnSingleDemo()">Show March</button>
             <br/>
             <div class="medium-width">
                 <hac-datepicker [(selected)]="selectedSingleDate" [options]="datepickerSingleOptions"></hac-datepicker>
@@ -28,7 +29,7 @@
         <h2>Datepicker with white list mode</h2>
 
         <div>
-            Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}})
+            Using date outside component ({{selectedDateWhitelist | date : 'yyyy-MM-dd'}})
             <button (click)="forceTodayOnWhitelistDemo()">force today</button><br/>
             <div class="medium-width">
                 <label for="{{datepickerWhitelistOptions.elementId}}">Select date (click this label to toggle datepicker)</label>

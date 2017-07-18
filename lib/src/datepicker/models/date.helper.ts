@@ -4,9 +4,11 @@ export class DateHelper {
      * Format date to 'yyyy-MM-dd' format
      * @param day
      */
-    static formatIsoDate(day: Date): string {
-        const monthNum = day.getMonth() + 1;
-        return `${day.getFullYear()}-${monthNum < 10 ? '0' : ''}${monthNum}-${day.getDate() < 10 ? '0' : ''}${day.getDate()}`
+    static formatIsoDate(day: Date | string): string {
+        var d = this.ensureDateObject(day);
+
+        const monthNum = d.getMonth() + 1;
+        return `${d.getFullYear()}-${monthNum < 10 ? '0' : ''}${monthNum}-${d.getDate() < 10 ? '0' : ''}${d.getDate()}`
     }
 
     /**
@@ -14,7 +16,7 @@ export class DateHelper {
      * @param day1 
      * @param day2 
      */
-    static areDatesEqual(day1: Date, day2: Date): boolean {
+    static areDatesEqual(day1: Date | string, day2: Date | string): boolean {
         return day1 && day2 && this.formatIsoDate(day1) === this.formatIsoDate(day2);
     }
 
@@ -24,7 +26,7 @@ export class DateHelper {
      * @param startRange 
      * @param endRange 
      */
-    static isInRange(candidate: Date, startRange: Date, endRange: Date): boolean {
+    static isInRange(candidate: Date | string, startRange: Date | string, endRange: Date | string): boolean {
         if (!candidate || !startRange || !endRange) return false;
 
         const candidateFormatted = this.formatIsoDate(candidate);
@@ -36,16 +38,35 @@ export class DateHelper {
      * @param day1 
      * @param day2 
      */
-    static isGreater(day1: Date, day2: Date): boolean {
+    static isGreater(day1: Date | string, day2: Date | string): boolean {
         return day1 && day2 && this.formatIsoDate(day1) > this.formatIsoDate(day2);
     }
-
 
     /**
      * Get today date at 00:00h
      */
     static today(): Date {
         const today = new Date();
-        return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        this.resetTime(today);
+        return today;
+    }
+
+    /**
+     * Resets time part from Date object to 00:00:00.000h
+     */
+    static resetTime(date: Date | string) {
+        if(typeof date === 'string') {
+            date = this.formatIsoDate(date);
+            return;
+        }
+
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
+    }
+
+    static ensureDateObject(date: Date | string): Date {
+        return typeof date === 'string' ? new Date(date) : date;
     }
 }

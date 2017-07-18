@@ -13,7 +13,7 @@ export class DemoDatepickerComponent implements OnInit {
   selectedEndDate: Date = null;
 
   datepickerSingleOptions: HacDatepickerOptions;
-  selectedSingleDate: Date = null;
+  selectedSingleDate: string = '2017-02-01';
 
   datepickerWhitelistOptions: HacDatepickerOptions;
   selectedDateWhitelist: Date = null;
@@ -91,6 +91,16 @@ export class DemoDatepickerComponent implements OnInit {
       {
         showMonths: 5,
         useSelectorWidth: true
+      });
+  }
+
+  forceMarchMonthOnSingleDemo() {
+    // if you want to change this options, you need to do Object.assign to trigger input changes
+    this.datepickerSingleOptions = Object.assign(
+      {},
+      this.datepickerSingleOptions,
+      <HacDatepickerOptions> {
+        currentDisplayMonth: new Date(2017, 2, 1)
       });
   }
 }

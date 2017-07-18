@@ -38,8 +38,8 @@ const startWeekDay = WeekDay.Monday;
 export class HacCalendarDayModel {
     day: Date;
 
-    constructor(day: Date) {
-        this.day = day;
+    constructor(day: Date | string) {
+        this.day = DateHelper.ensureDateObject(day);
     }
 
     isToday() {
