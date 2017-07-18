@@ -99,7 +99,7 @@ export class HacDatepicker implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onClick(event) {
-        if ((this.options.elementId && event.target.htmlFor === this.options.elementId)) {
+        if (this.options.elementId && event.target.htmlFor === this.options.elementId) {
             this.collapsed = false;
         } else if (!this.elementRef.nativeElement.contains(event.target)) {
             this.collapsed = true;
@@ -237,6 +237,18 @@ export class HacDatepicker implements OnInit {
 
     getCalendarWidthMode(): string {
         return this.options.useSelectorWidth ? 'width' : 'minWidth';
+    }
+
+    isPrevArrowVisible(calendarIndex: number): boolean {
+        var isInRange = !this._options.minDate || (this._options.minDate &&
+            DateHelper.isGreaterOrEqual(this.calendars[calendarIndex].month, this._options.minDate));
+        return calendarIndex === 0 && isInRange;
+    }
+    
+    isNextArrowVisible(calendarIndex: number): boolean {
+        var isInRange = !this._options.maxDate || (this._options.maxDate &&
+            DateHelper.isGreaterOrEqual(this._options.maxDate, this.calendars[calendarIndex].getLastMonthDay()));
+        return (calendarIndex === this.calendars.length - 1) && isInRange;
     }
 
     private setOptionsDefaults(): void {

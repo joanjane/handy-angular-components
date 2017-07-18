@@ -38,14 +38,14 @@
             <!-- calendar header -->
             <div class="hac-cal-header">
                 <div class="hac-cal-arrow">
-                    <span *ngIf="i === 0" (click)="prevMonth($event)" class="hac-cal-chevron hac-cal-chevron--left"></span>
+                    <span *ngIf="isPrevArrowVisible(i)" (click)="prevMonth($event)" class="hac-cal-chevron hac-cal-chevron--left"></span>
                 </div>
                 <strong class="hac-cal-monthlabel">
                     <span class="hac-cal-monthlabel--year">{{calendar.month | date : 'y '}}</span>
                     <span class="hac-cal-monthlabel--month">{{calendar.month | date : 'MMMM'}}</span>
                 </strong>
                 <div class="hac-cal-arrow">
-                    <span *ngIf="i === calendars.length -1" (click)="nextMonth($event)" class="hac-cal-chevron hac-cal-chevron--right"></span>
+                    <span *ngIf="isNextArrowVisible(i)" (click)="nextMonth($event)" class="hac-cal-chevron hac-cal-chevron--right"></span>
                 </div>
             </div>
 

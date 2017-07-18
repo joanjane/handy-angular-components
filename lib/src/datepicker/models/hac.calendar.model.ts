@@ -71,7 +71,7 @@ export class HacCalendarModel {
 
     buildCalendar(): void {
         let day = new Date(this.month);
-        const lastDay = this.getLastDay();
+        const lastDay = this.getLastMonthDay();
         while (day <= lastDay) {
             // add new week when on first week day or first week
             if (day.getDay() === startWeekDay || this.weeks.length === 0) {
@@ -97,7 +97,7 @@ export class HacCalendarModel {
         return day.day.getFullYear() === this.month.getFullYear() && day.day.getMonth() === this.month.getMonth();
     }
 
-    private getLastDay(): Date {
+    getLastMonthDay(): Date {
         return new Date(
             this.month.getFullYear(),
             this.month.getMonth() + 1,

@@ -43,6 +43,15 @@ export class DateHelper {
     }
 
     /**
+     * Checks if day1 is greater or equal than day 2
+     * @param day1 
+     * @param day2 
+     */
+    static isGreaterOrEqual(day1: Date | string, day2: Date | string): boolean {
+        return day1 && day2 && this.formatIsoDate(day1) >= this.formatIsoDate(day2);
+    }
+
+    /**
      * Get today date at 00:00h
      */
     static today(): Date {
