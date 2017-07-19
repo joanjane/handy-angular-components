@@ -37,6 +37,19 @@
             </div>
         </div>
     </div>
+
+    <div id="datepickerminmax">
+        <h2>Datepicker with future min max range</h2>
+
+        <div>
+            Using date outside component ({{selectedMinMaxDate | date : 'yyyy-MM-dd'}})
+            <button (click)="testMinMaxPastRanges()">test past ranges</button>
+            <br/>
+            <div class="medium-width">
+                <hac-datepicker [(selected)]="selectedMinMaxDate" [options]="datepickerMinMaxOptions"></hac-datepicker>
+            </div>
+        </div>
+    </div> 
     <br />
     <br />
     <br />

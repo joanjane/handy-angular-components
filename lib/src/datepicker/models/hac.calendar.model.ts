@@ -11,7 +11,7 @@ _____________________
 
 */
 
-import { DateHelper } from './date.helper';
+import { DateHelper } from '../../common/helpers/date.helper';
 
 export enum WeekDay {
     Sunday = 0,
@@ -71,7 +71,7 @@ export class HacCalendarModel {
 
     buildCalendar(): void {
         let day = new Date(this.month);
-        const lastDay = this.getLastMonthDay();
+        const lastDay = this.getMonthLastDay();
         while (day <= lastDay) {
             // add new week when on first week day or first week
             if (day.getDay() === startWeekDay || this.weeks.length === 0) {
@@ -97,10 +97,18 @@ export class HacCalendarModel {
         return day.day.getFullYear() === this.month.getFullYear() && day.day.getMonth() === this.month.getMonth();
     }
 
-    getLastMonthDay(): Date {
+    getMonthLastDay(): Date {
         return new Date(
             this.month.getFullYear(),
             this.month.getMonth() + 1,
+            0
+        );
+    }
+    
+    getPreviousMonthLastDay(): Date {
+        return new Date(
+            this.month.getFullYear(),
+            this.month.getMonth(),
             0
         );
     }

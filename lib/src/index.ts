@@ -3,12 +3,12 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { HacDropdown } from './dropdown/components/hac.dropdown';
+import { HacDropdownComponent } from './dropdown/components/hac.dropdown';
 import { HacDropdownOption, HacDropdownOptionGroup } from './dropdown/models';
 import { HacDropdownFilterPipe } from './dropdown/pipes/hac.dropdown.filter';
 import { HacDropdownColumnizerPipe } from './dropdown/pipes/hac.dropdown.columnizer';
 
-import { HacDatepicker } from './datepicker/components/hac.datepicker';
+import { HacDatepickerComponent } from './datepicker/components/hac.datepicker';
 import { HacDatepickerOptions } from './datepicker/components/hac.datepicker.options';
 import { HacWeekDayFormatter } from './datepicker/pipes/hac.weekday.formatter';
 import { HacCopyWidthDirective } from './common/directives/copy-width.directive';
@@ -16,19 +16,19 @@ import { HacCopyWidthDirective } from './common/directives/copy-width.directive'
 // Export for AOT compilation
 export { 
   // datepicker
-  HacDatepicker, HacDatepickerOptions, HacWeekDayFormatter,
+  HacDatepickerComponent, HacDatepickerOptions, HacWeekDayFormatter,
   // dropdown
-  HacDropdown, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe,
+  HacDropdownComponent, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe,
   // common
   HacCopyWidthDirective
 };
 
 @NgModule({
   declarations: [
-    HacDropdown,
+    HacDropdownComponent,
     HacDropdownFilterPipe,
     HacDropdownColumnizerPipe,
-    HacDatepicker,
+    HacDatepickerComponent,
     HacWeekDayFormatter,
     HacCopyWidthDirective
   ],
@@ -38,8 +38,8 @@ export {
     CommonModule
   ],
   exports: [
-    HacDropdown,
-    HacDatepicker,
+    HacDropdownComponent,
+    HacDatepickerComponent,
     HacCopyWidthDirective
   ]
 })

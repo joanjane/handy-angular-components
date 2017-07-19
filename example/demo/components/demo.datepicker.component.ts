@@ -18,10 +18,13 @@ export class DemoDatepickerComponent implements OnInit {
   datepickerWhitelistOptions: HacDatepickerOptions;
   selectedDateWhitelist: Date = null;
 
+  datepickerMinMaxOptions: HacDatepickerOptions;
+  selectedMinMaxDate: Date = null;
+  today = new Date();
+
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    const today = new Date();
 
     // Simple date picker with single dates and 1 visible month calendar, custom date formatting
     this.datepickerSingleOptions = {
@@ -41,8 +44,8 @@ export class DemoDatepickerComponent implements OnInit {
       showMonths: 2,
 
       // Allow min and max dates from day 3 of previous month to day 8 in 2 months.
-      minDate: new Date(today.getFullYear(), today.getMonth() - 1, 3),
-      maxDate: new Date(today.getFullYear(), today.getMonth() + 2, 8),
+      minDate: new Date(this.today.getFullYear(), this.today.getMonth() - 1, 3),
+      maxDate: new Date(this.today.getFullYear(), this.today.getMonth() + 2, 8),
 
       // Enable today action, but won't be shown because today is blacklisted
       enableTodayAction: true
@@ -51,8 +54,8 @@ export class DemoDatepickerComponent implements OnInit {
     // Disable day 5 of current month and today
     this.datepickerOptions.dayListKind = 'blacklist';
     this.datepickerOptions.dayList = {};
-    this.datepickerOptions.dayList[today.getFullYear()] = {};
-    this.datepickerOptions.dayList[today.getFullYear()][today.getMonth() + 1] = [5, today.getDate()];
+    this.datepickerOptions.dayList[this.today.getFullYear()] = {};
+    this.datepickerOptions.dayList[this.today.getFullYear()][this.today.getMonth() + 1] = [5, this.today.getDate()];
 
     // Whitelisted days demo
     this.datepickerWhitelistOptions = {
@@ -63,10 +66,16 @@ export class DemoDatepickerComponent implements OnInit {
     };
 
     // Enable day 1, 3, 5, 8, 10, 20 of current month and today
-    this.datepickerWhitelistOptions.dayList[today.getFullYear()] = {};
-    this.datepickerWhitelistOptions.dayList[today.getFullYear()][today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, today.getDate()];
+    this.datepickerWhitelistOptions.dayList[this.today.getFullYear()] = {};
+    this.datepickerWhitelistOptions.dayList[this.today.getFullYear()][this.today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, this.today.getDate()];
 
     this.checkScreenOptions();
+
+    // Datepicker that tests the first month shown with future min/max range
+    this.datepickerMinMaxOptions = {
+      minDate: new Date(this.today.getFullYear(), this.today.getMonth()+1, 4),
+      maxDate: new Date(this.today.getFullYear(), this.today.getMonth()+4, 15)
+    };
   }
 
   forceTodayOnBlacklistDemo(): void {
@@ -101,6 +110,16 @@ export class DemoDatepickerComponent implements OnInit {
       this.datepickerSingleOptions,
       <HacDatepickerOptions> {
         currentDisplayMonth: new Date(2017, 2, 1)
+      });
+  }
+
+  testMinMaxPastRanges() {
+    this.datepickerMinMaxOptions = Object.assign(
+      {},
+      this.datepickerMinMaxOptions,
+      {
+        minDate: new Date(this.today.getFullYear(), this.today.getMonth()-4, 4),
+        maxDate: new Date(this.today.getFullYear(), this.today.getMonth()-1, 15)
       });
   }
 }

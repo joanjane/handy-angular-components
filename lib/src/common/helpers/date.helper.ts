@@ -5,7 +5,7 @@ export class DateHelper {
      * @param day
      */
     static formatIsoDate(day: Date | string): string {
-        var d = this.ensureDateObject(day);
+        const d = this.ensureDateObject(day);
 
         const monthNum = d.getMonth() + 1;
         return `${d.getFullYear()}-${monthNum < 10 ? '0' : ''}${monthNum}-${d.getDate() < 10 ? '0' : ''}${d.getDate()}`
@@ -64,7 +64,7 @@ export class DateHelper {
      * Resets time part from Date object to 00:00:00.000h
      */
     static resetTime(date: Date | string) {
-        if(typeof date === 'string') {
+        if (typeof date === 'string') {
             date = this.formatIsoDate(date);
             return;
         }

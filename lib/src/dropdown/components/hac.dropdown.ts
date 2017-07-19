@@ -11,7 +11,7 @@ import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
     HacDropdownColumnizerPipe
   ]
 })
-export class HacDropdown {
+export class HacDropdownComponent {
   @Input() optionGroups: HacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
