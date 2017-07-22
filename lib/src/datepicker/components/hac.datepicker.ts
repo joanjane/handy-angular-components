@@ -27,7 +27,10 @@ export class HacDatepickerComponent implements OnInit {
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v))
             || (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate))) {
-            setTimeout(() => this.setStartDate(null), 0);
+            setTimeout(() => {
+                this.setEndDate(null);
+                this.forceSelectionKind('end');
+            }, 0);
         }
     }
 
@@ -43,7 +46,10 @@ export class HacDatepickerComponent implements OnInit {
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v))
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
-            setTimeout(() => this.setEndDate(null), 0);
+            setTimeout(() => {
+                this.setEndDate(null);
+                this.forceSelectionKind('end');
+            }, 0);
         }
     }
 
@@ -234,7 +240,7 @@ export class HacDatepickerComponent implements OnInit {
     }
 
     isTodayActionEnabled() {
-        return !this.isDisabled(new HacCalendarDayModel(DateHelper.today()));
+        return this._options.enableTodayAction && !this.isDisabled(new HacCalendarDayModel(DateHelper.today()));
     }
 
     getSelectorElem(): HTMLElement {
@@ -334,7 +340,7 @@ export class HacDatepickerComponent implements OnInit {
     private getMinDate(): Date {
         return this._options.minDate;
     }
-    
+
     private getMaxDate(): Date {
         return this._options.maxDate;
     }
