@@ -25,8 +25,10 @@ export class HacDatepickerComponent implements OnInit {
         if (!v) return;
 
         // reset invalid dates (disabled day or past time)
-        if (this.isDisabled(new HacCalendarDayModel(v))
-            || (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate))) {
+        if(this.isDisabled(new HacCalendarDayModel(v))) {
+            this.setStartDate(null);
+            this.forceSelectionKind('start');
+        } else if (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate)) {
             setTimeout(() => {
                 this.setEndDate(null);
                 this.forceSelectionKind('end');
