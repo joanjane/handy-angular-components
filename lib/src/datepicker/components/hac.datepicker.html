@@ -29,8 +29,8 @@
     <div class="hac-cal-wrapper" 
         [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }"
         [hacCopyWidth]="getSelectorElem()"
-        [widthCssProperty]="getCalendarWidthMode()"
-        [skip]="collapsed">
+        widthCssProperty="width"
+        [skip]="collapsed || !options.useSelectorWidth">
         <div *ngFor="let calendar of calendars; let i = index" 
             class="hac-cal-month"
             [ngClass]="{ 'hac-cal-separator': i > 0 && i < calendars.length }">

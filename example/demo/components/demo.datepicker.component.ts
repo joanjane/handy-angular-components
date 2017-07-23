@@ -16,7 +16,8 @@ export class DemoDatepickerComponent implements OnInit {
   selectedSingleDate: string = '2017-02-01';
 
   datepickerWhitelistOptions: HacDatepickerOptions;
-  selectedDateWhitelist: Date = null;
+  selectedStartDateWhitelist: Date = null;
+  selectedEndDateWhitelist: Date = null;
 
   datepickerMinMaxOptions: HacDatepickerOptions;
   selectedMinMaxDate: Date = null;
@@ -48,33 +49,41 @@ export class DemoDatepickerComponent implements OnInit {
       maxDate: new Date(this.today.getFullYear(), this.today.getMonth() + 2, 8),
 
       // Enable today action, but won't be shown because today is blacklisted
-      enableTodayAction: true
+      enableTodayAction: true,
+
+      dayListStartDate: {},
+      dayListEndDate: {}
     };
 
-    // Disable day 5 of current month and today
+    // Disable day 5 of current month and today when selecting start date, and day 6 of next month when selecting return date
     this.datepickerOptions.dayListKind = 'blacklist';
-    this.datepickerOptions.dayList = {};
-    this.datepickerOptions.dayList[this.today.getFullYear()] = {};
-    this.datepickerOptions.dayList[this.today.getFullYear()][this.today.getMonth() + 1] = [5, this.today.getDate()];
+    this.datepickerOptions.dayListStartDate[this.today.getFullYear()] = {};
+    this.datepickerOptions.dayListEndDate[this.today.getFullYear()] = {};
+    this.datepickerOptions.dayListStartDate[this.today.getFullYear()][this.today.getMonth() + 1] = [5, this.today.getDate()];
+    this.datepickerOptions.dayListEndDate[this.today.getFullYear()][this.today.getMonth() + 2] = [6];
 
     // Whitelisted days demo
     this.datepickerWhitelistOptions = {
       dayListKind: 'whitelist',
-      dayList: {},
+      dayListStartDate: {},
+      dayListEndDate: {},
       range: true,
       elementId: 'test'
     };
 
-    // Enable day 1, 3, 5, 8, 10, 20 of current month and today
-    this.datepickerWhitelistOptions.dayList[this.today.getFullYear()] = {};
-    this.datepickerWhitelistOptions.dayList[this.today.getFullYear()][this.today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, this.today.getDate()];
+    // Enable day 1, 3, 5, 8, 10, 20 of current month and today when selecting start date
+    // Enable day 2, 4, 6 of next month when selecting end date
+    this.datepickerWhitelistOptions.dayListStartDate[this.today.getFullYear()] = {};
+    this.datepickerWhitelistOptions.dayListEndDate[this.today.getFullYear()] = {};
+    this.datepickerWhitelistOptions.dayListStartDate[this.today.getFullYear()][this.today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, this.today.getDate()];
+    this.datepickerWhitelistOptions.dayListEndDate[this.today.getFullYear()][this.today.getMonth() + 2] = [2, 4, 6];
 
     this.checkScreenOptions();
 
     // Datepicker that tests the first month shown with future min/max range
     this.datepickerMinMaxOptions = {
-      minDate: new Date(this.today.getFullYear(), this.today.getMonth()+1, 4),
-      maxDate: new Date(this.today.getFullYear(), this.today.getMonth()+4, 15)
+      minDate: new Date(this.today.getFullYear(), this.today.getMonth() + 1, 4),
+      maxDate: new Date(this.today.getFullYear(), this.today.getMonth() + 4, 15)
     };
   }
 
@@ -83,7 +92,7 @@ export class DemoDatepickerComponent implements OnInit {
   }
 
   forceTodayOnWhitelistDemo(): void {
-    this.selectedDateWhitelist = new Date();
+    this.selectedStartDateWhitelist = new Date();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -108,7 +117,7 @@ export class DemoDatepickerComponent implements OnInit {
     this.datepickerSingleOptions = Object.assign(
       {},
       this.datepickerSingleOptions,
-      <HacDatepickerOptions> {
+      <HacDatepickerOptions>{
         currentDisplayMonth: new Date(2017, 2, 1)
       });
   }
@@ -118,8 +127,8 @@ export class DemoDatepickerComponent implements OnInit {
       {},
       this.datepickerMinMaxOptions,
       {
-        minDate: new Date(this.today.getFullYear(), this.today.getMonth()-4, 4),
-        maxDate: new Date(this.today.getFullYear(), this.today.getMonth()-1, 15)
+        minDate: new Date(this.today.getFullYear(), this.today.getMonth() - 4, 4),
+        maxDate: new Date(this.today.getFullYear(), this.today.getMonth() - 1, 15)
       });
   }
 }

@@ -60,7 +60,7 @@ export interface HacDatepickerOptions {
     dayListKind?: 'whitelist' | 'blacklist';
 
     /**
-     * Define a list of days to be enabled/disabled depending on dayListKind value.
+     * Define a list of days when selecting start date to be enabled/disabled depending on dayListKind value.
      * Example:
      * { 
      *   2017: {
@@ -69,7 +69,12 @@ export interface HacDatepickerOptions {
      *   }
      * }
      */
-    dayList?: HacDatepickerDayList;
+    dayListStartDate?: HacDatepickerDayList;
+
+    /**
+     * Define a list of days when selecting end date to be enabled/disabled depending on dayListKind value.
+     */
+    dayListEndDate?: HacDatepickerDayList;
 
     /**
      * @default false

@@ -22,10 +22,10 @@ export class HacDatepickerComponent implements OnInit {
     @Input()
     public set startDate(v: Date | string) {
         this._startDate = v;
-        if (!v) return;
+        if (!v || DateHelper.areDatesEqual(v, this._startDate)) return;
 
         // reset invalid dates (disabled day or past time)
-        if(this.isDisabled(new HacCalendarDayModel(v))) {
+        if (this.isDisabled(new HacCalendarDayModel(v), 'start')) {
             this.setStartDate(null);
             this.forceSelectionKind('start');
         } else if (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate)) {
@@ -43,10 +43,10 @@ export class HacDatepickerComponent implements OnInit {
     @Input()
     public set endDate(v: Date | string) {
         this._endDate = v;
-        if (!v) return;
+        if (!v || DateHelper.areDatesEqual(v, this._endDate)) return;
 
         // reset invalid dates (disabled day or past time)
-        if (this.isDisabled(new HacCalendarDayModel(v))
+        if (this.isDisabled(new HacCalendarDayModel(v), 'end')
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
             setTimeout(() => {
                 this.setEndDate(null);
@@ -154,18 +154,19 @@ export class HacDatepickerComponent implements OnInit {
             || this.options.range && DateHelper.areDatesEqual(day.day, this._endDate);
     }
 
-    isDisabled(day: HacCalendarDayModel): boolean {
+    isDisabled(day: HacCalendarDayModel, selectionKind?: SelectionKind): boolean {
+        selectionKind = selectionKind || this.getSelectionKind();
         const exceedsMinDate = this.options.minDate && DateHelper.isGreater(this.options.minDate, day.day);
         if (exceedsMinDate) return true;
 
         const exceedsMaxDate = this.options.maxDate && DateHelper.isGreater(day.day, this.options.maxDate);
         if (exceedsMaxDate) return true;
 
-        let isBlacklisted = this.options.dayList && this.options.dayListKind === 'blacklist' && this.isInDayList(day);
-        isBlacklisted = isBlacklisted || this.options.dayList && this.options.dayListKind === 'whitelist' && !this.isInDayList(day);
+        let isBlacklisted = this.options.dayListKind === 'blacklist' && this.isInDayList(day, selectionKind);
+        isBlacklisted = isBlacklisted || this.options.dayListKind === 'whitelist' && !this.isInDayList(day, selectionKind);
         if (isBlacklisted) return true;
 
-        const isPastOverflow = this.getSelectionKind() === 'end' && DateHelper.isGreater(this._startDate, day.day);
+        const isPastOverflow = selectionKind === 'end' && DateHelper.isGreater(this._startDate, day.day);
         return isPastOverflow;
     }
 
@@ -249,10 +250,6 @@ export class HacDatepickerComponent implements OnInit {
         return this.elementRef.nativeElement.querySelector('.hac-cal-selectorwrapper');
     }
 
-    getCalendarWidthMode(): string {
-        return this.options.useSelectorWidth ? 'width' : 'minWidth';
-    }
-
     isPrevArrowVisible(calendarIndex: number): boolean {
         const isInRange = !this.getMinDate() || (this.getMinDate() &&
             DateHelper.isGreaterOrEqual(this.calendars[calendarIndex].getPreviousMonthLastDay(), this.getMinDate()));
@@ -321,10 +318,14 @@ export class HacDatepickerComponent implements OnInit {
         return this.hoverDate || this._endDate;
     }
 
-    private isInDayList(day: HacCalendarDayModel): boolean {
-        if (!this.options.dayList) return false;
+    private isInDayList(day: HacCalendarDayModel, selectionKind?: SelectionKind): boolean {
+        const dayList = selectionKind === 'start' ?
+            this._options.dayListStartDate :
+            this._options.dayListEndDate;
 
-        const year = this.options.dayList[day.day.getFullYear()];
+        if (!dayList) return false;
+
+        const year = dayList[day.day.getFullYear()];
         if (!year) return false;
 
         const month = year[day.day.getMonth() + 1];

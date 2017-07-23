@@ -9,7 +9,7 @@
     "gulp": "gulp",
     "start": "concurrently \"npm run serve\" \"npm run watch\" --names \"SERVER,CLIENT\" --prefix name",
     "ngc-aot": "rimraf ./demo/aot && ngc -p ./demo/tsconfig.demo-aot.json",
-    "build:debug": "ng build --app=\"demo-jit\"",
+    "build:debug": "rimraf ./demo/dist && ng build --app=\"demo-jit\"",
     "postbuild:debug": "npm run assets",
     "prebuild:release": "npm run ngc-aot",
     "build:release": "ng build --aot --prod --app=\"demo-aot\"",
