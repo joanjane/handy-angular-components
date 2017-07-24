@@ -175,21 +175,23 @@ export class HacDatepickerComponent implements OnInit {
     }
 
     isEnd(day: HacCalendarDayModel): boolean {
-        return this.options.range && DateHelper.areDatesEqual(day.day, this._endDate);
+        const lastDayRange = this.getLastRangeDay();
+        
+        return this.options.range && DateHelper.areDatesEqual(day.day, lastDayRange);
     }
 
     inRange(day: HacCalendarDayModel, useHover: boolean = false): boolean {
         if (!this.options.range) return false;
 
-        const startDate = useHover ? this.getFirstRangeDay() : this._startDate;
-        const endDate = useHover ? this.getLastRangeDay() : this._endDate;
+        const startDate = this._startDate;
+        const endDate = this.getLastRangeDay();
         if (!startDate || !endDate) return false;
 
         return this.options.range && DateHelper.isInRange(day.day, startDate, endDate);
     }
 
     setHoverDate(day: HacCalendarDayModel) {
-        this.hoverDate = day.day;
+        this.hoverDate = day ? day.day : null;
     }
 
     clearDates() {

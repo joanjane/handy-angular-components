@@ -62,7 +62,8 @@
                     <div *ngFor="let day of week.days" 
                         class="hac-cal-day"
                         (click)="select(day)"
-                        (mouseover)="setHoverDate(day)"
+                        (mouseenter)="setHoverDate(day)"
+                        (mouseleave)="setHoverDate(null)"
                         [ngClass]="{ 
                             'hac-cal-day--is-selected': isSelected(day),
                             'hac-cal-day--is-hidden': !calendar.contains(day),
