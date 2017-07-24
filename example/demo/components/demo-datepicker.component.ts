@@ -5,7 +5,7 @@ import { HacDatepickerOptions } from 'handy-angular-components'
 
 @Component({
   selector: 'demo-datepicker',
-  templateUrl: './demo.datepicker.component.html'
+  templateUrl: './demo-datepicker.component.html'
 })
 export class DemoDatepickerComponent implements OnInit {
   datepickerOptions: HacDatepickerOptions;

@@ -5,7 +5,7 @@ import { HacDropdownOption, HacDropdownOptionGroup } from 'handy-angular-compone
 
 @Component({
   selector: 'demo-dropdown',
-  templateUrl: './demo.dropdown.component.html'
+  templateUrl: './demo-dropdown.component.html'
 })
 export class DemoDropdownComponent implements OnInit {
   dropdownGroupsList: HacDropdownOptionGroup[];
