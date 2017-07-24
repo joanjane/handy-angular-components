@@ -49,15 +49,15 @@
                 </div>
             </div>
 
-            <!-- week day list -->
-            <div class="hac-cal-weedays">
-                <div *ngFor="let weekDay of weekDayList" class="hac-cal-weekday">
-                    {{ weekDay | hacWeekDayFormatter }}
-                </div>
-            </div>
-
-            <!-- weeks -->
             <div class="hac-cal-weeks">
+                <!-- week day list -->
+                <div class="hac-cal-weedays">
+                    <div *ngFor="let weekDay of weekDayList" class="hac-cal-weekday">
+                        {{ weekDay | hacWeekDayFormatter }}
+                    </div>
+                </div>
+
+                <!-- weeks -->
                 <div *ngFor="let week of calendar.weeks" class="hac-cal-week">
                     <div *ngFor="let day of week.days" 
                         class="hac-cal-day"
