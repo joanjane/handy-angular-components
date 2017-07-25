@@ -69,33 +69,23 @@ $hacDropdownGroupBg: #f7f4f4;
     &-label {
         cursor: pointer;
         border: 1px solid $hac-border;
-        padding: 0.3rem 0.3rem;
+        display: flex;
+        justify-content: space-between;
+        padding: .3rem;
     }
 
     &-filter {
         background: transparent;
         border: none;
+        border-bottom: 1px solid transparent;
+        padding: .2rem;
         color: $hac-font-color;
-        width: 90%;
+        font-size: .9rem;
+        font-family: $hac-font-family;
+        min-width: 85%;
 
         &:focus {
             outline: none;
         }
     }
-
-    &-caret {
-        float: right;
-        position: relative;
-        top: 0.4rem;
-
-        $hacCaretSize: 4px;
-        &--down {
-            width: 0; 
-            height: 0; 
-            border-left: $hacCaretSize solid transparent;
-            border-right: $hacCaretSize solid transparent;
-            border-top: $hacCaretSize solid #000;
-        }
-    }
-
 }

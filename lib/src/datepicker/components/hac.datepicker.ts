@@ -264,7 +264,12 @@ export class HacDatepickerComponent implements OnInit {
         return (calendarIndex === this.calendars.length - 1) && isInRange;
     }
 
+    hideRemoveButton(): boolean {
+        return !this._startDate;
+    }
+
     private setOptionsDefaults(): void {
+        this._options = this._options || {};
         let startDate = this._options.currentDisplayMonth ?
             new Date(this.options.currentDisplayMonth) :
             this._startDate ? DateHelper.ensureDateObject(this._startDate) : new Date();

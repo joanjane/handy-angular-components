@@ -1,0 +1,47 @@
+$break-small: 640px;
+
+.demo-mix {
+    margin: 0 auto;
+    max-width: 1280px;
+
+    &-formgroup {
+        display: flex;
+
+        @media screen and (max-width: $break-small) {
+            display: block;
+        }
+    }
+
+    &-formcontrol {
+        flex: 1 0 0;
+        padding: 0.3rem;
+    }
+
+    &-label {
+        display: block;
+        font-weight: bold;
+        padding-bottom: 0.5rem;
+    }
+
+    &-btn {
+        $color: #706edc;
+
+        background: none;
+        border: 1px solid $color;
+        color: $color;
+        cursor: pointer;
+        border-radius: 0.2rem;
+        font-weight: bold;
+        padding: 0.5rem 0.5rem;
+        text-transform: uppercase;
+
+        &--error {
+            $color: #dc6e6e;
+
+            border: 1px solid $color;
+            color: $color;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+    }
+}

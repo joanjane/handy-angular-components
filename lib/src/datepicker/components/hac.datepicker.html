@@ -2,8 +2,7 @@
     <!-- selector wrapper -->
     <div class="hac-cal-selectorwrapper">
         <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}" (focus)="forceSelectionKind('start')">
-        <!-- cal icon selector -->
-        <span class="hac-cal-icon" (click)="toggleCalendar()"></span>
+        <i class="hac-icon-cal" aria-hidden="true" (click)="toggleCalendar($event)"></i>
 
         <!-- start/single date -->
         <span class="hac-cal-date hac-cal-startdate" (click)="forceSelectionKind('start')"
@@ -22,7 +21,11 @@
             </span>
             <span *ngIf="!endDate">{{options?.endDatePlaceholder}}</span>
         </span>
-        <span class="hac-cal-cross" (click)="clearDates()"></span>
+        <span class="hac-icon-cross" aria-hidden="true" (click)="clearDates()"
+            *ngIf="!hideRemoveButton(); else showChevron"></span>
+        <ng-template #showChevron>
+            <i class="hac-icon-chevron" aria-hidden="true"></i>
+        </ng-template>
     </div>
     
     <!-- calendar wrapper -->
@@ -34,18 +37,18 @@
         <div *ngFor="let calendar of calendars; let i = index" 
             class="hac-cal-month"
             [ngClass]="{ 'hac-cal-separator': i > 0 && i < calendars.length }">
-            
+            <!-- calendar toggle -->
             <!-- calendar header -->
             <div class="hac-cal-header">
                 <div class="hac-cal-arrow">
-                    <span *ngIf="isPrevArrowVisible(i)" (click)="prevMonth($event)" class="hac-cal-chevron hac-cal-chevron--left"></span>
+                    <span *ngIf="isPrevArrowVisible(i)" (click)="prevMonth($event)" class="hac-icon-chevron hac-icon-chevron--left"></span>
                 </div>
                 <strong class="hac-cal-monthlabel">
                     <span class="hac-cal-monthlabel--year">{{calendar.month | date : 'y '}}</span>
                     <span class="hac-cal-monthlabel--month">{{calendar.month | date : 'MMMM'}}</span>
                 </strong>
                 <div class="hac-cal-arrow">
-                    <span *ngIf="isNextArrowVisible(i)" (click)="nextMonth($event)" class="hac-cal-chevron hac-cal-chevron--right"></span>
+                    <span *ngIf="isNextArrowVisible(i)" (click)="nextMonth($event)" class="hac-icon-chevron hac-icon-chevron--right"></span>
                 </div>
             </div>
 

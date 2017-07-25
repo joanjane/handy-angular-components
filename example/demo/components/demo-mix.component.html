@@ -1,1 +1,23 @@
-<div></div>
+<div class="demo-mix">
+    <form class="demo-mix-form" [formGroup]="form" (submit)="onSubmit(event)" novalidate>
+
+        <div class="demo-mix-formgroup">
+            <div class="demo-mix-formcontrol">
+                <label class="demo-mix-label" for="demo-mix-dropdown">Select a number:</label>
+                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'" [selected]="form.get('number')" (selectedChange)="form.get('number').setValue($event)"
+                    [allowEmpty]="true"></hac-dropdown>
+            </div>
+            <div class="demo-mix-formcontrol">
+                <label class="demo-mix-label" for="demo-mix-datepicker">Select a range:</label>
+                <hac-datepicker [startDate]="form.get('startDate')?.value" (startDateChange)="form.get('startDate').setValue($event)" [endDate]="form.get('endDate')?.value"
+                    (endDateChange)="form.get('endDate').setValue($event)" [options]="datepickerOptions"></hac-datepicker>
+            </div>
+        </div>
+        <div class="demo-mix-formgroup">
+            <div class="demo-mix-formcontrol">
+                <button class="demo-mix-btn"
+                    [ngClass]="{'demo-mix-btn--error': form.invalid}">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
