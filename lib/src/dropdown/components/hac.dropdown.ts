@@ -1,7 +1,9 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDestroy } from '@angular/core';
 import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
 import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
 import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
+import { FormControl } from '@angular/forms';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'hac-dropdown',
@@ -11,7 +13,7 @@ import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
     HacDropdownColumnizerPipe
   ]
 })
-export class HacDropdownComponent {
+export class HacDropdownComponent implements OnDestroy {
   @Input() optionGroups: HacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
@@ -27,16 +29,41 @@ export class HacDropdownComponent {
   @Input()
   public set selected(v: string | number) {
     this._selected = v;
-    const selection = this.getSelected();
-    this.filter = selection ? selection.label : null;
+    // ensure valid values, if not, reset
+    if (v && !this.findOptionByKey(v)) {
+      setTimeout(() => {
+        this._selected = null;
+        this.selectedChange.emit(this._selected);
+        if(this._control) this._control.setValue(null);
+      }, 0);
+    }
+    this.updateFilter();
+  }
+
+  private _control: FormControl;
+  @Input()
+  public set control(v: FormControl) {
+    this._control = v;
+    
+    this.subscriptions.push(this._control.valueChanges.subscribe(c => {
+      if (this.selected !== c) {
+        this.selected = c;
+      }
+      this.updateFilter();
+    }));
   }
 
   collapsed = true;
   filter: string;
+  private subscriptions: Array<Subscription> = [];
   private windowHeight = 0;
 
   constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) {
     this.syncWindowHeight();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('document:click', ['$event'])
@@ -53,7 +80,7 @@ export class HacDropdownComponent {
 
   getSelected(): HacDropdownOption {
     if (this.hasGroups()) {
-      return this.optionGroups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
+      return this.findOptionByKey(this._selected);
     }
 
     return null;
@@ -61,6 +88,9 @@ export class HacDropdownComponent {
 
   select(key: number | string) {
     this.selected = key;
+    if (this._control) {
+      this._control.setValue(key);
+    }
     this.closeDropdown();
     this.selectedChange.emit(this.selected);
   }
@@ -70,6 +100,7 @@ export class HacDropdownComponent {
   }
 
   openDropdown(e?: any) {
+    this.markAsDirty();
     this.collapsed = false;
     if (e) {
       e.target.focus();
@@ -106,6 +137,21 @@ export class HacDropdownComponent {
     const el = this.elementRef.nativeElement.querySelector('.hac-dd-list');
     const pos = this.getPos(el);
     return `${window.innerHeight - 10 - pos.y}px`;
+  }
+
+  private findOptionByKey(key: string | number): HacDropdownOption {
+    return this.optionGroups.map(f => f.options.find(o => o.key === key)).find(o => o != null);
+  }
+
+  private updateFilter() {
+    const selection = this.getSelected();
+    this.filter = selection ? selection.label : null;
+  }
+
+  private markAsDirty() {
+    if (this._control) {
+      this._control.markAsDirty();
+    }
   }
 
   private syncWindowHeight() {

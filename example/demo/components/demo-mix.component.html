@@ -4,10 +4,10 @@
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-dropdown">Select a number:</label>
-                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'" [selected]="form.get('number')" (selectedChange)="form.get('number').setValue($event)"
+                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'" [control]="form.controls['number']"
                     [allowEmpty]="true"></hac-dropdown>
                 
-                <ul class="demo-mix-errors" *ngIf="submitted && form.get('number')?.invalid">
+                <ul class="demo-mix-errors" *ngIf="form.get('number').dirty && form.get('number')?.invalid">
                     <li *ngIf="form.get('number')?.errors?.required">
                         Select a number
                     </li>
@@ -32,4 +32,6 @@
             </div>
         </div>
     </form>
+    <button (click)="testSelect()">test</button>
+    <pre>{{ form.value | json}}</pre>
 </div>
