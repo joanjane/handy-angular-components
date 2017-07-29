@@ -4,7 +4,8 @@
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-dropdown">Select a number:</label>
-                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'" [control]="form.controls['number']"
+                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'"
+                    formControlName="number"
                     [allowEmpty]="true"></hac-dropdown>
                 
                 <ul class="demo-mix-errors" *ngIf="form.get('number').dirty && form.get('number')?.invalid">
@@ -32,6 +33,9 @@
             </div>
         </div>
     </form>
-    <button (click)="testSelect()">test</button>
     <pre>{{ form.value | json}}</pre>
+
+    <div>
+        <button class="demo-mix-btn" (click)="forceFirstDropdownOption()">Choose first dropdown option</button>
+    </div>
 </div>

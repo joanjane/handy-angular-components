@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDestroy, forwardRef } from '@angular/core';
 import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
 import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
 import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
-import { FormControl } from '@angular/forms';
+import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({
@@ -10,10 +10,15 @@ import { Subscription } from "rxjs/Subscription";
   templateUrl: './hac.dropdown.html',
   providers: [
     HacDropdownFilterPipe,
-    HacDropdownColumnizerPipe
+    HacDropdownColumnizerPipe,
+    { 
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => HacDropdownComponent),
+      multi: true
+    }
   ]
 })
-export class HacDropdownComponent implements OnDestroy {
+export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   @Input() optionGroups: HacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
@@ -21,6 +26,7 @@ export class HacDropdownComponent implements OnDestroy {
   @Input() columns = 1;
   @Output() selectedChange = new EventEmitter();
   @Input() id: string;
+  @Input() disabled: boolean = false;
 
   private _selected: string | number;
   public get selected(): string | number {
@@ -29,28 +35,16 @@ export class HacDropdownComponent implements OnDestroy {
   @Input()
   public set selected(v: string | number) {
     this._selected = v;
+    this.onChangeCallback(this._selected);
     // ensure valid values, if not, reset
     if (v && !this.findOptionByKey(v)) {
       setTimeout(() => {
         this._selected = null;
         this.selectedChange.emit(this._selected);
-        if(this._control) this._control.setValue(null);
+        this.onChangeCallback(this._selected);
       }, 0);
     }
     this.updateFilter();
-  }
-
-  private _control: FormControl;
-  @Input()
-  public set control(v: FormControl) {
-    this._control = v;
-    
-    this.subscriptions.push(this._control.valueChanges.subscribe(c => {
-      if (this.selected !== c) {
-        this.selected = c;
-      }
-      this.updateFilter();
-    }));
   }
 
   collapsed = true;
@@ -88,9 +82,6 @@ export class HacDropdownComponent implements OnDestroy {
 
   select(key: number | string) {
     this.selected = key;
-    if (this._control) {
-      this._control.setValue(key);
-    }
     this.closeDropdown();
     this.selectedChange.emit(this.selected);
   }
@@ -100,7 +91,9 @@ export class HacDropdownComponent implements OnDestroy {
   }
 
   openDropdown(e?: any) {
-    this.markAsDirty();
+    if (this.disabled) return; 
+
+    this.onTouchedCallback();
     this.collapsed = false;
     if (e) {
       e.target.focus();
@@ -128,6 +121,27 @@ export class HacDropdownComponent implements OnDestroy {
     }
   }
 
+  /* Control Value Accessor */
+  writeValue(obj: any): void {
+    this.selected = obj;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouchedCallback = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  private onTouchedCallback: () => void = () => {};
+  private onChangeCallback: (_: any) => void = () => {};
+  /* Control Value Accessor */
+
   /* Dropdown styling dimensions */
   getLabelElem(): HTMLElement {
     return this.elementRef.nativeElement.querySelector('.hac-dd-label');
@@ -146,12 +160,6 @@ export class HacDropdownComponent implements OnDestroy {
   private updateFilter() {
     const selection = this.getSelected();
     this.filter = selection ? selection.label : null;
-  }
-
-  private markAsDirty() {
-    if (this._control) {
-      this._control.markAsDirty();
-    }
   }
 
   private syncWindowHeight() {

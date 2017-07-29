@@ -52,6 +52,10 @@ export class DemoMixComponent implements OnInit {
     alert(JSON.stringify(this.form.value));
   }
 
+  forceFirstDropdownOption() {
+    this.form.get('number').setValue(this.dropdownList[0].options[0].key);
+  }
+
   // Important! When updating datepicker options:
   // Use immutability when changing options properties, because angular detects
   // changes on inputs when the object reference has changed, but NOT when a property
