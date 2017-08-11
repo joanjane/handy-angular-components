@@ -1,5 +1,5 @@
 <div class="demo-mix">
-    <form class="demo-mix-form" [formGroup]="form" (submit)="onSubmit(event)" novalidate>
+    <form class="demo-mix-form" [formGroup]="form" (submit)="onSubmit($event)" novalidate>
 
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
@@ -44,7 +44,7 @@
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
                 <button class="demo-mix-btn"
-                    [ngClass]="{'demo-mix-btn--error': submitted && form.invalid}">Submit</button>
+                    [ngClass]="{'demo-mix-btn--error': form.dirty && form.invalid}">Submit</button>
             </div>
         </div>
     </form>
