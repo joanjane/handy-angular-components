@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { DemoComponent } from './demo.component';
 import { DemoDropdownComponent, DemoDatepickerComponent, DemoMixComponent } from './components';
 import { HacModule } from 'handy-angular-components';
-import { appRoutes } from "./demo.routes";
+import { appRoutes } from './demo.routes';
 
 @NgModule({
   declarations: [

@@ -2,8 +2,8 @@ import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDes
 import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
 import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
 import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from "rxjs/Subscription";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'hac-dropdown',

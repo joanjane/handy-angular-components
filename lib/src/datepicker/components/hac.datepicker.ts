@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener, forwardRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HacDatepickerOptions } from './hac.datepicker.options';
 import { HacCalendarModel, HacCalendarDayModel, weekDayList, WeekDay } from '../models/hac.calendar.model';
 import { HacWeekDayFormatter } from '../pipes/hac.weekday.formatter';
@@ -290,7 +290,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
 
     /* Control Value Accessor */
     writeValue(obj: any): void {
-        if(this._options.range) {
+        if (this._options.range) {
             this.setStartDate(obj ? obj.startDate : null);
             this.setEndDate(obj ? obj.endDate : null);
         } else {
@@ -314,7 +314,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         if (!this.onChangeCallback) return;
         let model = null;
         if (!this._options.range) {
-            model = this._startDate;    
+            model = this._startDate;
         } else if (this._startDate && this._endDate) {
             model = {
                 startDate: this._startDate,
@@ -371,13 +371,6 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         this.endDateChange.emit(this._endDate);
         this.hoverDate = DateHelper.ensureDateObject(this._endDate);
         this.pushNewModelChange();
-    }
-
-    private getFirstRangeDay(): Date | string {
-        if (this.getSelectionKind() === 'end') {
-            return this._startDate;
-        }
-        return this.hoverDate || this._startDate;
     }
 
     private getLastRangeDay(): Date | string {
