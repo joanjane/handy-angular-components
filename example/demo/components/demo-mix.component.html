@@ -16,6 +16,18 @@
             </div>
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-datepicker">Select a range:</label>
+                <hac-datepicker 
+                    formControlName="dates"
+                    [options]="datepickerOptions"></hac-datepicker>
+                
+                <ul class="demo-mix-errors" *ngIf="submitted && (form.get('startDate').invalid || form.get('endDate').invalid)">
+                    <li *ngIf="form.get('startDate').errors?.required || form.get('endDate').errors?.required">
+                        Select a date range.
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="demo-mix-formcontrol">
+                <label class="demo-mix-label" for="demo-mix-datepicker">Select a range:</label>
                 <hac-datepicker [startDate]="form.get('startDate')?.value" (startDateChange)="form.get('startDate').setValue($event)" [endDate]="form.get('endDate')?.value"
                     (endDateChange)="form.get('endDate').setValue($event)" [options]="datepickerOptions"></hac-datepicker>
                 
@@ -24,7 +36,7 @@
                         Select a date range.
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">

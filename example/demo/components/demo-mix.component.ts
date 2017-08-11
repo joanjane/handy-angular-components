@@ -19,8 +19,9 @@ export class DemoMixComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       number: new FormControl(null, Validators.required),
-      startDate: new FormControl(null, Validators.required),
-      endDate: new FormControl(null, Validators.required)
+      dates: new FormControl(null, Validators.required),
+      // startDate: new FormControl(null, Validators.required),
+      // endDate: new FormControl(null, Validators.required)
     });
 
     this.setDatepickerOptions({

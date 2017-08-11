@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener, forwardRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { HacDatepickerOptions } from './hac.datepicker.options';
 import { HacCalendarModel, HacCalendarDayModel, weekDayList, WeekDay } from '../models/hac.calendar.model';
 import { HacWeekDayFormatter } from '../pipes/hac.weekday.formatter';
@@ -11,10 +12,15 @@ import { HacImmutableHelper } from '../../common/helpers/immutable.operations';
     templateUrl: './hac.datepicker.html',
     providers: [
         DatePipe,
-        HacWeekDayFormatter
+        HacWeekDayFormatter,
+        { 
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => HacDatepickerComponent),
+            multi: true
+        }
     ]
 })
-export class HacDatepickerComponent implements OnInit {
+export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     private _startDate: Date | string;
     public get startDate(): Date | string {
         return this._startDate;
@@ -23,6 +29,7 @@ export class HacDatepickerComponent implements OnInit {
     public set startDate(v: Date | string) {
         this._startDate = v;
         if (!v || DateHelper.areDatesEqual(v, this._startDate)) return;
+        this.pushNewModelChange();
 
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'start')) {
@@ -44,7 +51,8 @@ export class HacDatepickerComponent implements OnInit {
     public set endDate(v: Date | string) {
         this._endDate = v;
         if (!v || DateHelper.areDatesEqual(v, this._endDate)) return;
-
+        this.pushNewModelChange();
+        
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'end')
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
@@ -303,12 +311,14 @@ export class HacDatepickerComponent implements OnInit {
         this.startDate = day;
         this.startDateChange.emit(this._startDate);
         this.hoverDate = DateHelper.ensureDateObject(this._startDate);
+        this.pushNewModelChange();
     }
 
     private setEndDate(day?: Date | string) {
         this.endDate = day;
         this.endDateChange.emit(this._endDate);
         this.hoverDate = DateHelper.ensureDateObject(this._endDate);
+        this.pushNewModelChange();
     }
 
     private getFirstRangeDay(): Date | string {
@@ -354,6 +364,43 @@ export class HacDatepickerComponent implements OnInit {
     private getMaxDate(): Date {
         return this._options.maxDate;
     }
+
+
+
+
+
+
+    
+  /* Control Value Accessor */
+  disabled: boolean;
+  writeValue(obj: any): void {
+    this.setStartDate(obj? obj.startDate : null);
+    this.setEndDate(obj? obj.endDate : null);
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouchedCallback = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  private pushNewModelChange() {
+    const model = {
+        startDate: this._startDate,
+        endDate: this._endDate
+    };
+    this.onChangeCallback(model);
+  }
+
+  private onTouchedCallback: () => void = () => {};
+  private onChangeCallback: (_: any) => void = () => {};
+  /* Control Value Accessor */
 }
 
 export type SelectionKind = 'start' | 'end';
