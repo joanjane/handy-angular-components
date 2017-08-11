@@ -6,7 +6,8 @@
 
         <!-- start/single date -->
         <span class="hac-cal-date hac-cal-startdate" (click)="forceSelectionKind('start')"
-            [ngClass]="{'hac-cal-date--is-active': getSelectionKind() === 'start' && !collapsed }">
+            [ngClass]="{'hac-cal-date--is-active': getSelectionKind() === 'start' && !collapsed,
+                'hac-cal-date--is-disabled': disabled }">
             <span *ngIf="startDate">
                 {{startDate | date: options?.startDateFormat}}
             </span>
@@ -15,7 +16,8 @@
 
         <!-- end date -->
         <span class="hac-cal-date hac-cal-enddate" *ngIf="options?.range" (click)="forceSelectionKind('end')"
-            [ngClass]="{'hac-cal-date--is-active': getSelectionKind() === 'end' && !collapsed }">
+            [ngClass]="{'hac-cal-date--is-active': getSelectionKind() === 'end' && !collapsed,
+                'hac-cal-date--is-disabled': disabled }">
             <span *ngIf="endDate">
                 {{endDate | date: options?.endDateFormat}}
             </span>

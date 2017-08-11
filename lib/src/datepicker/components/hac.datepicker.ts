@@ -13,7 +13,7 @@ import { HacImmutableHelper } from '../../common/helpers/immutable.operations';
     providers: [
         DatePipe,
         HacWeekDayFormatter,
-        { 
+        {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => HacDatepickerComponent),
             multi: true
@@ -52,7 +52,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         this._endDate = v;
         if (!v || DateHelper.areDatesEqual(v, this._endDate)) return;
         this.pushNewModelChange();
-        
+
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'end')
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
@@ -90,6 +90,8 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         this.setOptionsDefaults();
         this.buildCalendarModel();
     }
+    @Input()
+    disabled: boolean = false;
 
     calendars: HacCalendarModel[] = [];
     weekDayList: WeekDay[] = weekDayList;
@@ -99,6 +101,16 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         return this._collapsed;
     }
     public set collapsed(v: boolean) {
+        if (this.disabled) {
+            this._collapsed = true;
+            return;
+        }
+
+        // mark as touched when opening
+        if (!v && this.onTouchedCallback) {
+            this.onTouchedCallback();
+        }
+
         this.animate();
         this._collapsed = v;
     }
@@ -184,7 +196,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
 
     isEnd(day: HacCalendarDayModel): boolean {
         const lastDayRange = this.getLastRangeDay();
-        
+
         return this.options.range && DateHelper.areDatesEqual(day.day, lastDayRange);
     }
 
@@ -276,6 +288,46 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         return !this._startDate;
     }
 
+    /* Control Value Accessor */
+    writeValue(obj: any): void {
+        if(this._options.range) {
+            this.setStartDate(obj ? obj.startDate : null);
+            this.setEndDate(obj ? obj.endDate : null);
+        } else {
+            this.setStartDate(obj);
+        }
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeCallback = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedCallback = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
+    private pushNewModelChange() {
+        if (!this.onChangeCallback) return;
+        let model = null;
+        if (!this._options.range) {
+            model = this._startDate;    
+        } else if (this._startDate && this._endDate) {
+            model = {
+                startDate: this._startDate,
+                endDate: this._endDate
+            };
+        }
+        this.onChangeCallback(model);
+    }
+
+    private onTouchedCallback: () => void = () => { };
+    private onChangeCallback: (_: any) => void = () => { };
+    /* Control Value Accessor */
+
     private setOptionsDefaults(): void {
         this._options = this._options || {};
         let startDate = this._options.currentDisplayMonth ?
@@ -364,43 +416,6 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     private getMaxDate(): Date {
         return this._options.maxDate;
     }
-
-
-
-
-
-
-    
-  /* Control Value Accessor */
-  disabled: boolean;
-  writeValue(obj: any): void {
-    this.setStartDate(obj? obj.startDate : null);
-    this.setEndDate(obj? obj.endDate : null);
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChangeCallback = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouchedCallback = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  private pushNewModelChange() {
-    const model = {
-        startDate: this._startDate,
-        endDate: this._endDate
-    };
-    this.onChangeCallback(model);
-  }
-
-  private onTouchedCallback: () => void = () => {};
-  private onChangeCallback: (_: any) => void = () => {};
-  /* Control Value Accessor */
 }
 
 export type SelectionKind = 'start' | 'end';

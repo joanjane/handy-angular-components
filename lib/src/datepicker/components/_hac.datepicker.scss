@@ -133,6 +133,10 @@
         &--is-active {
             border-bottom-color: $hac-brand-color;
         }
+
+        &--is-disabled {
+            opacity: 0.8;
+        }
     }
 
     &-todaybtn {
