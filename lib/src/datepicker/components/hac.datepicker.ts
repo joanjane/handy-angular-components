@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener, forwardRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HacDatepickerOptions } from './hac.datepicker.options';
 import { HacCalendarModel, HacCalendarDayModel, weekDayList, WeekDay } from '../models/hac.calendar.model';
 import { HacWeekDayFormatter } from '../pipes/hac.weekday.formatter';
@@ -11,23 +12,33 @@ import { HacImmutableHelper } from '../../common/helpers/immutable.operations';
     templateUrl: './hac.datepicker.html',
     providers: [
         DatePipe,
-        HacWeekDayFormatter
+        HacWeekDayFormatter,
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => HacDatepickerComponent),
+            multi: true
+        }
     ]
 })
-export class HacDatepickerComponent implements OnInit {
+export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     private _startDate: Date | string;
     public get startDate(): Date | string {
         return this._startDate;
     }
     @Input()
     public set startDate(v: Date | string) {
+        if (DateHelper.areDatesEqual(v, this._startDate)) return;
+        
         this._startDate = v;
-        if (!v || DateHelper.areDatesEqual(v, this._startDate)) return;
+        this.pushNewModelChange();
+        if (!this._startDate) return;
 
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'start')) {
-            this.setStartDate(null);
-            this.forceSelectionKind('start');
+            setTimeout(() => {
+                this.setStartDate(null);
+                this.forceSelectionKind('start');
+            }, 0);
         } else if (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate)) {
             setTimeout(() => {
                 this.setEndDate(null);
@@ -42,9 +53,12 @@ export class HacDatepickerComponent implements OnInit {
     }
     @Input()
     public set endDate(v: Date | string) {
+        if (DateHelper.areDatesEqual(v, this._endDate)) return;
+        
         this._endDate = v;
-        if (!v || DateHelper.areDatesEqual(v, this._endDate)) return;
-
+        this.pushNewModelChange();
+        if (!this._endDate) return;
+        
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'end')
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
@@ -82,6 +96,8 @@ export class HacDatepickerComponent implements OnInit {
         this.setOptionsDefaults();
         this.buildCalendarModel();
     }
+    @Input()
+    disabled: boolean = false;
 
     calendars: HacCalendarModel[] = [];
     weekDayList: WeekDay[] = weekDayList;
@@ -91,6 +107,16 @@ export class HacDatepickerComponent implements OnInit {
         return this._collapsed;
     }
     public set collapsed(v: boolean) {
+        if (this.disabled) {
+            this._collapsed = true;
+            return;
+        }
+
+        // mark as touched when opening
+        if (!v && this.onTouchedCallback) {
+            this.onTouchedCallback();
+        }
+
         this.animate();
         this._collapsed = v;
     }
@@ -176,7 +202,7 @@ export class HacDatepickerComponent implements OnInit {
 
     isEnd(day: HacCalendarDayModel): boolean {
         const lastDayRange = this.getLastRangeDay();
-        
+
         return this.options.range && DateHelper.areDatesEqual(day.day, lastDayRange);
     }
 
@@ -219,7 +245,7 @@ export class HacDatepickerComponent implements OnInit {
         $event.stopPropagation();
     }
 
-    toggleCalendar(): void {
+    toggleCalendar(event: any): void {
         this.collapsed = !this.collapsed;
     }
 
@@ -268,6 +294,46 @@ export class HacDatepickerComponent implements OnInit {
         return !this._startDate;
     }
 
+    /* Control Value Accessor */
+    writeValue(obj: any): void {
+        if (this._options.range) {
+            this.setStartDate(obj ? obj.startDate : null);
+            this.setEndDate(obj ? obj.endDate : null);
+        } else {
+            this.setStartDate(obj);
+        }
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeCallback = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedCallback = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
+    private pushNewModelChange() {
+        if (!this.onChangeCallback) return;
+        let model = null;
+        if (!this._options.range) {
+            model = this._startDate;
+        } else if (this._startDate && this._endDate) {
+            model = {
+                startDate: this._startDate,
+                endDate: this._endDate
+            };
+        }
+        this.onChangeCallback(model);
+    }
+
+    private onTouchedCallback: () => void = () => { };
+    private onChangeCallback: (_: any) => void = () => { };
+    /* Control Value Accessor */
+
     private setOptionsDefaults(): void {
         this._options = this._options || {};
         let startDate = this._options.currentDisplayMonth ?
@@ -303,19 +369,14 @@ export class HacDatepickerComponent implements OnInit {
         this.startDate = day;
         this.startDateChange.emit(this._startDate);
         this.hoverDate = DateHelper.ensureDateObject(this._startDate);
+        this.pushNewModelChange();
     }
 
     private setEndDate(day?: Date | string) {
         this.endDate = day;
         this.endDateChange.emit(this._endDate);
         this.hoverDate = DateHelper.ensureDateObject(this._endDate);
-    }
-
-    private getFirstRangeDay(): Date | string {
-        if (this.getSelectionKind() === 'end') {
-            return this._startDate;
-        }
-        return this.hoverDate || this._startDate;
+        this.pushNewModelChange();
     }
 
     private getLastRangeDay(): Date | string {

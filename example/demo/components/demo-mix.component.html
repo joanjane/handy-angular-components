@@ -1,13 +1,14 @@
 <div class="demo-mix">
-    <form class="demo-mix-form" [formGroup]="form" (submit)="onSubmit(event)" novalidate>
+    <form class="demo-mix-form" [formGroup]="form" (submit)="onSubmit($event)" novalidate>
 
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-dropdown">Select a number:</label>
-                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'" [selected]="form.get('number')" (selectedChange)="form.get('number').setValue($event)"
+                <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'"
+                    formControlName="number"
                     [allowEmpty]="true"></hac-dropdown>
                 
-                <ul class="demo-mix-errors" *ngIf="submitted && form.get('number')?.invalid">
+                <ul class="demo-mix-errors" *ngIf="form.get('number').dirty && form.get('number')?.invalid">
                     <li *ngIf="form.get('number')?.errors?.required">
                         Select a number
                     </li>
@@ -15,11 +16,12 @@
             </div>
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-datepicker">Select a range:</label>
-                <hac-datepicker [startDate]="form.get('startDate')?.value" (startDateChange)="form.get('startDate').setValue($event)" [endDate]="form.get('endDate')?.value"
-                    (endDateChange)="form.get('endDate').setValue($event)" [options]="datepickerOptions"></hac-datepicker>
+                <hac-datepicker 
+                    formControlName="dates"
+                    [options]="datepickerOptions"></hac-datepicker>
                 
-                <ul class="demo-mix-errors" *ngIf="submitted && (form.get('startDate').invalid || form.get('endDate').invalid)">
-                    <li *ngIf="form.get('startDate').errors?.required || form.get('endDate').errors?.required">
+                <ul class="demo-mix-errors" *ngIf="form.get('dates').dirty && form.get('dates')?.invalid">
+                    <li *ngIf="form.get('dates').errors?.required">
                         Select a date range.
                     </li>
                 </ul>
@@ -27,9 +29,28 @@
         </div>
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
+                <label class="demo-mix-label" for="demo-mix-singledatepicker">Select a single date:</label>
+                <hac-datepicker 
+                    formControlName="singleDate"
+                    [options]="singleDatepickerOptions"></hac-datepicker>
+                
+                <ul class="demo-mix-errors" *ngIf="form.get('singleDate').dirty && form.get('singleDate').invalid">
+                    <li *ngIf="form.get('singleDate').errors?.required">
+                        Select a date.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="demo-mix-formgroup">
+            <div class="demo-mix-formcontrol">
                 <button class="demo-mix-btn"
-                    [ngClass]="{'demo-mix-btn--error': submitted && form.invalid}">Submit</button>
+                    [ngClass]="{'demo-mix-btn--error': form.dirty && form.invalid}">Submit</button>
             </div>
         </div>
     </form>
+    <pre>{{ form.value | json}}</pre>
+
+    <div>
+        <button class="demo-mix-btn" (click)="forceFirstDropdownOption()">Choose first dropdown option</button>
+    </div>
 </div>

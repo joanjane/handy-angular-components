@@ -5,7 +5,7 @@
             type="text" class="hac-dd-filter" [placeholder]="placeholder"
             id="{{id}}"
             [(ngModel)]="filter"
-            [readonly]="!filtrable"
+            [readonly]="!filtrable || disabled"
             (keyup)="handleKey($event)"
             (focus)="openDropdown($event)"
             (focusOut)="closeDropdown($event)"

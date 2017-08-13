@@ -1,17 +1,24 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDestroy, forwardRef } from '@angular/core';
 import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
 import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
 import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'hac-dropdown',
   templateUrl: './hac.dropdown.html',
   providers: [
     HacDropdownFilterPipe,
-    HacDropdownColumnizerPipe
+    HacDropdownColumnizerPipe,
+    { 
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => HacDropdownComponent),
+      multi: true
+    }
   ]
 })
-export class HacDropdownComponent {
+export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   @Input() optionGroups: HacDropdownOptionGroup[] = [];
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
@@ -19,6 +26,7 @@ export class HacDropdownComponent {
   @Input() columns = 1;
   @Output() selectedChange = new EventEmitter();
   @Input() id: string;
+  @Input() disabled: boolean = false;
 
   private _selected: string | number;
   public get selected(): string | number {
@@ -27,16 +35,29 @@ export class HacDropdownComponent {
   @Input()
   public set selected(v: string | number) {
     this._selected = v;
-    const selection = this.getSelected();
-    this.filter = selection ? selection.label : null;
+    this.onChangeCallback(this._selected);
+    // ensure valid values, if not, reset
+    if (v && !this.findOptionByKey(v)) {
+      setTimeout(() => {
+        this._selected = null;
+        this.selectedChange.emit(this._selected);
+        this.onChangeCallback(this._selected);
+      }, 0);
+    }
+    this.updateFilter();
   }
 
   collapsed = true;
   filter: string;
+  private subscriptions: Array<Subscription> = [];
   private windowHeight = 0;
 
   constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) {
     this.syncWindowHeight();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('document:click', ['$event'])
@@ -53,7 +74,7 @@ export class HacDropdownComponent {
 
   getSelected(): HacDropdownOption {
     if (this.hasGroups()) {
-      return this.optionGroups.map(f => f.options.find(o => o.key === this.selected)).find(o => o != null);
+      return this.findOptionByKey(this._selected);
     }
 
     return null;
@@ -70,6 +91,9 @@ export class HacDropdownComponent {
   }
 
   openDropdown(e?: any) {
+    if (this.disabled) return; 
+
+    this.onTouchedCallback();
     this.collapsed = false;
     if (e) {
       e.target.focus();
@@ -97,6 +121,27 @@ export class HacDropdownComponent {
     }
   }
 
+  /* Control Value Accessor */
+  writeValue(obj: any): void {
+    this.selected = obj;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouchedCallback = fn;
+  }
+
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  private onTouchedCallback: () => void = () => {};
+  private onChangeCallback: (_: any) => void = () => {};
+  /* Control Value Accessor */
+
   /* Dropdown styling dimensions */
   getLabelElem(): HTMLElement {
     return this.elementRef.nativeElement.querySelector('.hac-dd-label');
@@ -106,6 +151,15 @@ export class HacDropdownComponent {
     const el = this.elementRef.nativeElement.querySelector('.hac-dd-list');
     const pos = this.getPos(el);
     return `${window.innerHeight - 10 - pos.y}px`;
+  }
+
+  private findOptionByKey(key: string | number): HacDropdownOption {
+    return this.optionGroups.map(f => f.options.find(o => o.key === key)).find(o => o != null);
+  }
+
+  private updateFilter() {
+    const selection = this.getSelected();
+    this.filter = selection ? selection.label : null;
   }
 
   private syncWindowHeight() {

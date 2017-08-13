@@ -13,7 +13,7 @@ export class DemoDatepickerComponent implements OnInit {
   selectedEndDate: Date = null;
 
   datepickerSingleOptions: HacDatepickerOptions;
-  selectedSingleDate: string = '2017-02-01';
+  selectedSingleDate = '2017-02-01';
 
   datepickerWhitelistOptions: HacDatepickerOptions;
   selectedStartDateWhitelist: Date = null;

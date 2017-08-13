@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 import { HacDropdownOption, HacDropdownOptionGroup, HacDatepickerOptions } from 'handy-angular-components'
+import 'handy-angular-components/extensions/date'
 
 @Component({
   selector: 'demo-mix',
@@ -9,8 +10,8 @@ import { HacDropdownOption, HacDropdownOptionGroup, HacDatepickerOptions } from 
   styleUrls: ['./demo-mix.component.scss']
 })
 export class DemoMixComponent implements OnInit {
-  submitted: boolean;
   datepickerOptions: HacDatepickerOptions = {};
+  singleDatepickerOptions: HacDatepickerOptions = {};
   dropdownList: HacDropdownOptionGroup[] = [];
   form: FormGroup;
 
@@ -19,22 +20,26 @@ export class DemoMixComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       number: new FormControl(null, Validators.required),
-      startDate: new FormControl(null, Validators.required),
-      endDate: new FormControl(null, Validators.required)
+      dates: new FormControl(null, Validators.required),
+      singleDate: new FormControl(null, Validators.required),
     });
 
-    this.setDatepickerOptions({
+    this.datepickerOptions = {
       showMonths: 2,
       range: true,
       elementId: 'demo-mix-datepicker',
       enableTodayAction: false
-    });
+    };
+
+    this.singleDatepickerOptions = {
+      elementId: 'demo-mix-singledatepicker'
+    };
 
     this.dropdownList = [
       {
         options: [1, 2, 3, 4, 5].map(b => {
           return {
-            key: b.toString(),
+            key: b,
             label: b.toString()
           };
         })
@@ -43,20 +48,18 @@ export class DemoMixComponent implements OnInit {
   }
 
   onSubmit(event: any): void {
-    this.submitted = true;
     if (this.form.invalid) {
         console.log('Invalid form', this.form);
         return;
     }
 
     alert(JSON.stringify(this.form.value));
+    console.log(this.form.value.dates.startDate.asUTC().formatDatePart());
+    console.log(this.form.value.dates.endDate.asUTC().formatDatePart());
+    console.log(this.form.value.singleDate.asUTC().formatDatePart());
   }
 
-  // Important! When updating datepicker options:
-  // Use immutability when changing options properties, because angular detects
-  // changes on inputs when the object reference has changed, but NOT when a property
-  // of an object changes. In angular 1.x maybe you used $scope.apply().
-  private setDatepickerOptions(updatedProperties: HacDatepickerOptions) {
-    this.datepickerOptions = Object.assign({}, this.datepickerOptions, updatedProperties);
+  forceFirstDropdownOption() {
+    this.form.get('number').setValue(this.dropdownList[0].options[0].key);
   }
 }
