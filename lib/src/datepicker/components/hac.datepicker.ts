@@ -27,14 +27,18 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     }
     @Input()
     public set startDate(v: Date | string) {
+        if (DateHelper.areDatesEqual(v, this._startDate)) return;
+        
         this._startDate = v;
-        if (!v || DateHelper.areDatesEqual(v, this._startDate)) return;
         this.pushNewModelChange();
+        if (!this._startDate) return;
 
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'start')) {
-            this.setStartDate(null);
-            this.forceSelectionKind('start');
+            setTimeout(() => {
+                this.setStartDate(null);
+                this.forceSelectionKind('start');
+            }, 0);
         } else if (this.options.range && this._endDate && DateHelper.isGreater(v, this._endDate)) {
             setTimeout(() => {
                 this.setEndDate(null);
@@ -49,10 +53,12 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     }
     @Input()
     public set endDate(v: Date | string) {
+        if (DateHelper.areDatesEqual(v, this._endDate)) return;
+        
         this._endDate = v;
-        if (!v || DateHelper.areDatesEqual(v, this._endDate)) return;
         this.pushNewModelChange();
-
+        if (!this._endDate) return;
+        
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'end')
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
@@ -239,7 +245,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         $event.stopPropagation();
     }
 
-    toggleCalendar(): void {
+    toggleCalendar(event: any): void {
         this.collapsed = !this.collapsed;
     }
 
