@@ -114,6 +114,8 @@ Then use `hac-dropdown` component on the `demo.dropdown.component.html` template
 <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="true" [filtrable]="true" placeholder="Test placeholder"></hac-dropdown>
 ```
 
+You can use this components on reactive forms and template driven forms too with native support. Check out example app.
+
 ## Example
 
 See [this example](https://github.com/joanjane/handy-angular-components/tree/master/example) to discover all the features.
