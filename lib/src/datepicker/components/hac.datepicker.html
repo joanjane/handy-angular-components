@@ -26,7 +26,7 @@
         <span class="hac-icon-cross" aria-hidden="true" (click)="clearDates()"
             *ngIf="!hideRemoveButton(); else showChevron"></span>
         <ng-template #showChevron>
-            <i class="hac-icon-chevron" aria-hidden="true"></i>
+            <i class="hac-icon-chevron" [ngClass]="{'hac-icon-chevron--up': !collapsed}" aria-hidden="true" (click)="toggleCalendar($event)"></i>
         </ng-template>
     </div>
     

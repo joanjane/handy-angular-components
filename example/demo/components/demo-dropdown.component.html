@@ -14,10 +14,10 @@
     </div>
 
     <div id="dropdown-required-no-placeholder">
-        <h2>Dropdown w/ empty option:</h2>
+        <h2>Dropdown w/ empty option neither filter:</h2>
 
         <div class="small-width">
-            <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber" [allowEmpty]="false"></hac-dropdown>
+            <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber"></hac-dropdown>
         </div>
 
         <div>
@@ -32,8 +32,7 @@
             <label for="form-dd">Select a number:</label>
             <hac-dropdown [optionGroups]="dropdownList"
                 [id]="'form-dd'"
-                [selected]="demoForm.get('number')" 
-                (selectedChange)="demoForm.get('number').setValue($event)" 
+                formControlName="number"
                 [allowEmpty]="true"></hac-dropdown>
             
             <div style="display: flex">

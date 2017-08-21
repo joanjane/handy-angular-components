@@ -38,7 +38,7 @@ export class DemoDropdownComponent implements OnInit {
             label: 'three'
           }]
       }
-    ]
+    ];
 
     for (let i = 4; i < 100; i++) {
       this.dropdownList[0].options.push({

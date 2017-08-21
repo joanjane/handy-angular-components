@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
   providers: [
     HacDropdownFilterPipe,
     HacDropdownColumnizerPipe,
-    { 
+    {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => HacDropdownComponent),
       multi: true
@@ -72,6 +72,11 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
     this.syncWindowHeight();
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event) {
+    this.syncWindowHeight();
+  }
+
   getSelected(): HacDropdownOption {
     if (this.hasGroups()) {
       return this.findOptionByKey(this._selected);
@@ -91,7 +96,7 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   }
 
   openDropdown(e?: any) {
-    if (this.disabled) return; 
+    if (this.disabled) return;
 
     this.onTouchedCallback();
     this.collapsed = false;
@@ -102,6 +107,18 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
 
   closeDropdown(e?: any) {
     this.collapsed = true;
+  }
+
+  toggleDropdown(e?: any) {
+    if (this.collapsed) {
+      this.openDropdown();
+    } else {
+      this.closeDropdown();
+    }
+
+    if (e) {
+      e.stopPropagation();
+    }
   }
 
   shouldApplyFilter(): boolean {
@@ -138,8 +155,8 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  private onTouchedCallback: () => void = () => {};
-  private onChangeCallback: (_: any) => void = () => {};
+  private onTouchedCallback: () => void = () => { };
+  private onChangeCallback: (_: any) => void = () => { };
   /* Control Value Accessor */
 
   /* Dropdown styling dimensions */
@@ -150,7 +167,12 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   calcDropdownHeight(): string {
     const el = this.elementRef.nativeElement.querySelector('.hac-dd-list');
     const pos = this.getPos(el);
-    return `${window.innerHeight - 10 - pos.y}px`;
+    let height = window.innerHeight - 10 - pos.y;
+    // height = window.innerHeight - (window.pageYOffset || document.documentElement.scrollTop) - (el.clientTop || 0);
+    if (!height || height <= 150) {
+      height = 150;
+    }
+    return `${height}px`;
   }
 
   private findOptionByKey(key: string | number): HacDropdownOption {

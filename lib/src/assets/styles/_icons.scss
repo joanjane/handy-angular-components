@@ -15,8 +15,9 @@ $hac-icon-cal: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz
         opacity: .6;
         position: relative;
         top: 0.3rem;
+        transition-property: transform;
+        transition-duration: 0.4s;
         width: $hac-icon-dimension;
-
 
         &--left {
             left: 0.25em;

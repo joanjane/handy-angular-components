@@ -9,9 +9,10 @@
             (keyup)="handleKey($event)"
             (focus)="openDropdown($event)"
             (focusOut)="closeDropdown($event)"
+            autocomplete="off"
         />
 
-        <i class="hac-icon-chevron" aria-hidden="true"></i>
+        <i class="hac-icon-chevron" [ngClass]="{'hac-icon-chevron--up': !collapsed}" (click)="toggleDropdown($event)" aria-hidden="true"></i>
     </div>
 
     <div class="hac-dd-list" 

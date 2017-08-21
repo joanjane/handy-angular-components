@@ -6,6 +6,7 @@
                 <label class="demo-mix-label" for="demo-mix-dropdown">Select a number:</label>
                 <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'"
                     formControlName="number"
+                    [filtrable]="true"
                     [allowEmpty]="true"></hac-dropdown>
                 
                 <ul class="demo-mix-errors" *ngIf="form.get('number').dirty && form.get('number')?.invalid">
