@@ -2,7 +2,7 @@
 
 ## Index
 
-* [Setup](https://github.com/joanjane/handy-angular-components/tree/master/docs/dropdown.md)
+* [Setup](https://github.com/joanjane/handy-angular-components/tree/master/docs/setup.md)
 * Components 
     - [Dropdown](https://github.com/joanjane/handy-angular-components/tree/master/docs/dropdown.md)
     - [Datepicker](https://github.com/joanjane/handy-angular-components/tree/master/docs/datepicker.md)

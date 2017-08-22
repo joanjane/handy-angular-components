@@ -36,7 +36,7 @@ $ npm install handy-angular-components --save
 ```
 
 ## Documentation
-Read the [full documentation](https://github.com/joanjane/handy-angular-components/tree/master/docs/dropdown.md) to know about the features.
+Read the [full documentation](https://github.com/joanjane/handy-angular-components/tree/master/docs/index.md) to know about the features.
 
 ## Example
 
