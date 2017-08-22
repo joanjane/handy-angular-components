@@ -39,5 +39,5 @@ import { HacModule } from 'handy-angular-components';
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application. [Go back](https://github.com/joanjane/handy-angular-components/tree/master/docs/index.md) to docs index to continue with the components.
+Once your library is imported, you can use its components, directives and pipes in your Angular application. [Go back](https://github.com/joanjane/handy-angular-components/tree/master/docs) to docs index to continue with the components.
 
