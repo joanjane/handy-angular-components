@@ -11,7 +11,7 @@ $hacDropdownGroupBg: #f7f4f4;
 
     &-list {
         background: #fff;
-        border: 1px solid $hac-selected-bg;
+        border: 0.1rem solid $hac-selected-bg;
         border-top: none;
         border-bottom-left-radius: 0.2rem;
         border-bottom-right-radius: 0.2rem;
@@ -38,10 +38,9 @@ $hacDropdownGroupBg: #f7f4f4;
 
     &-option {
         cursor: pointer;
-        flex: 1 0 auto;
-        padding: 0.3rem 0.5rem;
+        padding: 0.55rem 0.8rem;
         word-break: break-all;
-
+        
         &:hover {
             background: lighten($hac-selected-bg, 0.4);            
         }
@@ -53,34 +52,38 @@ $hacDropdownGroupBg: #f7f4f4;
     }
 
     &-grouplabel {
-        padding: 0.3rem 0.5rem;
+        padding: 0.5rem 0.7rem;
         background: $hacDropdownGroupBg;            
     }
     
     &-optrow {
-        display: flex;
-        justify-content: space-around;
+        display: block;
 
-        &--single-col {
-            flex-direction: column;
+        &--multiple-col {
+            display: flex;
+            justify-content: space-around;
+
+            & .hac-dd-option {
+                flex: 1 0 0px;
+            }
         }
     }
 
     &-label {
         cursor: pointer;
-        border: 1px solid $hac-border;
+        border: 0.1rem solid $hac-border;
         display: flex;
         justify-content: space-between;
-        padding: .3rem;
+        padding: .48rem;
     }
 
     &-filter {
         background: transparent;
         border: none;
-        border-bottom: 1px solid transparent;
-        padding: .2rem;
+        border-bottom: 0.1rem solid transparent;
+        padding: .32rem;
         color: $hac-font-color;
-        font-size: .9rem;
+        font-size: 1.4rem;
         font-family: $hac-font-family;
         min-width: 85%;
 

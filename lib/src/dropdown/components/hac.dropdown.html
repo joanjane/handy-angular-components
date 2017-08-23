@@ -28,7 +28,7 @@
             <div class="hac-dd-grouplabel" *ngIf="group.label">{{group.label}}</div>
             <div class="hac-dd-optgroup">
                 <div class="hac-dd-optrow" *ngFor="let optionRow of group.options | hacDropdownFilter: filter : shouldApplyFilter() | hacDropdownColumnizer: columns"
-                    [ngClass]="{'hac-dd-optrow--single-col': columns === 1}">
+                    [ngClass]="{'hac-dd-optrow--multiple-col': columns !== 1}">
                     <div *ngFor="let option of optionRow" 
                         (click)="select(option.key)" class="hac-dd-option hac-dd-choice" 
                         [ngClass]="{ 

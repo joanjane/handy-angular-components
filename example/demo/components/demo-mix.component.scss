@@ -14,13 +14,13 @@ $break-small: 640px;
 
     &-formcontrol {
         flex: 1 0 0;
-        padding: 0.3rem;
+        padding: 0.48rem;
     }
 
     &-label {
         display: block;
         font-weight: bold;
-        padding-bottom: 0.5rem;
+        padding-bottom: 0.62rem;
     }
 
     &-btn {
@@ -30,9 +30,9 @@ $break-small: 640px;
         border: 1px solid $color;
         color: $color;
         cursor: pointer;
-        border-radius: 0.2rem;
+        border-radius: 0.32rem;
         font-weight: bold;
-        padding: 0.5rem 0.5rem;
+        padding: 0.7rem 0.7rem;
         text-transform: uppercase;
 
         &--error {

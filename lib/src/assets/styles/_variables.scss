@@ -1,9 +1,12 @@
+/* Font size of your html element */
+$hac-root-font-size: 10px !default;
+
 /* color variables*/
-$hac-selected-bg: #fbfbfb;
-$hac-border: rgb(225, 225, 226);
-$hac-brand-color: #e18682;
+$hac-selected-bg: #fbfbfb !default;
+$hac-border: rgb(225, 225, 226) !default;
+$hac-brand-color: #e18682 !default;
 
 /* font variables*/
-$hac-font-family: Verdana, Geneva, sans-serif;
-$hac-font-size: 13px;
-$hac-font-color: #555;
+$hac-font-family: Verdana, Geneva, sans-serif !default;
+$hac-font-size: 1.4rem !default;
+$hac-font-color: #555 !default;
