@@ -6,14 +6,14 @@
     font-size: $hac-font-size;
     
     &-month {
-        font-size: 1.4rem;
-        margin: 0.7rem;
+        font-size: 14px;
+        margin: 7px;
         width: 100%;
     }
 
     &-header {
         display: flex;
-        margin-bottom: 0.2rem;
+        margin-bottom: 2px;
         text-align: center;
 
         & .hac-cal-arrow {
@@ -27,15 +27,15 @@
 
     &-monthlabel {
         display: block;
-        font-size: 1.4rem;
+        font-size: 14px;
         font-weight: bold;
-        margin: 0.5rem 0;
+        margin: 5px 0;
         text-align: center;
     }
 
     &-weeks {
         display: table;
-        padding-bottom: 1rem;
+        padding-bottom: 10px;
         width: 100%;
     }
 
@@ -45,8 +45,8 @@
 
     &-weekday {
         display: table-cell;
-        font-size: 1.1rem;
-        padding-bottom: 0.7rem;
+        font-size: 11px;
+        padding-bottom: 7px;
         text-transform: uppercase;
         text-align: center;
     }
@@ -57,12 +57,12 @@
     }
 
     &-day {
-        $border-width: 0.17rem;
+        $border-width: 1.7px;
 
         cursor: pointer;
         display: table-cell;
-        font-size: 1.1rem;
-        padding: 0.62rem;
+        font-size: 11px;
+        padding: 6.2px;
         border-color: transparent;
         border-style: solid;
         border-width: $border-width;
@@ -109,14 +109,14 @@
     }
 
     &-separator {
-        border-left: 0.1rem solid $hac-border;
-        padding-left: 1rem;
+        border-left: 1px solid $hac-border;
+        padding-left: 10px;
     }
 
     &-selectorwrapper {
-        border: 0.1rem solid $hac-border;
+        border: 1px solid $hac-border;
         display: flex;
-        padding: 0.48rem;
+        padding: 4.8px;
         position: relative;
     }
     
@@ -124,14 +124,14 @@
         align-self: flex-end;
         border-bottom-color: $hac-border;
         border-bottom-style: dashed;
-        border-bottom-width: 0.1rem;
+        border-bottom-width: 1px;
         display: inline-block;
         flex: 4 0 auto;
-        font-size: 1.4rem;
-        margin-left: 0.4rem;
-        margin-right: 0.4rem;
-        min-width: 4rem;
-        padding: 0.32rem;
+        font-size: 14px;
+        margin-left: 4px;
+        margin-right: 4px;
+        min-width: 40px;
+        padding: 3.2px;
 
         &--is-active {
             border-bottom-color: $hac-brand-color;
@@ -146,14 +146,14 @@
         $color: $hac-brand-color;
 
         background: none;
-        border: 0.1rem solid $color;
-        border-radius: 0.4rem;
+        border: 1px solid $color;
+        border-radius: 4px;
         color: $color;
         cursor: pointer;
         font-family: $hac-font-family;
-        margin: 0.5rem 0;
+        margin: 5px 0;
         opacity: 0.7;
-        padding: 0.48rem 1.6rem;
+        padding: 4.8px 16px;
 
         &:hover {
             opacity: 1;
@@ -162,7 +162,7 @@
 
     
     &-wrapper {
-        border: 0.1rem solid $hac-border;
+        border: 1px solid $hac-border;
         background: #fff;
         display: flex;
         opacity: 0;
