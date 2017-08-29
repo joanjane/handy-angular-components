@@ -61,8 +61,12 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   }
 
   @HostListener('document:click', ['$event'])
-  onClick(event) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
+  onClick(event: MouseEvent) {
+    const clickOutsideComponent = !this.elementRef.nativeElement.contains(event.target);
+    const srcHtmlFor = (event.srcElement as HTMLLabelElement).htmlFor;
+    const clickFromLabelFor = (this.id && srcHtmlFor && srcHtmlFor === this.id);
+    
+    if (clickOutsideComponent && !clickFromLabelFor && !this.collapsed) {
       this.closeDropdown();
     }
   }
@@ -98,7 +102,6 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   openDropdown(e?: any) {
     if (this.disabled) return;
 
-    this.onTouchedCallback();
     this.collapsed = false;
     if (e) {
       e.target.focus();
@@ -107,6 +110,7 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
 
   closeDropdown(e?: any) {
     this.collapsed = true;
+    this.onTouchedCallback();
   }
 
   toggleDropdown(e?: any) {

@@ -1,7 +1,9 @@
 <div class="hac-cal">
     <!-- selector wrapper -->
     <div class="hac-cal-selectorwrapper">
-        <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}" (focus)="forceSelectionKind('start')">
+        <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}" 
+            (focus)="focus()"
+            (focusout)="focusout()">
         <i class="hac-icon-cal" aria-hidden="true" (click)="toggleCalendar($event)"></i>
 
         <!-- start/single date -->

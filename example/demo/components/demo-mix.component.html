@@ -9,7 +9,7 @@
                     [filtrable]="true"
                     [allowEmpty]="true"></hac-dropdown>
                 
-                <ul class="demo-mix-errors" *ngIf="form.get('number').dirty && form.get('number')?.invalid">
+                <ul class="demo-mix-errors" *ngIf="(submitted || form.get('number').touched)&& form.get('number')?.invalid">
                     <li *ngIf="form.get('number')?.errors?.required">
                         Select a number
                     </li>
@@ -21,9 +21,12 @@
                     formControlName="dates"
                     [options]="datepickerOptions"></hac-datepicker>
                 
-                <ul class="demo-mix-errors" *ngIf="form.get('dates').dirty && form.get('dates')?.invalid">
-                    <li *ngIf="form.get('dates').errors?.required">
-                        Select a date range.
+                <ul class="demo-mix-errors" *ngIf="(submitted || form.get('dates').touched) && form.get('dates')?.invalid">
+                    <li *ngIf="form.get('dates').errors?.startDateRequired">
+                        Select a start date.
+                    </li>
+                    <li *ngIf="form.get('dates').errors?.endDateRequired">
+                        Select an end date.
                     </li>
                 </ul>
             </div>
@@ -35,7 +38,7 @@
                     formControlName="singleDate"
                     [options]="singleDatepickerOptions"></hac-datepicker>
                 
-                <ul class="demo-mix-errors" *ngIf="form.get('singleDate').dirty && form.get('singleDate').invalid">
+                <ul class="demo-mix-errors" *ngIf="(submitted || form.get('singleDate').touched) && form.get('singleDate').invalid">
                     <li *ngIf="form.get('singleDate').errors?.required">
                         Select a date.
                     </li>
@@ -45,7 +48,7 @@
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
                 <button class="demo-mix-btn"
-                    [ngClass]="{'demo-mix-btn--error': form.dirty && form.invalid}">Submit</button>
+                    [ngClass]="{'demo-mix-btn--error': submitted && form.invalid}">Submit</button>
             </div>
         </div>
     </form>

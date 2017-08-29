@@ -14,6 +14,7 @@ export class DemoMixComponent implements OnInit {
   singleDatepickerOptions: HacDatepickerOptions = {};
   dropdownList: HacDropdownOptionGroup[] = [];
   form: FormGroup;
+  submitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -48,6 +49,7 @@ export class DemoMixComponent implements OnInit {
   }
 
   onSubmit(event: any): void {
+    this.submitted = true;
     if (this.form.invalid) {
         console.log('Invalid form', this.form);
         return;

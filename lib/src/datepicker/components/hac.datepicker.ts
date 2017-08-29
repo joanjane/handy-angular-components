@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, HostListener, forwardRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, Validator, AbstractControl, NG_VALIDATORS, ValidationErrors } from '@angular/forms';
 import { HacDatepickerOptions } from './hac.datepicker.options';
 import { HacCalendarModel, HacCalendarDayModel, weekDayList, WeekDay } from '../models/hac.calendar.model';
 import { HacWeekDayFormatter } from '../pipes/hac.weekday.formatter';
@@ -17,10 +17,15 @@ import { HacImmutableHelper } from '../../common/helpers/immutable.operations';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => HacDatepickerComponent),
             multi: true
+        },
+        {
+            provide: NG_VALIDATORS,
+            useExisting: forwardRef(() => HacDatepickerComponent),
+            multi: true,
         }
     ]
 })
-export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
+export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Validator {
     private _startDate: Date | string;
     public get startDate(): Date | string {
         return this._startDate;
@@ -28,7 +33,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     @Input()
     public set startDate(v: Date | string) {
         if (DateHelper.areDatesEqual(v, this._startDate)) return;
-        
+
         this._startDate = v;
         this.pushNewModelChange();
         if (!this._startDate) return;
@@ -54,11 +59,11 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
     @Input()
     public set endDate(v: Date | string) {
         if (DateHelper.areDatesEqual(v, this._endDate)) return;
-        
+
         this._endDate = v;
         this.pushNewModelChange();
         if (!this._endDate) return;
-        
+
         // reset invalid dates (disabled day or past time)
         if (this.isDisabled(new HacCalendarDayModel(v), 'end')
             || (this.options.range && this._startDate && DateHelper.isGreater(this._startDate, v))) {
@@ -112,8 +117,8 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
             return;
         }
 
-        // mark as touched when opening
-        if (!v && this.onTouchedCallback) {
+        // mark as touched when closing
+        if (!this._collapsed && v && this.onTouchedCallback) {
             this.onTouchedCallback();
         }
 
@@ -136,7 +141,10 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         if (this.options.elementId && event.target.htmlFor === this.options.elementId) {
             this.collapsed = false;
         } else if (!this.elementRef.nativeElement.contains(event.target)) {
-            this.collapsed = true;
+            if (!this.collapsed) {
+                this.collapsed = true;
+                if (this.onTouchedCallback) this.onTouchedCallback();
+            }
         }
     }
 
@@ -294,6 +302,14 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         return !this._startDate;
     }
 
+    focus() {
+        this.forceSelectionKind('start');
+    }
+
+    focusout() {
+        if (this.onTouchedCallback) this.onTouchedCallback();
+    }
+
     /* Control Value Accessor */
     writeValue(obj: any): void {
         if (this._options.range) {
@@ -316,7 +332,31 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
         this.disabled = isDisabled;
     }
 
+    /* Validators */
+    validate(c: AbstractControl): ValidationErrors | null {
+        let errors = null;
+        if (this.options.range) {
+            if (this._startDate == null) {
+                errors = errors || {};
+                errors.startDateRequired = true;
+            }
+            if (this._endDate == null) {
+                errors = errors || {};
+                errors.endDateRequired = true;
+            }
+        }
+        return errors;
+    }
+
+    registerOnValidatorChange?(fn: () => void): void {
+        this.onValidatorChangeCallback = fn;
+    }
+
     private pushNewModelChange() {
+        if (this.onValidatorChangeCallback) {
+            this.onValidatorChangeCallback();
+        }
+
         if (!this.onChangeCallback) return;
         let model = null;
         if (!this._options.range) {
@@ -332,6 +372,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor {
 
     private onTouchedCallback: () => void = () => { };
     private onChangeCallback: (_: any) => void = () => { };
+    private onValidatorChangeCallback: () => void = () => { };
     /* Control Value Accessor */
 
     private setOptionsDefaults(): void {

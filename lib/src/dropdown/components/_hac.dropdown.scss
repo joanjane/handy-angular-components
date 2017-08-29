@@ -7,8 +7,9 @@ $hacDropdownGroupBg: #f7f4f4;
     display: inline-block;
     font-family: $hac-font-family;
     font-size: $hac-font-size;
+    line-height: normal;
     width: 100%;
-
+    
     &-list {
         background: #fff;
         border: 1px solid $hac-selected-bg;
