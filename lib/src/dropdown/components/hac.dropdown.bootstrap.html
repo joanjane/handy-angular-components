@@ -1,0 +1,31 @@
+<div class="hac-dropdown dropdown" [ngClass]="{ 'open show': !collapsed }" >
+    <input
+        type="text" class="form-control js-filter"
+        [placeholder]="placeholder" id="{{id}}"
+        [(ngModel)]="filter" [readonly]="!filtrable || disabled"
+        (keyup)="handleKey($event)"
+        (focus)="openDropdown($event)"
+        (focusOut)="closeDropdown($event)"
+        autocomplete="off" />
+
+    <ul class="dropdown-menu"
+        role="menu"
+        *ngIf="hasGroups()"
+        [hacCopyWidth]="getFilterElem()"
+        widthCssProperty="width"
+        [skip]="collapsed"
+        [style.maxHeight]="calcDropdownHeight()">
+
+        <li><a class="dropdown-item" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
+        <ng-container *ngFor="let group of optionGroups">
+            <li *ngIf="group.label">
+                <a class="dropdown-item"><strong>{{group.label}}</strong></a>
+                <div class="dropdown-divider divider"></div>
+            </li>
+            <li *ngFor="let option of group.options | hacDropdownFilter: filter : shouldApplyFilter()">
+                <a class="dropdown-item" (click)="select(option.key)"
+                   [ngClass]="{ 'selected': option.key === selected }">{{option.label}}</a>
+            </li>
+        </ng-container>
+    </ul>
+</div>

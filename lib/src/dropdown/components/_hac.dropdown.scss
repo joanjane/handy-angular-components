@@ -1,6 +1,6 @@
 @import '../../assets/styles/variables';
 $hacDropdownMaxHeight: 300px;
-$hacDropdownGroupBg: #f7f4f4;
+$hacDropdownGroupBg: #F7F4F4;
 
 .hac-dd {
     color: $hac-font-color;
@@ -9,14 +9,14 @@ $hacDropdownGroupBg: #f7f4f4;
     font-size: $hac-font-size;
     line-height: normal;
     width: 100%;
-    
+
     &-list {
-        background: #fff;
+        background: #FFFFFF;
         border: 1px solid $hac-selected-bg;
-        border-top: none;
         border-bottom-left-radius: 2px;
         border-bottom-right-radius: 2px;
-        box-shadow: 0px 7px 14px -5px rgba(0, 0, 0, 0.25);
+        border-top: none;
+        box-shadow: 0 7px 14px -5px rgba(0, 0, 0, .25);
         max-height: $hacDropdownMaxHeight;
         min-height: 40px;
         min-width: 50px;
@@ -25,15 +25,15 @@ $hacDropdownGroupBg: #f7f4f4;
         z-index: 1000;
 
         &--is-collapsed {
-            visibility: hidden;
             height: 0!important;
             opacity: 0;
+            visibility: hidden;
         }
-        
-        &:not(.hac-dd-list--is-collapsed){
-            transition: opacity 0.3s ease;
-            visibility: visible;
+
+        &:not(.hac-dd-list--is-collapsed) {
             opacity: 1;
+            transition: opacity .3s ease;
+            visibility: visible;
         }
     }
 
@@ -41,9 +41,9 @@ $hacDropdownGroupBg: #f7f4f4;
         cursor: pointer;
         padding: 5.5px 8px;
         word-break: break-all;
-        
+
         &:hover {
-            background: lighten($hac-selected-bg, 0.4);            
+            background: lighten($hac-selected-bg, .4);
         }
 
         &--is-selected {
@@ -53,10 +53,10 @@ $hacDropdownGroupBg: #f7f4f4;
     }
 
     &-grouplabel {
+        background: $hacDropdownGroupBg;
         padding: 5px 7px;
-        background: $hacDropdownGroupBg;            
     }
-    
+
     &-optrow {
         display: block;
 
@@ -65,31 +65,42 @@ $hacDropdownGroupBg: #f7f4f4;
             justify-content: space-around;
 
             & .hac-dd-option {
-                flex: 1 0 0px;
+                flex: 1 0 0;
             }
         }
     }
 
     &-label {
-        cursor: pointer;
         border: 1px solid $hac-border;
+        cursor: pointer;
         display: flex;
         justify-content: space-between;
-        padding:    4.8px;
+        padding: 4.8px;
     }
 
     &-filter {
         background: transparent;
         border: none;
         border-bottom: 1px solid transparent;
-        padding: 3.2px;
         color: $hac-font-color;
-        font-size: 14px;
         font-family: $hac-font-family;
+        font-size: 14px;
         min-width: 85%;
+        padding: 3.2px;
 
         &:focus {
             outline: none;
         }
+    }
+}
+
+.hac-dropdown {
+    .dropdown-menu {
+        overflow: auto;
+    }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+        background: white;
     }
 }

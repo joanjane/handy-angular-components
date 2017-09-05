@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'hac-dropdown',
-  templateUrl: './hac.dropdown.html',
+  templateUrl: './hac.dropdown.bootstrap.html',
   providers: [
     HacDropdownFilterPipe,
     HacDropdownColumnizerPipe,
@@ -164,12 +164,12 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   /* Control Value Accessor */
 
   /* Dropdown styling dimensions */
-  getLabelElem(): HTMLElement {
-    return this.elementRef.nativeElement.querySelector('.hac-dd-label');
+  getFilterElem(): HTMLElement {
+    return this.elementRef.nativeElement.querySelector('.js-filter');
   }
 
   calcDropdownHeight(): string {
-    const el = this.elementRef.nativeElement.querySelector('.hac-dd-list');
+    const el = this.elementRef.nativeElement.querySelector('.dropdown-menu');
     const pos = this.getPos(el);
     let height = window.innerHeight - 10 - pos.y;
     // height = window.innerHeight - (window.pageYOffset || document.documentElement.scrollTop) - (el.clientTop || 0);
@@ -199,7 +199,7 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   }
 
   private blurFilter() {
-    this.elementRef.nativeElement.querySelector('.hac-dd-filter').blur();
+    this.elementRef.nativeElement.querySelector('input').blur();
   }
 
   private selectFirstMatchingOption() {

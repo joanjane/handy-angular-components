@@ -1,5 +1,5 @@
 <div class="hac-dd">
-    <div class="hac-dd-label" 
+    <div class="hac-dd-label js-filter" 
         (click)="openDropdown($event)">
         <input 
             type="text" class="hac-dd-filter" [placeholder]="placeholder"
@@ -18,7 +18,7 @@
     <div class="hac-dd-list" 
         [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
         *ngIf="hasGroups()"
-        [hacCopyWidth]="getLabelElem()"
+        [hacCopyWidth]="getFilterElem()"
         widthCssProperty="width"
         [skip]="collapsed"
         [style.maxHeight]="calcDropdownHeight()">

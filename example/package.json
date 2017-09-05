@@ -19,7 +19,8 @@
     "lint": "ng lint",
     "serve": "ws -d ./dist --spa index.html",
     "assets": "cpx \"../dist/assets/**\" \"./dist/assets/\"",
-    "clean": "rimraf ./demo/aot && rimraf ./demo/dist"
+    "clean": "rimraf ./demo/aot && rimraf ./demo/dist",
+    "link": "npm link ../dist && rimraf ../dist/node_modules"
   },
   "repository": {
     "type": "git",
