@@ -16,15 +16,16 @@
         [skip]="collapsed"
         [style.maxHeight]="calcDropdownHeight()">
 
-        <li><a class="dropdown-item" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
+        <li class="dropdown-item"><a *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
         <ng-container *ngFor="let group of optionGroups">
-            <li *ngIf="group.label">
-                <a class="dropdown-item"><strong>{{group.label}}</strong></a>
+            <ng-container *ngIf="group.label">
+                <li class="dropdown-item"><a><strong>{{group.label}}</strong></a></li>
                 <div class="dropdown-divider divider"></div>
-            </li>
-            <li *ngFor="let option of group.options | hacDropdownFilter: filter : shouldApplyFilter()">
-                <a class="dropdown-item" (click)="select(option.key)"
-                   [ngClass]="{ 'selected': option.key === selected }">{{option.label}}</a>
+            </ng-container>
+            <li *ngFor="let option of group.options | hacDropdownFilter: filter : shouldApplyFilter()"
+                (click)="select(option.key)"
+                class="dropdown-item" [ngClass]="{ 'active': option.key === selected }">
+                <a>{{option.label}}</a>
             </li>
         </ng-container>
     </ul>
