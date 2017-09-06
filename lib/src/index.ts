@@ -12,6 +12,7 @@ import { HacDatepickerComponent } from './datepicker/components/hac.datepicker';
 import { HacDatepickerOptions } from './datepicker/components/hac.datepicker.options';
 import { HacWeekDayFormatter } from './datepicker/pipes/hac.weekday.formatter';
 import { HacCopyWidthDirective } from './common/directives/copy-width.directive';
+import { HacLabelFocusDirective } from './common/directives/label-focus.directive';
 
 // Export for AOT compilation
 export { 
@@ -20,7 +21,7 @@ export {
   // dropdown
   HacDropdownComponent, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe,
   // common
-  HacCopyWidthDirective
+  HacCopyWidthDirective, HacLabelFocusDirective
 };
 
 @NgModule({
@@ -30,7 +31,8 @@ export {
     HacDropdownColumnizerPipe,
     HacDatepickerComponent,
     HacWeekDayFormatter,
-    HacCopyWidthDirective
+    HacCopyWidthDirective,
+    HacLabelFocusDirective
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ export {
   exports: [
     HacDropdownComponent,
     HacDatepickerComponent,
-    HacCopyWidthDirective
+    HacCopyWidthDirective,
+    HacLabelFocusDirective
   ]
 })
 export class HacModule {
