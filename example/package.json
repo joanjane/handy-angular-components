@@ -14,7 +14,7 @@
     "prebuild:release": "npm run clean && npm run ngc-aot",
     "build:release": "ng build --aot --prod --app=\"demo-aot\"",
     "postbuild:release": "npm run assets",
-    "watch": "concurrently \"npm run build:debug -- --watch\" \"sleepms 10000 && npm run assets -- -w\" --names \"NGDEMO,ASSETS\" --prefix name",
+    "watch": "concurrently \"npm run build:debug -- --watch --no-delete-output-path\" \"npm run assets -- -w\" --names \"NGDEMO,ASSETS\" --prefix name",
     "test": "ng test --app=\"demo-jit\"",
     "lint": "ng lint",
     "serve": "ws -d ./dist --spa index.html",

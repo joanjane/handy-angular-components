@@ -1,4 +1,6 @@
 @import '../../assets/styles/variables';
+@import '../../assets/styles/icons';
+
 $hacDropdownMaxHeight: 300px;
 $hacDropdownGroupBg: #F7F4F4;
 
@@ -94,13 +96,44 @@ $hacDropdownGroupBg: #F7F4F4;
     }
 }
 
-.hac-dropdown {
+hac-dropdown:not(.no-arrow) {
+    .dropdown {
+        &.open:before {
+            transform: rotate(180deg);
+        }
+
+        &:before {
+            content: '';
+            @include chevron;
+            
+            bottom: 10px;
+            color: #000000;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 16px;
+        }
+    }
+}
+
+hac-dropdown {
+
     .dropdown-menu {
         overflow: auto;
     }
 
     .form-control:disabled,
     .form-control[readonly] {
-        background: white;
+        background: transparent;
+    }
+    
+    .group-label {
+        :hover {
+            background: transparent;
+        }
+    }
+
+    .group-item {
+        padding-left: 15px;
     }
 }

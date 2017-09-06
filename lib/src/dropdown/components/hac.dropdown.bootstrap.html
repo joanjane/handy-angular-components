@@ -5,7 +5,6 @@
         [(ngModel)]="filter" [readonly]="!filtrable || disabled"
         (keyup)="handleKey($event)"
         (focus)="openDropdown($event)"
-        (focusOut)="closeDropdown($event)"
         autocomplete="off" />
 
     <ul class="dropdown-menu"
@@ -18,13 +17,10 @@
 
         <li class="dropdown-item"><a *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
         <ng-container *ngFor="let group of optionGroups">
-            <ng-container *ngIf="group.label">
-                <li class="dropdown-item"><a><strong>{{group.label}}</strong></a></li>
-                <div class="dropdown-divider divider"></div>
-            </ng-container>
+            <li *ngIf="group.label" class="dropdown-item group-label"><a><strong>{{group.label}}</strong></a></li>
             <li *ngFor="let option of group.options | hacDropdownFilter: filter : shouldApplyFilter()"
                 (click)="select(option.key)"
-                class="dropdown-item" [ngClass]="{ 'active': option.key === selected }">
+                class="dropdown-item" [ngClass]="{ 'active': option.key === selected, 'group-item': group.label != null }">
                 <a>{{option.label}}</a>
             </li>
         </ng-container>
