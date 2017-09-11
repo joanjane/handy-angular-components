@@ -1,42 +1,28 @@
-<div class="hac-dd">
-    <div class="hac-dd-label js-filter" 
-        (click)="openDropdown($event)">
-        <input 
-            type="text" class="hac-dd-filter" [placeholder]="placeholder"
-            id="{{id}}"
-            [(ngModel)]="filter"
-            [readonly]="!filtrable || disabled"
-            (keyup)="handleKey($event)"
-            (focus)="openDropdown($event)"
-            autocomplete="off"
-        />
+<div class="hac-dropdown dropdown" [ngClass]="{ 'open show': !collapsed }" >
+    <input
+        type="text" class="form-control js-filter"
+        [placeholder]="placeholder" id="{{id}}"
+        [(ngModel)]="filter" [readonly]="!filtrable || disabled"
+        (keyup)="handleKey($event)"
+        (focus)="openDropdown($event)"
+        autocomplete="off" />
 
-        <i class="hac-icon-chevron" [ngClass]="{'hac-icon-chevron--up': !collapsed}" (click)="toggleDropdown($event)" aria-hidden="true"></i>
-    </div>
-
-    <div class="hac-dd-list" 
-        [ngClass]="{ 'hac-dd-list--is-collapsed': collapsed }" 
+    <ul class="dropdown-menu"
+        role="menu"
         *ngIf="hasGroups()"
         [hacCopyWidth]="getFilterElem()"
         widthCssProperty="width"
         [skip]="collapsed"
         [style.maxHeight]="calcDropdownHeight()">
 
-        <div class="hac-dd-option" *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</div>
-        <div class="hac-dd-group" *ngFor="let group of optionGroups">
-            <div class="hac-dd-grouplabel" *ngIf="group.label">{{group.label}}</div>
-            <div class="hac-dd-optgroup">
-                <div class="hac-dd-optrow" *ngFor="let optionRow of group.options | hacDropdownFilter: filter : shouldApplyFilter() | hacDropdownColumnizer: columns"
-                    [ngClass]="{'hac-dd-optrow--multiple-col': columns !== 1}">
-                    <div *ngFor="let option of optionRow" 
-                        (click)="select(option.key)" class="hac-dd-option hac-dd-choice" 
-                        [ngClass]="{ 
-                            'hac-dd-option--is-selected': option.key === selected }">
-                        {{option.label}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </div>
+        <li class="dropdown-item"><a *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
+        <ng-container *ngFor="let group of optionGroups">
+            <li *ngIf="group.label" class="dropdown-item hac-dropdown-grouplabel"><a><strong>{{group.label}}</strong></a></li>
+            <li *ngFor="let option of group.options | hacDropdownFilter: filter : shouldApplyFilter()"
+                (click)="select(option.key)"
+                class="dropdown-item" [ngClass]="{ 'active': option.key === selected, 'hac-dropdown-groupitem': group.label != null }">
+                <a>{{option.label}}</a>
+            </li>
+        </ng-container>
+    </ul>
 </div>

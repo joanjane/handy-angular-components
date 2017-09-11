@@ -1,16 +1,14 @@
 import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDestroy, forwardRef } from '@angular/core';
 import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
 import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
-import { HacDropdownColumnizerPipe } from '../pipes/hac.dropdown.columnizer';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'hac-dropdown',
-  templateUrl: './hac.dropdown.bootstrap.html',
+  templateUrl: './hac.dropdown.html',
   providers: [
     HacDropdownFilterPipe,
-    HacDropdownColumnizerPipe,
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => HacDropdownComponent),
@@ -23,7 +21,6 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   @Input() placeholder = 'Select';
   @Input() allowEmpty = false;
   @Input() filtrable = false;
-  @Input() columns = 1;
   @Output() selectedChange = new EventEmitter();
   @Input() id: string;
   @Input() disabled: boolean = false;

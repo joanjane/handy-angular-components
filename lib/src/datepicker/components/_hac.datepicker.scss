@@ -2,7 +2,6 @@
 
 .hac-cal {
     color: $hac-font-color;
-    font-family: $hac-font-family;
     font-size: $hac-font-size;
     line-height: normal;
     
@@ -63,7 +62,7 @@
         cursor: pointer;
         display: table-cell;
         font-size: 11px;
-        padding: 6.2px;
+        padding: 5px;
         border-color: transparent;
         border-style: solid;
         border-width: $border-width;
@@ -114,11 +113,9 @@
         padding-left: 10px;
     }
 
-    &-selectorwrapper {
-        border: 1px solid $hac-border;
+    &-selectorwrapper.form-control {
         display: flex;
-        padding: 4.8px;
-        position: relative;
+        line-height: normal;
     }
     
     &-date {
@@ -126,13 +123,15 @@
         border-bottom-color: $hac-border;
         border-bottom-style: dashed;
         border-bottom-width: 1px;
+        bottom: -1px;
         display: inline-block;
         flex: 4 0 auto;
         font-size: 14px;
         margin-left: 4px;
         margin-right: 4px;
         min-width: 40px;
-        padding: 3.2px;
+        padding: 2px 3.2px;
+        position: relative;
 
         &--is-active {
             border-bottom-color: $hac-brand-color;
@@ -151,7 +150,6 @@
         border-radius: 4px;
         color: $color;
         cursor: pointer;
-        font-family: $hac-font-family;
         margin: 5px 0;
         opacity: 0.7;
         padding: 4.8px 16px;
@@ -162,7 +160,7 @@
     }
 
     
-    &-wrapper {
+    &-wrapper.dropdown-menu {
         border: 1px solid $hac-border;
         background: #fff;
         display: flex;
@@ -173,14 +171,14 @@
         z-index: 1000;
         width: 0;
         
-        &--is-opened {
+        &.hac-cal-wrapper--is-opened {
             opacity: 1;
             transition: opacity 0.25s ease-in;
             visibility: visible;
             width: auto;
         }
 
-        &--animating.hac-cal-wrapper--is-opened {
+        &.hac-cal-wrapper--animating.hac-cal-wrapper--is-opened {
             & .hac-cal-day {
                 opacity: 1 !important;
             }

@@ -96,8 +96,8 @@ $hacDropdownGroupBg: #F7F4F4;
     }
 }
 
-hac-dropdown:not(.no-arrow) {
-    .dropdown {
+.hac-dropdown {
+    &:not(.no-arrow) {
         &.open:before {
             transform: rotate(180deg);
         }
@@ -114,9 +114,6 @@ hac-dropdown:not(.no-arrow) {
             width: 16px;
         }
     }
-}
-
-hac-dropdown {
 
     .dropdown-menu {
         overflow: auto;
@@ -127,13 +124,13 @@ hac-dropdown {
         background: transparent;
     }
     
-    .group-label {
+    &-grouplabel {
         :hover {
             background: transparent;
         }
     }
 
-    .group-item {
+    &-groupitem {
         padding-left: 15px;
     }
 }

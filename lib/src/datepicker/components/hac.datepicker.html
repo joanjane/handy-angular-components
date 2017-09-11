@@ -1,6 +1,7 @@
-<div class="hac-cal">
+<div class="hac-cal dropdown"
+    [ngClass]="{ 'open show': !collapsed }">
     <!-- selector wrapper -->
-    <div class="hac-cal-selectorwrapper">
+    <div class="hac-cal-selectorwrapper form-control">
         <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}" 
             (focus)="focus()"
             (focusout)="focusout()">
@@ -33,7 +34,7 @@
     </div>
     
     <!-- calendar wrapper -->
-    <div class="hac-cal-wrapper" 
+    <div class="hac-cal-wrapper dropdown-menu" 
         [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }"
         [hacCopyWidth]="getSelectorElem()"
         widthCssProperty="width"

@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { HacDropdownComponent } from './dropdown/components/hac.dropdown';
 import { HacDropdownOption, HacDropdownOptionGroup } from './dropdown/models';
 import { HacDropdownFilterPipe } from './dropdown/pipes/hac.dropdown.filter';
-import { HacDropdownColumnizerPipe } from './dropdown/pipes/hac.dropdown.columnizer';
 
 import { HacDatepickerComponent } from './datepicker/components/hac.datepicker';
 import { HacDatepickerOptions } from './datepicker/components/hac.datepicker.options';
@@ -19,7 +18,7 @@ export {
   // datepicker
   HacDatepickerComponent, HacDatepickerOptions, HacWeekDayFormatter,
   // dropdown
-  HacDropdownComponent, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe, HacDropdownColumnizerPipe,
+  HacDropdownComponent, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe,
   // common
   HacCopyWidthDirective, HacLabelFocusDirective
 };
@@ -28,7 +27,6 @@ export {
   declarations: [
     HacDropdownComponent,
     HacDropdownFilterPipe,
-    HacDropdownColumnizerPipe,
     HacDatepickerComponent,
     HacWeekDayFormatter,
     HacCopyWidthDirective,
