@@ -1,7 +1,7 @@
-<div class="hac-cal dropdown"
+<div class="hac-cal dropdown form-control"
     [ngClass]="{ 'open show': !collapsed }">
     <!-- selector wrapper -->
-    <div class="hac-cal-selectorwrapper form-control">
+    <div class="hac-cal-selectorwrapper">
         <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}" 
             (focus)="focus()"
             (focusout)="focusout()">
@@ -34,67 +34,67 @@
     </div>
     
     <!-- calendar wrapper -->
-    <div class="hac-cal-wrapper dropdown-menu" 
+    <ul class="hac-cal-wrapper dropdown-menu" 
         [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }"
         [hacCopyWidth]="getSelectorElem()"
         widthCssProperty="width"
         [skip]="collapsed || !options.useSelectorWidth">
-        <div *ngFor="let calendar of calendars; let i = index" 
-            class="hac-cal-month"
-            [ngClass]="{ 'hac-cal-separator': i > 0 && i < calendars.length }">
-            <!-- calendar toggle -->
-            <!-- calendar header -->
-            <div class="hac-cal-header">
-                <div class="hac-cal-arrow">
-                    <span *ngIf="isPrevArrowVisible(i)" (click)="prevMonth($event)" class="hac-icon-chevron hac-icon-chevron--left"></span>
-                </div>
-                <strong class="hac-cal-monthlabel">
-                    <span class="hac-cal-monthlabel--year">{{calendar.month | date : 'y '}}</span>
-                    <span class="hac-cal-monthlabel--month">{{calendar.month | date : 'MMMM'}}</span>
-                </strong>
-                <div class="hac-cal-arrow">
-                    <span *ngIf="isNextArrowVisible(i)" (click)="nextMonth($event)" class="hac-icon-chevron hac-icon-chevron--right"></span>
-                </div>
-            </div>
-
-            <div class="hac-cal-weeks">
-                <!-- week day list -->
-                <div class="hac-cal-weedays">
-                    <div *ngFor="let weekDay of weekDayList" class="hac-cal-weekday">
-                        {{ weekDay | hacWeekDayFormatter }}
+        <li class="hac-cal-month"
+            *ngFor="let calendar of calendars; let i = index">
+            <div>
+                <!-- calendar header -->
+                <div class="hac-cal-header">
+                    <div class="hac-cal-arrow hac-cal-arrow--left">
+                        <span *ngIf="isPrevArrowVisible(i)" (click)="prevMonth($event)" class="hac-icon-chevron hac-icon-chevron--left"></span>
+                    </div>
+                    <span class="hac-cal-monthlabel">
+                        <span class="hac-cal-monthlabel--year">{{calendar.month | date : 'y '}}</span>
+                        <span class="hac-cal-monthlabel--month">{{calendar.month | date : 'MMMM'}}</span>
+                    </span>
+                    <div class="hac-cal-arrow hac-cal-arrow--right">
+                        <span *ngIf="isNextArrowVisible(i)" (click)="nextMonth($event)" class="hac-icon-chevron hac-icon-chevron--right"></span>
                     </div>
                 </div>
 
-                <!-- weeks -->
-                <div *ngFor="let week of calendar.weeks" class="hac-cal-week">
-                    <div *ngFor="let day of week.days" 
-                        class="hac-cal-day"
-                        (click)="select(day)"
-                        (mouseenter)="setHoverDate(day)"
-                        (mouseleave)="setHoverDate(null)"
-                        [ngClass]="{ 
-                            'hac-cal-day--is-selected': isSelected(day),
-                            'hac-cal-day--is-hidden': !calendar.contains(day),
-                            'hac-cal-day--is-disabled': isDisabled(day),
-                            'hac-cal-day--is-today': day.isToday(),
-                            'hac-cal-day--is-start': isStart(day),
-                            'hac-cal-day--is-end': isEnd(day),
-                            'hac-cal-day--in-range': inRange(day),
-                            'hac-cal-day--in-rangehover': inRange(day, true)
-                        }">
-                        
-                        <div class="hac-cal-daynum" 
-                            title="{{ day?.day | date : 'fullDate'}}">
-                            {{ day?.day | date : 'd'}}
+                <div class="hac-cal-weeks">
+                    <!-- week day list -->
+                    <div class="hac-cal-weedays">
+                        <div *ngFor="let weekDay of weekDayList" class="hac-cal-weekday">
+                            {{ weekDay | hacWeekDayFormatter }}
+                        </div>
+                    </div>
+
+                    <!-- weeks -->
+                    <div *ngFor="let week of calendar.weeks" class="hac-cal-week">
+                        <div *ngFor="let day of week.days" 
+                            class="hac-cal-day"
+                            (click)="select(day)"
+                            (mouseenter)="setHoverDate(day)"
+                            (mouseleave)="setHoverDate(null)"
+                            [ngClass]="{ 
+                                'hac-cal-day--is-selected': isSelected(day),
+                                'hac-cal-day--is-hidden': !calendar.contains(day),
+                                'hac-cal-day--is-disabled': isDisabled(day),
+                                'hac-cal-day--is-today': day.isToday(),
+                                'hac-cal-day--is-start': isStart(day),
+                                'hac-cal-day--is-end': isEnd(day),
+                                'hac-cal-day--in-range': inRange(day),
+                                'hac-cal-day--in-rangehover': inRange(day, true)
+                            }">
+                            
+                            <div class="hac-cal-daynum" 
+                                title="{{ day?.day | date : 'fullDate'}}">
+                                {{ day?.day | date : 'd'}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- today action -->
-            <div *ngIf="i === 0 && isTodayActionEnabled()">
-                <button class="hac-cal-todaybtn" type="button" (click)="selectToday()">{{options.todayActionLabel}}</button>
+                <!-- today action -->
+                <div *ngIf="i === 0 && isTodayActionEnabled()">
+                    <button class="hac-cal-todaybtn" type="button" (click)="selectToday()">{{options.todayActionLabel}}</button>
+                </div>
             </div>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
