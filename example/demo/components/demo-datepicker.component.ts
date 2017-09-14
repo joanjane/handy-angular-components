@@ -31,8 +31,7 @@ export class DemoDatepickerComponent implements OnInit {
     this.datepickerSingleOptions = {
       showMonths: 1,
       startDateFormat: 'yyyy-MM-dd',
-      enableTodayAction: true,
-      todayActionLabel: 'Today'
+      enableTodayAction: true
     };
 
     this.datepickerOptions = {

@@ -6,14 +6,14 @@ Angular 4+ components library to easily build nice forms, still in development.
 
 * Well built
   - AOT Ready
-  - Sass compatible and pure CSS options 
+  - Sass compatible and CSS rules easily overridable
+  - Design based on bootstrap (3 & 4 compatible!) and fontawesome
   - Works well with reactive forms and template driven forms
 
 * Dropdowns
   - Choose a single option from list
   - Optional filter to choose an option with basic keyboard support
   - html label[for] attribute support to trigger focus consistently from your component
-  - Optional multicolumn layout (by default 1 col classic layout)
   - Support option groups to categorize options
 
 * Datepicker
@@ -35,7 +35,12 @@ To install this library, run:
 $ npm install handy-angular-components --save
 ```
 
+## UI Dependencies
+
+This library is requires using [bootstrap 3/4](http://getbootstrap.com) (yes, works with both!) and [fontawesome](http://fontawesome.io).
+
 ## Documentation
+
 Read the [full documentation](https://github.com/joanjane/handy-angular-components/tree/master/docs) to know about the features.
 
 ## Example

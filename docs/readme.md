@@ -6,6 +6,7 @@
 * Components 
     - [Dropdown](https://github.com/joanjane/handy-angular-components/tree/master/docs/dropdown.md)
     - [Datepicker](https://github.com/joanjane/handy-angular-components/tree/master/docs/datepicker.md)
+* [Directives](https://github.com/joanjane/handy-angular-components/tree/master/docs/directives.md)
 
 ## Examples
 To look a working sample using different options, see [this example](https://github.com/joanjane/handy-angular-components/tree/master/example).

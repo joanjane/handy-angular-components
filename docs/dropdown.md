@@ -10,7 +10,6 @@ The dropdown component accepts the following inputs and outputs:
 | placeholder  | string                   | default `"Select"` |
 | allowEmpty   | boolean                  | default `false` |
 | filtrable    | boolean                  | default `false`. Enable a filter of options |
-| columns      | number                   | default `1`. List options in n columns |
 | id           | string                   | optional. Id of the element, useful to work with `label for` attribute to focus input clicking on label. |
 | disabled     | boolean                  | default `false`. Not needed when using reactive forms |
 | selected     | string / number          | optional. Value of selected option. When using ngModel template forms or reactive forms, you should not use this input. Instead, use ngModel or formControlName directive. |
