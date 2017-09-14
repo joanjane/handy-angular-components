@@ -3,6 +3,7 @@
 # compiled output
 dist
 **/.tmp
+ignored/
 example/dist
 example/tmp
 example/out-tsc

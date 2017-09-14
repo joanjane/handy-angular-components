@@ -6,6 +6,7 @@
         (keyup)="handleKey($event)"
         (focus)="openDropdown($event)"
         autocomplete="off" />
+    <i class="fa fa-angle-down fa-2x" aria-hidden="true" (click)="toggleDropdown($event)"></i>
 
     <ul class="dropdown-menu"
         role="menu"

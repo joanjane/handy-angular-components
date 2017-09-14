@@ -84,10 +84,10 @@ export interface HacDatepickerOptions {
     enableTodayAction?: boolean;
 
     /**
-     * @default 'Today'
-     * When today action is enabled, you can specify the text that will be shown
+     * @default false
+     * Display a 'clear' button to remove selected dates.
      */
-    todayActionLabel?: string;
+    enableClearAction?: boolean;
 
     /**
      * @default null

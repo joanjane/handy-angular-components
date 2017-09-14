@@ -1,5 +1,73 @@
 @import '../../assets/styles/variables';
 
+@mixin hac-cal-day-transition {
+    
+    & .hac-cal-day {
+        transition: opacity 0.2s ease-in;
+        transform: rotateY(360deg);
+    }
+    
+    & .hac-cal-day:nth-child(1) {
+        transition-delay: 0.25s;
+    }
+    
+    & .hac-cal-day:nth-child(2) {
+        transition-delay: 0.32s;
+    }
+    
+    & .hac-cal-day:nth-child(3) {
+        transition-delay: 0.39s;
+    }
+    
+    & .hac-cal-day:nth-child(4) {
+        transition-delay: 0.45s;
+    }
+    
+    & .hac-cal-day:nth-child(5) {
+        transition-delay: 0.5s;
+    }
+    
+    & .hac-cal-day:nth-child(6) {
+        transition-delay: 0.53s;
+    }
+    
+    & .hac-cal-day:nth-child(7) {
+        transition-delay: 0.55s;
+    }
+}
+
+@mixin hac-cal-week-transition() {
+
+    & .hac-cal-week {
+        opacity: 0;
+        transition: opacity 0.2s ease-in;
+    }
+    
+    & .hac-cal-week:nth-child(2) {
+        transition-delay: 0;
+    }
+    
+    & .hac-cal-week:nth-child(3) {
+        transition-delay: 0.15s;
+    }
+
+    & .hac-cal-week:nth-child(4) {
+        transition-delay: 0.25s;
+    }
+    
+    & .hac-cal-week:nth-child(5) {
+        transition-delay: 0.29s;
+    }
+    
+    & .hac-cal-week:nth-child(6) {
+        transition-delay: 0.33s;
+    }
+    
+    & .hac-cal-week:nth-child(7) {
+        transition-delay: 0.37s;
+    }
+}
+
 .hac-cal {
     color: $hac-font-color;
     font-size: $hac-font-size;
@@ -7,11 +75,16 @@
     
     &-month {
         font-size: 14px;
-        padding: 10px;
+        padding: 10px 18px;
         width: 100%;
+
+        &:not(:first-child) {
+            border-left: 1px solid $hac-border;
+        }
     }
 
     &-header {
+        align-items: start;
         display: flex;
         font-weight: normal;
         margin-bottom: 2px;
@@ -112,6 +185,7 @@
     }
 
     &-selectorwrapper {
+        align-items: center;
         display: flex;
         line-height: normal;
     }
@@ -140,31 +214,13 @@
         }
     }
 
-    &-todaybtn {
-        $color: $hac-brand-color;
-
-        background: none;
-        border: 1px solid $color;
-        border-radius: 4px;
-        color: $color;
-        cursor: pointer;
-        margin: 5px 0;
-        opacity: 0.7;
-        padding: 4.8px 16px;
-
-        &:hover {
-            opacity: 1;
-        }
-    }
-
-    
     &-wrapper.dropdown-menu {
         border: 1px solid $hac-border;
         background: #fff;
         display: flex;
         opacity: 0;
         overflow-x: auto;
-        padding: 15px;
+        padding: 0;
         position: absolute;
         visibility: hidden;
         z-index: 1000;
@@ -187,76 +243,42 @@
             }
         }
 
-        /* Days animation */
-        
-        & .hac-cal-day {
-            transition: opacity 0.2s ease-in;
-            transform: rotateY(360deg);
-        }
-        
-        & .hac-cal-day:nth-child(1) {
-            transition-delay: 0.25s;
-        }
-        
-        & .hac-cal-day:nth-child(2) {
-            transition-delay: 0.32s;
-        }
-        
-        & .hac-cal-day:nth-child(3) {
-            transition-delay: 0.39s;
-        }
-        
-        & .hac-cal-day:nth-child(4) {
-            transition-delay: 0.45s;
-        }
-        
-        & .hac-cal-day:nth-child(5) {
-            transition-delay: 0.5s;
-        }
-        
-        & .hac-cal-day:nth-child(6) {
-            transition-delay: 0.53s;
-        }
-        
-        & .hac-cal-day:nth-child(7) {
-            transition-delay: 0.55s;
-        }
-
-        /* Weeks animation */
-        
-        & .hac-cal-week {
-            opacity: 0;
-            transition: opacity 0.2s ease-in;
-        }
-        
-        & .hac-cal-week:nth-child(2) {
-            transition-delay: 0;
-        }
-        
-        & .hac-cal-week:nth-child(3) {
-            transition-delay: 0.15s;
-        }
-
-        & .hac-cal-week:nth-child(4) {
-            transition-delay: 0.25s;
-        }
-        
-        & .hac-cal-week:nth-child(5) {
-            transition-delay: 0.29s;
-        }
-        
-        & .hac-cal-week:nth-child(6) {
-            transition-delay: 0.33s;
-        }
-        
-        & .hac-cal-week:nth-child(7) {
-            transition-delay: 0.37s;
-        }
+        @include hac-cal-day-transition();
+        @include hac-cal-week-transition();
     }
 
     &-arrow {
+        font-size: 20px;
+
         &--right {
             float: right;
         }
     }
+
+    &-chevron {
+        border-style: solid;
+        border-width: 1px 1px 0 0;
+        content: '';
+        cursor: pointer;
+        display: inline-block;
+        height: 7px;
+        left: 2.15px;
+        position: relative;
+        top: 10px;
+        transform: rotate(-135deg);
+        vertical-align: top;
+        width: 7px;
+
+        &--right {
+            transform: rotate(45deg);
+        }
+    }
+
+    .fa {
+        cursor: pointer;
+    }
+}
+
+.no-cal-icon .hac-cal .fa-calendar {
+    display: none;
 }

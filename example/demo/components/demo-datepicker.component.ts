@@ -51,6 +51,9 @@ export class DemoDatepickerComponent implements OnInit {
       // Enable today action, but won't be shown because today is blacklisted
       enableTodayAction: true,
 
+      // Enable clear dates action
+      enableClearAction: true,
+
       dayListStartDate: {},
       dayListEndDate: {}
     };

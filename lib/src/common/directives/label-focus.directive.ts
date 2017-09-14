@@ -19,6 +19,8 @@ export class HacLabelFocusDirective implements DoCheck, OnDestroy {
         if (targetElem) {
             targetElem.addEventListener('focus', this.setFocused, true);
             targetElem.addEventListener('focusout', this.setBlur, true);
+            targetElem.addEventListener('customfocus', this.setFocused, true);
+            targetElem.addEventListener('customfocusout', this.setBlur, true);
         }
 
         this.removeCurrentEventListeners();
@@ -48,6 +50,8 @@ export class HacLabelFocusDirective implements DoCheck, OnDestroy {
         if (this.targetElem) {
             this.targetElem.removeEventListener('focus', this.setFocused);
             this.targetElem.removeEventListener('focusout', this.setBlur);
+            this.targetElem.removeEventListener('customfocus', this.setFocused);
+            this.targetElem.removeEventListener('customfocusout', this.setBlur);
         }
     }
 }

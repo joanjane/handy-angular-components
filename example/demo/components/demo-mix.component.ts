@@ -29,7 +29,8 @@ export class DemoMixComponent implements OnInit {
       showMonths: 2,
       range: true,
       elementId: 'demo-mix-datepicker',
-      enableTodayAction: false
+      enableTodayAction: false,
+      enableClearAction: false
     };
 
     this.singleDatepickerOptions = {

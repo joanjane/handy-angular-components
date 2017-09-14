@@ -4,8 +4,8 @@
 
         <div>
             Using date outside component ({{selectedSingleDate | date : 'yyyy-MM-dd'}})
-            <button (click)="testFiveMonthsOnSingleDemo()">Show 5 months</button>
-            <button (click)="forceMarchMonthOnSingleDemo()">Show March</button>
+            <button class="btn btn-default" (click)="testFiveMonthsOnSingleDemo()">Show 5 months</button>
+            <button class="btn btn-default" (click)="forceMarchMonthOnSingleDemo()">Show March</button>
             <br/>
             <div class="medium-width">
                 <hac-datepicker [(selected)]="selectedSingleDate" [options]="datepickerSingleOptions"></hac-datepicker>
@@ -18,7 +18,7 @@
 
         <div>
             Using date outside component ({{selectedStartDate | date : 'yyyy-MM-dd'}} - {{selectedEndDate | date : 'yyyy-MM-dd'}})
-            <button (click)="forceTodayOnBlacklistDemo()">Try force today</button><br/>
+            <button class="btn btn-default" (click)="forceTodayOnBlacklistDemo()">Try force today</button><br/>
             <div class="medium-width">
                 <hac-datepicker [(startDate)]="selectedStartDate" [(endDate)]="selectedEndDate" [options]="datepickerOptions"></hac-datepicker>
             </div>
@@ -30,7 +30,7 @@
 
         <div>
             Using date outside component ({{selectedStartDateWhitelist | date : 'yyyy-MM-dd'}})
-            <button (click)="forceTodayOnWhitelistDemo()">force today</button><br/>
+            <button class="btn btn-default" (click)="forceTodayOnWhitelistDemo()">force today</button><br/>
             <div class="medium-width">
                 <label for="{{datepickerWhitelistOptions.elementId}}">Select date (click this label to toggle datepicker)</label>
                 <hac-datepicker [(startDate)]="selectedStartDateWhitelist" [(endDate)]="selectedEndDateWhitelist" [options]="datepickerWhitelistOptions"></hac-datepicker>
@@ -43,7 +43,7 @@
 
         <div>
             Using date outside component ({{selectedMinMaxDate | date : 'yyyy-MM-dd'}})
-            <button (click)="testMinMaxPastRanges()">test past ranges</button>
+            <button class="btn btn-default" (click)="testMinMaxPastRanges()">test past ranges</button>
             <br/>
             <div class="medium-width">
                 <hac-datepicker [(selected)]="selectedMinMaxDate" [options]="datepickerMinMaxOptions"></hac-datepicker>

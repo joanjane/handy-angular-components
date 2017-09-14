@@ -114,6 +114,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
     public set collapsed(v: boolean) {
         if (this.disabled) {
             this._collapsed = true;
+            this.emitFocusEvent();
             return;
         }
 
@@ -124,6 +125,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
 
         this.animate();
         this._collapsed = v;
+        this.emitFocusEvent();
     }
 
     private forcedSelectionKind?: SelectionKind;
@@ -282,6 +284,10 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
         return this._options.enableTodayAction && !this.isDisabled(new HacCalendarDayModel(DateHelper.today()));
     }
 
+    isClearActionEnabled() {
+        return this._options.enableClearAction;
+    }
+
     getSelectorElem(): HTMLElement {
         return this.elementRef.nativeElement.querySelector('.hac-cal-selectorwrapper');
     }
@@ -296,10 +302,6 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
         const isInRange = !this.getMaxDate() || (this.getMaxDate() &&
             DateHelper.isGreaterOrEqual(this.getMaxDate(), this.calendars[calendarIndex].getMonthLastDay()));
         return (calendarIndex === this.calendars.length - 1) && isInRange;
-    }
-
-    hideRemoveButton(): boolean {
-        return !this._startDate;
     }
 
     focus() {
@@ -398,7 +400,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
         this._options.showMonths = this._options.showMonths || 1;
         this._options.dayListKind = this._options.dayListKind || 'blacklist';
         this._options.enableTodayAction = this._options.enableTodayAction || false;
-        this._options.todayActionLabel = this._options.todayActionLabel || 'Today';
+        this._options.enableClearAction = this._options.enableClearAction || false;
         this._options.useSelectorWidth = this._options.useSelectorWidth || false;
 
         // Force triggering of new selections to ensure that are still valid dates
@@ -455,6 +457,13 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
 
     private getMaxDate(): Date {
         return this._options.maxDate;
+    }
+
+    private emitFocusEvent() {
+        var event = document.createEvent('Event');
+        const focusKindEvent = this._collapsed ? 'customfocusout' : 'customfocus';
+        event.initEvent(focusKindEvent, true, true);
+        this.elementRef.nativeElement.querySelector('.js-focus').dispatchEvent(event);
     }
 }
 

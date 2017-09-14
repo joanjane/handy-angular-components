@@ -3,7 +3,7 @@
 
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
-                <label class="demo-mix-label" for="demo-mix-dropdown">Select a number:</label>
+                <label class="demo-mix-label" for="demo-mix-dropdown" hacLabelFocus="focused">Select a number:</label>
                 <hac-dropdown [optionGroups]="dropdownList" [id]="'demo-mix-dropdown'"
                     formControlName="number"
                     [filtrable]="true"
@@ -16,7 +16,7 @@
                 </ul>
             </div>
             <div class="demo-mix-formcontrol">
-                <label class="demo-mix-label" for="demo-mix-datepicker">Select a range:</label>
+                <label class="demo-mix-label" for="demo-mix-datepicker" hacLabelFocus="focused">Select a range:</label>
                 <hac-datepicker 
                     formControlName="dates"
                     [options]="datepickerOptions"></hac-datepicker>
@@ -33,7 +33,7 @@
         </div>
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
-                <label class="demo-mix-label" for="demo-mix-singledatepicker">Select a single date:</label>
+                <label class="demo-mix-label" for="demo-mix-singledatepicker" hacLabelFocus="focused">Select a single date:</label>
                 <hac-datepicker 
                     formControlName="singleDate"
                     [options]="singleDatepickerOptions"></hac-datepicker>
@@ -47,14 +47,14 @@
         </div>
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
-                <button class="demo-mix-btn"
-                    [ngClass]="{'demo-mix-btn--error': submitted && form.invalid}">Submit</button>
+                <button class="btn btn-primary"
+                    [ngClass]="{'btn-danger': submitted && form.invalid}">Submit</button>
             </div>
         </div>
     </form>
     <pre>{{ form.value | json}}</pre>
 
     <div>
-        <button class="demo-mix-btn" (click)="forceFirstDropdownOption()">Choose first dropdown option</button>
+        <button class="btn btn-default" (click)="forceFirstDropdownOption()">Choose first dropdown option</button>
     </div>
 </div>

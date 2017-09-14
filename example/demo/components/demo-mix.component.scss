@@ -21,27 +21,9 @@ $break-small: 640px;
         display: block;
         font-weight: bold;
         padding-bottom: 0.62rem;
-    }
 
-    &-btn {
-        $color: #706edc;
-
-        background: none;
-        border: 1px solid $color;
-        color: $color;
-        cursor: pointer;
-        border-radius: 0.32rem;
-        font-weight: bold;
-        padding: 0.7rem 0.7rem;
-        text-transform: uppercase;
-
-        &--error {
-            $color: #dc6e6e;
-
-            border: 1px solid $color;
-            color: $color;
-            opacity: 0.8;
-            pointer-events: none;
+        &.focused {
+            color: blue;
         }
     }
 
