@@ -243,6 +243,10 @@
             }
         }
 
+        &.hac-cal-wrapper--fullwidth {
+            width: 100% !important;
+        }
+
         @include hac-cal-day-transition();
         @include hac-cal-week-transition();
     }

@@ -47,11 +47,8 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   collapsed = true;
   filter: string;
   private subscriptions: Array<Subscription> = [];
-  private windowHeight = 0;
 
-  constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) {
-    this.syncWindowHeight();
-  }
+  constructor(private elementRef: ElementRef, private dropdownFilter: HacDropdownFilterPipe) { }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
@@ -62,20 +59,10 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
     const clickOutsideComponent = !this.elementRef.nativeElement.contains(event.target);
     const srcHtmlFor = (event.srcElement as HTMLLabelElement).htmlFor;
     const clickFromLabelFor = (this.id && srcHtmlFor && srcHtmlFor === this.id);
-    
+
     if (clickOutsideComponent && !clickFromLabelFor && !this.collapsed) {
       this.closeDropdown();
     }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-    this.syncWindowHeight();
-  }
-
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event) {
-    this.syncWindowHeight();
   }
 
   getSelected(): HacDropdownOption {
@@ -160,22 +147,6 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   private onChangeCallback: (_: any) => void = () => { };
   /* Control Value Accessor */
 
-  /* Dropdown styling dimensions */
-  getFilterElem(): HTMLElement {
-    return this.elementRef.nativeElement.querySelector('.js-filter');
-  }
-
-  calcDropdownHeight(): string {
-    const el = this.elementRef.nativeElement.querySelector('.dropdown-menu');
-    const pos = this.getPos(el);
-    let height = window.innerHeight - 10 - pos.y;
-    // height = window.innerHeight - (window.pageYOffset || document.documentElement.scrollTop) - (el.clientTop || 0);
-    if (!height || height <= 150) {
-      height = 150;
-    }
-    return `${height}px`;
-  }
-
   private findOptionByKey(key: string | number): HacDropdownOption {
     return this.optionGroups.map(f => f.options.find(o => o.key === key)).find(o => o != null);
   }
@@ -183,16 +154,6 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
   private updateFilter() {
     const selection = this.getSelected();
     this.filter = selection ? selection.label : null;
-  }
-
-  private syncWindowHeight() {
-    this.windowHeight = window.innerHeight;
-  }
-
-  private getPos(el) {
-    let lx, ly;
-    for (lx = 0, ly = 0; el != null; lx += el.offsetLeft, ly += el.offsetTop, el = el.offsetParent) { };
-    return { x: lx, y: ly };
   }
 
   private blurFilter() {
@@ -210,5 +171,4 @@ export class HacDropdownComponent implements OnDestroy, ControlValueAccessor {
     }
   }
 
-  /* Dropdown styling dimensions */
 }

@@ -8,14 +8,7 @@
         autocomplete="off" />
     <i class="fa fa-angle-down fa-2x" aria-hidden="true" (click)="toggleDropdown($event)"></i>
 
-    <ul class="dropdown-menu"
-        role="menu"
-        *ngIf="hasGroups()"
-        [hacCopyWidth]="getFilterElem()"
-        widthCssProperty="width"
-        [skip]="collapsed"
-        [style.maxHeight]="calcDropdownHeight()">
-
+    <ul class="dropdown-menu" role="menu" *ngIf="hasGroups()" hacUseScreenHeight minHeight="65">
         <li class="dropdown-item"><a *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
         <ng-container *ngFor="let group of optionGroups">
             <li *ngIf="group.label" class="dropdown-item hac-dropdown-grouplabel"><a><strong>{{group.label}}</strong></a></li>

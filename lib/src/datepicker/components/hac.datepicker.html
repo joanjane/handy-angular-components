@@ -2,7 +2,7 @@
     [ngClass]="{ 'open show': !collapsed }">
     <!-- selector wrapper -->
     <div class="hac-cal-selectorwrapper">
-        <input type="text" style="display: none;" *ngIf="options.elementId" id="{{options.elementId}}"
+        <input type="text" style="display: none;" [id]="options.elementId"
             class="js-focus"
             (focus)="focus()"
             (focusout)="focusout()">
@@ -33,10 +33,7 @@
     
     <!-- calendar wrapper -->
     <ul class="hac-cal-wrapper dropdown-menu" 
-        [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed }"
-        [hacCopyWidth]="getSelectorElem()"
-        widthCssProperty="width"
-        [skip]="collapsed || !options.useSelectorWidth">
+        [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed, 'hac-cal-wrapper--fullwidth': options.useSelectorWidth }">
         <li class="hac-cal-month"
             *ngFor="let calendar of calendars; let i = index">
             <!-- calendar header -->

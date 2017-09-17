@@ -288,10 +288,6 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
         return this._options.enableClearAction;
     }
 
-    getSelectorElem(): HTMLElement {
-        return this.elementRef.nativeElement.querySelector('.hac-cal-selectorwrapper');
-    }
-
     isPrevArrowVisible(calendarIndex: number): boolean {
         const isInRange = !this.getMinDate() || (this.getMinDate() &&
             DateHelper.isGreaterOrEqual(this.calendars[calendarIndex].getPreviousMonthLastDay(), this.getMinDate()));
