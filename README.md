@@ -39,6 +39,8 @@ $ npm install handy-angular-components --save
 
 This library is requires using [bootstrap 3/4](http://getbootstrap.com) (yes, works with both!) and [fontawesome](http://fontawesome.io).
 
+*Important: ensure you include hac.css (this library stylesheet after bootstrap and fontawesome to respect the cascade priorities).*
+
 ## Documentation
 
 Read the [full documentation](https://github.com/joanjane/handy-angular-components/tree/master/docs) to know about the features.
