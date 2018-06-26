@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "target": "es5",
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "rootDir": "./",
     "lib": [
       "es2015",
       "dom"
