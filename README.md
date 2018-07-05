@@ -1,6 +1,6 @@
 # Handy Angular Components
 
-Angular 4+ components library to easily build nice forms, still in development.
+Angular 6+ components library with a featured datepicker and dropdown based on bootstrap 3 & 4.
 
 ## Features
 

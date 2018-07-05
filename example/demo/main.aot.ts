@@ -1,8 +1,8 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowser } from '@angular/platform-browser';
 
-import { DemoModuleNgFactory } from './aot/demo.module.ngfactory';
+import { DemoModule } from './demo.module';
 
 enableProdMode();
 
-platformBrowser().bootstrapModuleFactory(DemoModuleNgFactory);
+platformBrowser().bootstrapModule(DemoModule);

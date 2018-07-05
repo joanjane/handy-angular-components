@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { HacDropdownOption, HacDropdownOptionGroup, HacDatepickerOptions } from 'handy-angular-components'
-import 'handy-angular-components/extensions/date'
+import { HacDropdownOption, HacDropdownOptionGroup, HacDatepickerOptions } from 'handy-angular-components';
+import 'handy-angular-components/extensions/date';
 
 @Component({
   selector: 'demo-mix',

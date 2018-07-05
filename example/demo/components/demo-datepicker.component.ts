@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { HacDatepickerOptions } from 'handy-angular-components'
+import { HacDatepickerOptions } from 'handy-angular-components';
 
 @Component({
   selector: 'demo-datepicker',
