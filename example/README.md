@@ -4,36 +4,34 @@ Install npm packages on /lib folder and then on /example folder with `npm instal
 
 ## Dev mode
 
-1) Run dev task on /lib:
+1) To run example and library in watch mode, run in one console:
 
 ```bash
-$ npm run dev
+$ cd lib
+$ npm run build:watch
 ```
 
-1) Start demo (starts server and watches new changes)
+In another console:
 
 ```bash
+$ cd example
 $ npm start
 ```
 
-## Test compiled library on demo in AOT:
+2) Then, open [localhost:8000](http://localhost:8000) in a browser to test it.
 
-1)  Build lib
+## Test library and sample in aot:
 
 Open /lib folder (`cd lib`) and then run:
 
 ```bash
-$ npm run build
+$ npm run build:release
 ```
 
-2) Build example in AOT
-
-After building the library, you need to place on example folder (`cd example`)
-
-Finally, you can start a server and build the application with:
+After the build, you can start a server and build the application with:
 
 ```bash
-$ npm start
+$ npm run serve
 ```
 
 You should be able to open [localhost:8000](http://localhost:8000) in a browser and see the demo after some seconds.

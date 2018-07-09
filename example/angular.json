@@ -18,7 +18,8 @@
             "polyfills": "demo/polyfills.ts",
             "assets": [],
             "styles": [],
-            "scripts": []
+            "scripts": [],
+            "preserveSymlinks": true
           },
           "configurations": {
             "prod": {
@@ -110,7 +111,9 @@
             "polyfills": "demo/polyfills.ts",
             "assets": [],
             "styles": [],
-            "scripts": []
+            "scripts": [],
+            "preserveSymlinks": true,
+            "aot": true
           },
           "configurations": {
             "production": {
