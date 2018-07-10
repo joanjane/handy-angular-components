@@ -11,14 +11,7 @@ $ npm run build
 To run development example in watch mode, run:
 
 ```bash
-$ cd lib
-$ npm run demo
-```
-
-in another terminal:
-
-```bash
-$ cd example
+$ cd ../example
 $ npm start
 ```
 
@@ -28,8 +21,6 @@ and finally, open http://localhost:8000/
 To run the example and library in aot, run:
 
 ```bash
-$ cd lib
-$ npm run build
 $ cd ../example
 $ npm run build:release
 $ npm run serve
