@@ -4,21 +4,14 @@ Install npm packages on /lib folder and then on /example folder with `npm instal
 
 ## Dev mode
 
-1) To run example and library in watch mode, run in one console:
+1) To run example and library in watch mode, run in console:
 
 ```bash
 $ cd lib
-$ npm run build:watch
+$ npm run start
 ```
 
-In another console:
-
-```bash
-$ cd example
-$ npm start
-```
-
-2) Then, open [localhost:8000](http://localhost:8000) in a browser to test it.
+2) Then, open [localhost:8000](http://localhost:8000) in a browser to test it. When doing changes, this task will rebuild new changes.
 
 ## Test library and sample in aot:
 

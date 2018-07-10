@@ -2,12 +2,12 @@
   "name": "handy-angular-components",
   "version": "0.6.0-beta1",
   "scripts": {
+    "clean": "rimraf ../dist/handy-angular-components/**/*",
     "build": "ng build --prod && gulp rebuild",
+    "dev": "npm run clean && npm run copy && gulp build",
+    "watch": "concurrently \"npm run copy -- -w\" \"gulp watch:styles\" --names \"CPY,ASSETS\" --prefix name",
+    "copy": "cpx \"src/**/*\" \"../dist/handy-angular-components\"",
     "lint": "ng lint",
-    "demo": "concurrently \"npm run dist:demo\" \"npm run build:watch\" \"gulp build:watch\" --names \"CPY,NG,ASSETS\" --prefix name",
-    "dist:demo": "cpx \"./src/**/*\" \"../dist/handy-angular-components/\" -w",
-    "prebuild:watch": "rimraf ../dist/**",
-    "build:watch": "concurrently \"ng build\" \"gulp build:watch\" --names \"NG,ASSETS\" --prefix name",
     "gulp": "gulp",
     "ng": "ng"
   },

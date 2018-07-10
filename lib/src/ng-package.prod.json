@@ -9,6 +9,6 @@
     "@angular/platform-browser"
   ],
   "lib": {
-    "entryFile": "public_api.ts"
+    "entryFile": "index.ts"
   }
 }

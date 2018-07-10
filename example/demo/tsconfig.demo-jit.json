@@ -6,5 +6,10 @@
     "main.aot.ts",
     "test.ts",
     "**/*.spec.ts"
+  ],
+  "include": [
+    "main.jit.ts",
+    "polyfills.ts",
+    "../node_modules/handy-angular-components/**/*"
   ]
 }

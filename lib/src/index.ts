@@ -14,7 +14,7 @@ import { HacLabelFocusDirective } from './common/directives/label-focus.directiv
 import { HacUseScreenHeight } from './common/directives/use-screen-height.directive';
 
 // Export for AOT compilation
-export { 
+export {
   // datepicker
   HacDatepickerComponent, HacDatepickerOptions, HacWeekDayFormatter,
   // dropdown

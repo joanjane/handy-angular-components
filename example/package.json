@@ -13,9 +13,10 @@
     "ngc-aot": "ngc -p ./demo/tsconfig.demo-aot.json",
     "build:debug": "npm run clean && ng build demo-jit",
     "postbuild:debug": "npm run assets",
-    "prebuild:release": "npm run lib && npm run clean && npm run ngc-aot",
+    "prebuild:release": "npm run lib:release && npm run clean && npm run ngc-aot",
     "build:release": "ng build --aot --prod demo-aot",
     "postbuild:release": "npm run assets",
+    "prewatch": "npm run dev --prefix ../lib",
     "watch": "concurrently \"npm run build:debug -- --watch --no-delete-output-path\" \"npm run assets -- -w\"  \"npm run lib:watch\" --names \"APP,ASSETS,LIB\" --prefix name",
     "test": "ng test demo-jit",
     "lint": "ng lint",
@@ -23,8 +24,8 @@
     "assets": "cpx \"../dist/handy-angular-components/assets/**\" \"./dist/assets/\"",
     "clean": "rimraf ./demo/aot && rimraf ./demo/dist",
     "cleaninstall": "rimraf ./package-lock.json && rimraf ./node_modules && npm install",
-    "lib": "npm run build --prefix ../lib",
-    "lib:watch": "npm run dev --prefix ../lib"
+    "lib:release": "npm run build --prefix ../lib",
+    "lib:watch": "npm run watch --prefix ../lib"
   },
   "repository": {
     "type": "git",
