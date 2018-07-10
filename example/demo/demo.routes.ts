@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { DemoComponent } from './demo.component';
 import { DemoDropdownComponent, DemoDatepickerComponent } from './components/index';
 import { DemoMixComponent } from './components/demo-mix.component';
 
@@ -10,11 +9,11 @@ export const appRoutes: Routes = [
     },
     {
         path: 'datepicker',
-        component: DemoDatepickerComponent  
+        component: DemoDatepickerComponent
     },
     {
         path: 'mixed',
-        component: DemoMixComponent  
+        component: DemoMixComponent
     },
     {
         path: '**',

@@ -456,7 +456,7 @@ export class HacDatepickerComponent implements OnInit, ControlValueAccessor, Val
     }
 
     private emitFocusEvent() {
-        var event = document.createEvent('Event');
+        const event = document.createEvent('Event');
         const focusKindEvent = this._collapsed ? 'customfocusout' : 'customfocus';
         event.initEvent(focusKindEvent, true, true);
         this.elementRef.nativeElement.querySelector('.js-focus').dispatchEvent(event);

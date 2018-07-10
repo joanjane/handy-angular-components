@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { HacDropdownOption, HacDropdownOptionGroup } from 'handy-angular-components'
+import { HacDropdownOptionGroup } from 'handy-angular-components'
 
 @Component({
   selector: 'demo-dropdown',

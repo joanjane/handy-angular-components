@@ -13,7 +13,7 @@
     "ngc-aot": "ngc -p ./demo/tsconfig.demo-aot.json",
     "build:debug": "npm run clean && ng build demo-jit",
     "postbuild:debug": "npm run assets",
-    "prebuild:release": "npm run lib:release && npm run clean && npm run ngc-aot",
+    "prebuild:release": "npm run lib:release && npm run clean && ng lint && npm run ngc-aot",
     "build:release": "ng build --aot --prod demo-aot",
     "postbuild:release": "npm run assets",
     "prewatch": "npm run dev --prefix ../lib",
@@ -25,7 +25,9 @@
     "clean": "rimraf ./demo/aot && rimraf ./demo/dist",
     "cleaninstall": "rimraf ./package-lock.json && rimraf ./node_modules && npm install",
     "lib:release": "npm run build --prefix ../lib",
-    "lib:watch": "npm run watch --prefix ../lib"
+    "lib:watch": "npm run watch --prefix ../lib",
+    "predeploy": "npm run build:release",
+    "deploy": "gh-pages -d dist -b gh-pages"
   },
   "repository": {
     "type": "git",
@@ -55,6 +57,7 @@
     "codelyzer": "~4.4.2",
     "concurrently": "^3.6.0",
     "cpx": "^1.5.0",
+    "gh-pages": "^1.2.0",
     "jasmine-core": "~3.1.0",
     "jasmine-spec-reporter": "^4.2.1",
     "karma": "~2.0.4",

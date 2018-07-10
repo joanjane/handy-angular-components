@@ -73,29 +73,6 @@
         }
       }
     },
-    "demo-jit-e2e": {
-      "root": "",
-      "sourceRoot": "e2e",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "demo-jit:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
-            ],
-            "exclude": []
-          }
-        }
-      }
-    },
     "demo-aot": {
       "root": "",
       "sourceRoot": "demo",
@@ -161,29 +138,6 @@
             "tsConfig": [
               "demo/tsconfig.demo-jit.json",
               "demo/tsconfig.spec.json"
-            ],
-            "exclude": []
-          }
-        }
-      }
-    },
-    "demo-aot-e2e": {
-      "root": "",
-      "sourceRoot": "e2e",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "demo-aot:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.e2e.json"
             ],
             "exclude": []
           }
