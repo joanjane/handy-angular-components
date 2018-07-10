@@ -43,7 +43,10 @@ This library is requires using [bootstrap 3/4](http://getbootstrap.com) (yes, wo
 
 ## Documentation
 
-Read the [full documentation](https://github.com/joanjane/handy-angular-components/tree/master/docs) to know about the features.
+Read the [full documentation](https://github.com/joanjane/handy-angular-components/wiki) to know about the features.
+
+## Live sample
+See [live sample](https://joanjane.github.io/handy-angular-components/datepicker)!
 
 ## Example
 
@@ -52,7 +55,7 @@ See [this example](https://github.com/joanjane/handy-angular-components/tree/mas
 New! Look at [hac-playground](https://github.com/joanjane/hac-playground) repo for a clean sample, that supports localization and JIT/AOT.
 
 ## Contributions
-Contributions are welcome, you can fork this repo and submit a pull request. Also if you find any issue, file it at [github](https://github.com/joanjane/handy-angular-components/issues) and it will be reviewed,
+Contributions are welcome, you can fork this repo and submit a pull request. Also if you find any issue, file it at [github](https://github.com/joanjane/handy-angular-components/issues) and it will be reviewed.
 
 ## License
 

@@ -11,7 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "./dist",
+            "outputPath": "./dist/handy-angular-components",
             "index": "demo/index.html",
             "main": "demo/main.jit.ts",
             "tsConfig": "demo/tsconfig.demo-jit.json",
@@ -19,7 +19,9 @@
             "assets": [],
             "styles": [],
             "scripts": [],
-            "preserveSymlinks": true
+            "preserveSymlinks": true,
+            "deployUrl": "/handy-angular-components/",
+            "baseHref": "/handy-angular-components"
           },
           "configurations": {
             "prod": {
@@ -81,7 +83,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "./dist",
+            "outputPath": "./dist/handy-angular-components",
             "index": "demo/index.html",
             "main": "demo/main.aot.ts",
             "tsConfig": "demo/tsconfig.demo-aot.json",
@@ -90,7 +92,9 @@
             "styles": [],
             "scripts": [],
             "preserveSymlinks": true,
-            "aot": true
+            "aot": true,
+            "deployUrl": "/handy-angular-components/",
+            "baseHref": "/handy-angular-components"
           },
           "configurations": {
             "production": {

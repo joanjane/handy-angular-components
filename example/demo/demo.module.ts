@@ -4,12 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { DemoComponent } from './demo.component';
-import { DemoDropdownComponent, DemoDatepickerComponent, DemoMixComponent } from './components';
+import {
+  DocsComponent,
+  DemoDropdownComponent,
+  DemoDatepickerComponent,
+  DemoMixComponent
+} from './components';
 import { HacModule } from 'handy-angular-components';
 import { appRoutes } from './demo.routes';
 
 @NgModule({
   declarations: [
+    DocsComponent,
     DemoComponent,
     DemoDropdownComponent,
     DemoDatepickerComponent,
