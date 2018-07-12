@@ -42,7 +42,6 @@
     "@angular/router": "^6.0.7",
     "core-js": "^2.5.7",
     "handy-angular-components": "file:../dist/handy-angular-components",
-    "intl": "^1.2.5",
     "rxjs": "^6.2.1",
     "zone.js": "^0.8.26"
   },
