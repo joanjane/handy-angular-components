@@ -1,6 +1,6 @@
 {
   "name": "handy-angular-components",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "scripts": {
     "clean": "rimraf ../dist/handy-angular-components/**/*",
     "prebuild": "npm run lint",
