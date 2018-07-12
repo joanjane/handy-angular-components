@@ -11,16 +11,19 @@ import { HacDatepickerComponent } from './datepicker/components/hac.datepicker';
 import { HacDatepickerOptions } from './datepicker/components/hac.datepicker.options';
 import { HacWeekDayFormatter } from './datepicker/pipes/hac.weekday.formatter';
 import { HacLabelFocusDirective } from './common/directives/label-focus.directive';
-import { HacUseScreenHeight } from './common/directives/use-screen-height.directive';
+import { HacUseScreenHeightDirective } from './common/directives/use-screen-height.directive';
+import { DateUtils } from './utils/date-utils';
 
 // Export for AOT compilation
-export { 
+export {
   // datepicker
   HacDatepickerComponent, HacDatepickerOptions, HacWeekDayFormatter,
   // dropdown
   HacDropdownComponent, HacDropdownOption, HacDropdownOptionGroup, HacDropdownFilterPipe,
   // common
-  HacLabelFocusDirective, HacUseScreenHeight
+  HacLabelFocusDirective, HacUseScreenHeightDirective,
+  // utils
+  DateUtils
 };
 
 @NgModule({
@@ -29,7 +32,7 @@ export {
     HacDropdownFilterPipe,
     HacDatepickerComponent,
     HacWeekDayFormatter,
-    HacUseScreenHeight,
+    HacUseScreenHeightDirective,
     HacLabelFocusDirective
   ],
   imports: [
@@ -40,7 +43,7 @@ export {
   exports: [
     HacDropdownComponent,
     HacDatepickerComponent,
-    HacUseScreenHeight,
+    HacUseScreenHeightDirective,
     HacLabelFocusDirective
   ]
 })

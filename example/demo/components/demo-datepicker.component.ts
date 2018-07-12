@@ -1,7 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-
-import { HacDatepickerOptions } from 'handy-angular-components'
+import { HacDatepickerOptions } from 'handy-angular-components';
 
 @Component({
   selector: 'demo-datepicker',
@@ -23,7 +21,7 @@ export class DemoDatepickerComponent implements OnInit {
   selectedMinMaxDate: Date = null;
   today = new Date();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit(): void {
 
@@ -75,10 +73,15 @@ export class DemoDatepickerComponent implements OnInit {
 
     // Enable day 1, 3, 5, 8, 10, 20 of current month and today when selecting start date
     // Enable day 2, 4, 6 of next month when selecting end date
-    this.datepickerWhitelistOptions.dayListStartDate[this.today.getFullYear()] = {};
-    this.datepickerWhitelistOptions.dayListEndDate[this.today.getFullYear()] = {};
-    this.datepickerWhitelistOptions.dayListStartDate[this.today.getFullYear()][this.today.getMonth() + 1] = [1, 3, 5, 8, 10, 20, this.today.getDate()];
-    this.datepickerWhitelistOptions.dayListEndDate[this.today.getFullYear()][this.today.getMonth() + 2] = [2, 4, 6];
+    this.datepickerWhitelistOptions
+      .dayListStartDate[this.today.getFullYear()] = {};
+    this.datepickerWhitelistOptions
+      .dayListEndDate[this.today.getFullYear()] = {};
+    this.datepickerWhitelistOptions
+      .dayListStartDate[this.today.getFullYear()][this.today.getMonth() + 1] =
+        [1, 3, 5, 8, 10, 20, this.today.getDate()];
+    this.datepickerWhitelistOptions
+      .dayListEndDate[this.today.getFullYear()][this.today.getMonth() + 2] = [2, 4, 6];
 
     this.checkScreenOptions();
 
@@ -98,7 +101,7 @@ export class DemoDatepickerComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  checkScreenOptions($event?: Event): void {
+  checkScreenOptions(): void {
     // On small screens, show only one month
     this.datepickerOptions.showMonths = window.innerWidth <= 640 ? 1 : 2;
   }

@@ -1,14 +1,15 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
-    "module": "es2015",
-    "baseUrl": "",
-    "types": []
   },
   "exclude": [
     "main.aot.ts",
     "test.ts",
     "**/*.spec.ts"
+  ],
+  "include": [
+    "main.jit.ts",
+    "polyfills.ts",
+    "../node_modules/handy-angular-components/**/*"
   ]
 }

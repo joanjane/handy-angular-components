@@ -1,0 +1,15 @@
+{
+  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/handy-angular-components",
+  "deleteDestPath": false,
+  "whitelistedNonPeerDependencies": [
+    "tslib",
+    "@angular/common",
+    "@angular/core",
+    "@angular/forms",
+    "@angular/platform-browser"
+  ],
+  "lib": {
+    "entryFile": "index.ts"
+  }
+}

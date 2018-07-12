@@ -3,11 +3,11 @@ import { Directive, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 @Directive({
     selector: '[hacUseScreenHeight]'
 })
-export class HacUseScreenHeight implements OnInit, OnDestroy {
+export class HacUseScreenHeightDirective implements OnInit, OnDestroy {
     @Input() minHeight: number;
     @Input() skipSetHeight: boolean = false;
 
-    constructor(private elementRef: ElementRef) { 
+    constructor(private elementRef: ElementRef) {
         this.setElementHeight = this.setElementHeight.bind(this);
     }
 
@@ -34,7 +34,7 @@ export class HacUseScreenHeight implements OnInit, OnDestroy {
 
     setElementHeight(e?: any): void {
         if (this.skipSetHeight) return;
-        
+
         window.requestAnimationFrame(() => {
 
             const el = this.elementRef.nativeElement as HTMLElement;

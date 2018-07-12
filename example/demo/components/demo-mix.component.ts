@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 
-import { HacDropdownOption, HacDropdownOptionGroup, HacDatepickerOptions } from 'handy-angular-components'
-import 'handy-angular-components/extensions/date'
+import { DateUtils, HacDropdownOptionGroup, HacDatepickerOptions } from 'handy-angular-components';
 
 @Component({
   selector: 'demo-mix',
@@ -57,9 +56,9 @@ export class DemoMixComponent implements OnInit {
     }
 
     alert(JSON.stringify(this.form.value));
-    console.log(this.form.value.dates.startDate.asUTC().formatDatePart());
-    console.log(this.form.value.dates.endDate.asUTC().formatDatePart());
-    console.log(this.form.value.singleDate.asUTC().formatDatePart());
+    console.log(DateUtils.formatDatePart(DateUtils.asUTC(this.form.value.dates.startDate)));
+    console.log(DateUtils.formatDatePart(DateUtils.asUTC(this.form.value.dates.endDate)));
+    console.log(DateUtils.formatDatePart(DateUtils.asUTC(this.form.value.singleDate)));
   }
 
   forceFirstDropdownOption() {

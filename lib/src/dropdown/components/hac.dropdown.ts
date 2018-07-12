@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, ElementRef, HostListener, OnDes
 import { HacDropdownOption, HacDropdownOptionGroup } from '../models';
 import { HacDropdownFilterPipe } from '../pipes/hac.dropdown.filter';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'hac-dropdown',

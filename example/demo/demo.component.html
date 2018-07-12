@@ -1,24 +1,29 @@
 <nav class="navbar navbar-default navbar-static-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                aria-controls="navbar">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-            <a class="navbar-brand" routerLink="/mixed">Handy Angular Components</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li routerLinkActive="active"><a routerLink="/dropdown" >Dropdown</a></li>
-                <li routerLinkActive="active"><a routerLink="/datepicker">Datepicker</a></li>
-                <li routerLinkActive="active"><a routerLink="/mixed">Mixed</a></li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">Handy Angular Components</a>
     </div>
+    <div id="navbar" class="navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a routerLink="/">Docs</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/dropdown">Dropdown</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/datepicker">Datepicker</a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="/mixed">Mixed</a>
+        </li>
+        <li class="github-link">
+          <a href="https://github.com/joanjane/handy-angular-components" aria-label="Star joanjane/handy-angular-components on GitHub"><i class="fa fa-github"></i> Star</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 <div class="container">
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>

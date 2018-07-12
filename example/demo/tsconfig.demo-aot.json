@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/app",
     "module": "es2015",
     "baseUrl": "",
     "types": []
@@ -12,11 +11,11 @@
   ],
   "files": [
     "demo.module.ts",
-    "main.aot.ts"
+    "main.aot.ts",
+    "polyfills.ts"
   ],
   "angularCompilerOptions": {
     "entryModule": "demo.module#DemoModule",
-    "genDir": "./aot",
     "skipMetadataEmit" : true
   }
 }
