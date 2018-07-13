@@ -46,7 +46,7 @@ This library is requires using [bootstrap 3/4](http://getbootstrap.com) (yes, wo
 Read the [full documentation](https://github.com/joanjane/handy-angular-components/wiki) to know about the features.
 
 ## Live sample
-See [live sample](https://joanjane.github.io/handy-angular-components/datepicker)!
+See [live sample](https://joanjane.github.io/handy-angular-components)!
 
 ## Example
 
