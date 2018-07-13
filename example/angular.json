@@ -17,7 +17,10 @@
             "tsConfig": "demo/tsconfig.demo-jit.json",
             "polyfills": "demo/polyfills.ts",
             "assets": [],
-            "styles": [],
+            "styles": [
+              "demo/styles.css",
+              "../dist/handy-angular-components/assets/styles/hac.css"
+            ],
             "scripts": [],
             "preserveSymlinks": true,
             "deployUrl": "/handy-angular-components/",
@@ -37,7 +40,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo-jit:build"
+            "browserTarget": "demo-jit:build",
+            "servePath": "handy-angular-components",
+            "port": 8000
           },
           "configurations": {
             "prod": {
@@ -59,7 +64,10 @@
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.spec.json",
             "scripts": [],
-            "styles": [],
+            "styles": [
+              "demo/styles.css",
+              "../dist/handy-angular-components/assets/styles/hac.css"
+            ],
             "assets": []
           }
         },
@@ -67,8 +75,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "demo/tsconfig.demo-jit.json",
-              "demo/tsconfig.spec.json"
+              "demo/tsconfig.demo-jit.json"
             ],
             "exclude": []
           }
@@ -89,7 +96,10 @@
             "tsConfig": "demo/tsconfig.demo-aot.json",
             "polyfills": "demo/polyfills.ts",
             "assets": [],
-            "styles": [],
+            "styles": [
+              "demo/styles.css",
+              "../dist/handy-angular-components/assets/styles/hac.css"
+            ],
             "scripts": [],
             "preserveSymlinks": true,
             "aot": true,
@@ -110,7 +120,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo-aot:build"
+            "browserTarget": "demo-aot:build",
+            "servePath": "handy-angular-components",
+            "port": 8000
           },
           "configurations": {
             "prod": {
@@ -132,7 +144,10 @@
             "polyfills": "demo/polyfills.ts",
             "tsConfig": "demo/tsconfig.spec.json",
             "scripts": [],
-            "styles": [],
+            "styles": [
+              "demo/styles.css",
+              "../dist/handy-angular-components/assets/styles/hac.css"
+            ],
             "assets": []
           }
         },
@@ -140,8 +155,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "demo/tsconfig.demo-jit.json",
-              "demo/tsconfig.spec.json"
+              "demo/tsconfig.demo-jit.json"
             ],
             "exclude": []
           }

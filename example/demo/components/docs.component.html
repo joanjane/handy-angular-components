@@ -1,12 +1,26 @@
 <div>
-    <h3>Welcome to Handy Angular Components library docs</h3>
-    <p>
-      Here you'll find simple samples of the features of this component library. Use top menu to see the samples.<br />
-    </p>
-    <p>
-      To read more, check out <a href="https://github.com/joanjane/handy-angular-components/wiki">the wiki</a>.
-    </p>
-    <p>
-      Looking for better angular samples combined with this library? Check out our <a href="https://github.com/joanjane/hac-playground">playground</a>
-    </p>
+  <h3>Welcome to Handy Angular Components library docs</h3>
+  <p>
+    Here you'll find simple samples of the features of this component library. Use top menu to see the samples.
+    <br />
+  </p>
+  <p>
+    To read more, check out
+    <a href="https://github.com/joanjane/handy-angular-components/wiki">the wiki</a>.
+  </p>
+  <p>
+    Looking for better angular samples combined with this library? Check out our
+    <a href="https://github.com/joanjane/hac-playground">playground</a>
+  </p>
+  <p>
+    You can use this library using bootstrap 3 and boostrap 4. Test it live!
+  </p>
+  <div class="btn-group">
+    <div class="btn btn-default btn-outline-primary" (click)="useBootstrap3()" [ngClass]="{'btn-primary': usingBootstrap3(), 'btn-outline-primary': !usingBootstrap3()}">
+      Bootstrap 3
+    </div>
+    <div class="btn btn-default btn-outline-primary" (click)="useBootstrap4()" [ngClass]="{'btn-primary': usingBootstrap4(), 'btn-outline-primary': !usingBootstrap4()}">
+      Bootstrap 4
+    </div>
+  </div>
 </div>

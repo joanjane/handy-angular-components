@@ -1,4 +1,4 @@
-<div class="hac-dropdown dropdown" [ngClass]="{ 'open show': !collapsed }" >
+<div class="hac-dropdown dropdown" [ngClass]="{'open show': !collapsed}">
     <input
         type="text" class="form-control js-filter"
         [placeholder]="placeholder" id="{{id}}"
@@ -8,7 +8,7 @@
         autocomplete="off" />
     <i class="fa fa-angle-down fa-2x" aria-hidden="true" (click)="toggleDropdown($event)"></i>
 
-    <ul class="dropdown-menu" role="menu" *ngIf="hasGroups()" hacUseScreenHeight minHeight="65">
+    <ul class="dropdown-menu" [ngClass]="{'show': !collapsed }" role="menu" *ngIf="hasGroups()" hacUseScreenHeight [skipSetHeight]="collapsed" [minHeight]=80>
         <li class="dropdown-item"><a *ngIf="allowEmpty" (click)="select(null)">{{placeholder}}</a></li>
         <ng-container *ngFor="let group of optionGroups">
             <li *ngIf="group.label" class="dropdown-item hac-dropdown-grouplabel"><a><strong>{{group.label}}</strong></a></li>

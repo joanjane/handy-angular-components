@@ -1,0 +1,12 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-bottom: 100px;
+}
+
+.small-width {
+  max-width: 160px;
+}
+
+.medium-width {
+  max-width: 300px;
+}

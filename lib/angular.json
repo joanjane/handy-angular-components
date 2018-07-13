@@ -33,8 +33,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.lib.json",
-              "src/tsconfig.spec.json"
+              "src/tsconfig.lib.json"
             ],
             "exclude": [
               "**/node_modules/**"

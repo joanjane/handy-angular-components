@@ -8,7 +8,7 @@
                     formControlName="number"
                     [filtrable]="true"
                     [allowEmpty]="true"></hac-dropdown>
-                
+
                 <ul class="demo-mix-errors" *ngIf="(submitted || form.get('number').touched)&& form.get('number')?.invalid">
                     <li *ngIf="form.get('number')?.errors?.required">
                         Select a number
@@ -17,10 +17,10 @@
             </div>
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-datepicker" hacLabelFocus="focused">Select a range:</label>
-                <hac-datepicker 
+                <hac-datepicker
                     formControlName="dates"
                     [options]="datepickerOptions"></hac-datepicker>
-                
+
                 <ul class="demo-mix-errors" *ngIf="(submitted || form.get('dates').touched) && form.get('dates')?.invalid">
                     <li *ngIf="form.get('dates').errors?.startDateRequired">
                         Select a start date.
@@ -34,10 +34,10 @@
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
                 <label class="demo-mix-label" for="demo-mix-singledatepicker" hacLabelFocus="focused">Select a single date:</label>
-                <hac-datepicker 
+                <hac-datepicker
                     formControlName="singleDate"
                     [options]="singleDatepickerOptions"></hac-datepicker>
-                
+
                 <ul class="demo-mix-errors" *ngIf="(submitted || form.get('singleDate').touched) && form.get('singleDate').invalid">
                     <li *ngIf="form.get('singleDate').errors?.required">
                         Select a date.
@@ -47,7 +47,7 @@
         </div>
         <div class="demo-mix-formgroup">
             <div class="demo-mix-formcontrol">
-                <button class="btn btn-primary"
+                <button class="btn btn-primary btn-sm"
                     [ngClass]="{'btn-danger': submitted && form.invalid}">Submit</button>
             </div>
         </div>
@@ -55,6 +55,6 @@
     <pre>{{ form.value | json}}</pre>
 
     <div>
-        <button class="btn btn-default" (click)="forceFirstDropdownOption()">Choose first dropdown option</button>
+        <button class="btn btn-default btn-primary btn-sm" (click)="forceFirstDropdownOption()">Choose first dropdown option</button>
     </div>
 </div>
