@@ -30,9 +30,9 @@
 
         <i class="fa fa-angle-down fa-2x" aria-hidden="true" (click)="toggleCalendar($event)"></i>
     </div>
-    
+
     <!-- calendar wrapper -->
-    <ul class="hac-cal-wrapper dropdown-menu" 
+    <ul class="hac-cal-wrapper dropdown-menu"
         [ngClass]="{ 'hac-cal-wrapper--is-opened': !collapsed, 'hac-cal-wrapper--fullwidth': options.useSelectorWidth }">
         <li class="hac-cal-month"
             *ngFor="let calendar of calendars; let i = index">
@@ -62,12 +62,12 @@
 
                 <!-- weeks -->
                 <div *ngFor="let week of calendar.weeks" class="hac-cal-week">
-                    <div *ngFor="let day of week.days" 
+                    <div *ngFor="let day of week.days"
                         class="hac-cal-day"
                         (click)="select(day)"
                         (mouseenter)="setHoverDate(day)"
                         (mouseleave)="setHoverDate(null)"
-                        [ngClass]="{ 
+                        [ngClass]="{
                             'hac-cal-day--is-selected': isSelected(day),
                             'hac-cal-day--is-hidden': !calendar.contains(day),
                             'hac-cal-day--is-disabled': isDisabled(day),
@@ -77,8 +77,8 @@
                             'hac-cal-day--in-range': inRange(day),
                             'hac-cal-day--in-rangehover': inRange(day, true)
                         }">
-                        
-                        <div class="hac-cal-daynum" 
+
+                        <div class="hac-cal-daynum"
                             title="{{ day?.day | date : 'fullDate'}}">
                             {{ day?.day | date : 'd'}}
                         </div>
@@ -88,14 +88,14 @@
             </div>
 
             <div class="btn-group" *ngIf="i === 0">
-                <button *ngIf="isTodayActionEnabled()" class="btn btn-default" type="button" (click)="selectToday()">
+                <button *ngIf="isTodayActionEnabled()" class="btn btn-default btn-outline-primary" type="button" (click)="selectToday()">
                     <i class="fa fa-calendar"></i>
                 </button>
-                <button *ngIf="isClearActionEnabled()" class="btn btn-danger" type="button" (click)="clearDates()">
+                <button *ngIf="isClearActionEnabled()" class="btn btn-danger btn-outline-danger" type="button" (click)="clearDates()">
                     <i class="fa fa-times"></i>
                 </button>
             </div>
         </li>
     </ul>
-    
+
 </div>

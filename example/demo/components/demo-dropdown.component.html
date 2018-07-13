@@ -4,8 +4,8 @@
 
         <div class="medium-width">
             <label for="test-dd" hacLabelFocus="mark">Select a number: <br /><small>(click this focus dropdown via label[for] attribute)</small></label>
-            
-            <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber" 
+
+            <hac-dropdown [optionGroups]="dropdownList" [(selected)]="selectedNumber"
                 [allowEmpty]="true"
                 [filtrable]="true"
                 placeholder="Test placeholder"
@@ -23,7 +23,7 @@
 
         <div>
             Selected value on demo component context: {{selectedNumber}}<br />
-            <button class="btn btn-default" (click)="selectedNumber=1">Force value '1'</button>
+            <button class="btn btn-default btn-primary btn-sm" (click)="selectedNumber=1">Force value '1'</button>
         </div>
     </div>
 
@@ -35,7 +35,7 @@
                 [id]="'form-dd'"
                 formControlName="number"
                 [allowEmpty]="true"></hac-dropdown>
-            
+
             <div style="display: flex">
                 <div>
                     Form value:
@@ -54,9 +54,9 @@
         <h2>Dropdown with option groups (empty & filtrable):</h2>
 
         <div class="medium-width" class="demo-dd-columns">
-            <hac-dropdown [optionGroups]="dropdownGroupsList" [(selected)]="groupsSelectedNumber" 
-                [allowEmpty]="true" 
-                [filtrable]="true" 
+            <hac-dropdown [optionGroups]="dropdownGroupsList" [(selected)]="groupsSelectedNumber"
+                [allowEmpty]="true"
+                [filtrable]="true"
                 placeholder="Test placeholder"></hac-dropdown>
         </div>
     </div>
